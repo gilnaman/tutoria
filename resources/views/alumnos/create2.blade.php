@@ -1,10 +1,7 @@
-@extends('alumnos.menualumnos')
+@extends('layouts.adminlte')
 @section('contenido')
-<div class="container">
 
-
-
-  <div class="row">
+ <div class="row">
     @if (session('success'))
       <div class="alert alert-success alert-dismissible custom-success-box" style="margin: 15px;">
           <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -13,7 +10,7 @@
     @endif
   </div>  
 
-  <div class="row">
+<div class="box">
     <div class="panel panel-success">
       <div class="panel-heading">
         <h1 align="center">CÉDULA DE INFORMACIÓN INDIVIDUAL </h1>
@@ -21,10 +18,18 @@
     </div>
   </div>
 
+<div class="box">
+
+
 
  
-<form role="form" method="POST" action="{{route('actualiza',$alumnos->matricula)}}" enctype="multipart/form-data">
+  
+
+
+
+<form role="form" method="POST" action="{{route('alumnos.update',$alumnos->matricula)}}" enctype="multipart/form-data">
       {{ csrf_field() }}
+      <input name="_method" type="hidden" value="PATCH">
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">ACADEMICOS</a></li>
     <li><a data-toggle="tab" href="#menu1">GENERALES</a></li>
@@ -40,7 +45,7 @@
       <div class="form-row">
             <div class="form-group col-md-12">
               <label >Carrera</label>
-            <input type="text" class="form-control" id="tutor" value="{{$alumnos->nl}}" readonly="">
+            <input type="text" class="form-control" id="tutor" value="{{$alumnos->nombrelargo}}" readonly="">
             </div>
            </div>
 
@@ -51,6 +56,7 @@
               <label for="periodo">Periodo</label>
             <select class="form-control" name="id_periodo">
                 <option value=""></option>
+                
                 @foreach($periodos as $periodo)
                   @if($alumnos->id_periodo == $periodo->id_periodo)
                     <option value="{{$periodo->id_periodo}}" selected>{{$periodo->periodo}}</option>
@@ -58,6 +64,7 @@
                     <option value="{{$periodo->id_periodo}}">{{$periodo->periodo}}</option>
                   @endif
                 @endforeach
+                
                 
             </select>
                     
@@ -115,11 +122,13 @@
             <div class="form-group col-md-2">
               <div class="form-row">
                 <div class="form-group col-md-12">
+                 
                   @if($alumnos->foto!=null)
                       <img src="{{asset('imagenes/alumnos/'.$alumnos->foto)}}" class="img-rounded" alt="{{$alumnos->matricula}} Terre" width="180" height="200">
                   @else
                     <img src="{{asset('imagenes/alumnos/no.jpg')}}" class="img-rounded" alt="{{$alumnos->matricula}} Terre" width="180" height="200">
                   @endif
+                  
                 </div>
               </div>
 
@@ -290,6 +299,7 @@
                           @endif
                         
                       @endforeach
+                      
                 
                       </select>
                     
@@ -348,6 +358,7 @@
               <label for="sel2">Tipo de sangre:</label>
             <select class="form-control" name="id_tipo_sangre">
                 <option value=""></option>
+                
                 @foreach($sangres as $sangre)
                   @if($alumnos->id_tipo_sangre == $sangre->id_tipo_sangre)
                     <option value="{{$sangre->id_tipo_sangre}}" selected>{{$sangre->tipo}}</option>

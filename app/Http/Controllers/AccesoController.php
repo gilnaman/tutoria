@@ -31,8 +31,10 @@ class AccesoController extends Controller
 	 	
 	 	if($request)
 	 	{
-	 		$user=$request->get('nick');
-	 		$pass=$request->get('password');
+	 		$user=$request->get('login');
+	 		$pass=$request->get('contra');
+
+	 		//return 'Hola';
 
 	 		$res=DB::connection('mysql')
 	 		->table('users')
@@ -42,7 +44,10 @@ class AccesoController extends Controller
 	 		->where('users.pass','=',$pass)
 	 		->first();
 
-	 		if(isset($res))  //Si al consultar en la tabla usuario existe un dato 
+	 		
+	 		//return response()->json($res);
+
+	 		if(!empty($res))  //Si al consultar en la tabla usuario existe un dato 
 	 		{
 	 			$rol=$res->rol;
 	 			$proviene=$res->idrol;
@@ -106,7 +111,7 @@ class AccesoController extends Controller
 		Cookie::forget('laravel_session');
 		unset($_COOKIE);
 		unset($_SESSION);
-		return Redirect::to('/tutoria');
+		return Redirect::to('/');
 	 }
 
 

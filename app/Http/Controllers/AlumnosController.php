@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Support\Facades\Input;
 use Session;
-use biblioUtc\Http\Requests;
-use biblioUtc\Alumno;
+use App\Http\Requests;
+use App\Alumno;
 use DB;
 
 class AlumnosController extends Controller
@@ -26,7 +26,7 @@ class AlumnosController extends Controller
 	    	$alumnos = DB::connection('mysql')
 	    	->table('alumnos')
 	    	->join('carreras','carreras.idcarrera','=','alumnos.idcarrera')
-	    	->select('alumnos.*','carreras.nl')
+	    	->select('alumnos.*','carreras.nombrelargo')
 	    	->where('matricula','=',$matricula)
 	    	->first();
 
@@ -40,7 +40,7 @@ class AlumnosController extends Controller
             ->table('cat_periodos')->get();
 
 
-	    	return view('alumnos.create2')
+	    	return view('alumnos.create')
 	    	->with("alumnos",$alumnos)
 	    	->with("sangres",$sangres)
             ->with('periodos',$periodos)
@@ -60,6 +60,21 @@ class AlumnosController extends Controller
     	//->with("datos",$alumnos);
     }
 
+
+public function index()
+    {
+        $alumnos = Alumno::where('grupoactual','=','TTS-4A')
+        ->where('bajatemporal','=','0')
+        ->where('bajadefinitiva','=','0')
+        ->paginate(20);
+
+      return view('tutor.panel_tutor')
+      ->with('alumnos',$alumnos);
+        
+        
+    }
+
+/*
     public function index()
     {
     	$alumnos=DB::connection('mysql')
@@ -71,6 +86,33 @@ class AlumnosController extends Controller
     	->with("alumnos",$alumnos);
     	
 
+    }
+    */
+
+public function edit($id)
+    {
+        $alumnos = DB::connection('mysql')
+            ->table('alumnos')
+            ->join('carreras','carreras.idcarrera','=','alumnos.idcarrera')
+            ->select('alumnos.*','carreras.nombrelargo')
+            ->where('matricula','=',$id)
+            ->first();
+
+            $sangres=DB::connection('mysql')
+            ->table('tipos_sangre')->get();
+
+            $villas=DB::connection('mysql')
+            ->table('villas')->get();
+
+            $periodos=DB::connection('mysql')
+            ->table('cat_periodos')->get();
+
+
+            return view('alumnos.create2')
+            ->with("alumnos",$alumnos)
+            ->with("sangres",$sangres)
+            ->with('periodos',$periodos)
+            ->with("villas",$villas);
     }
 
 
