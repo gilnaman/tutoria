@@ -16,13 +16,18 @@ Route::get('/', function () {
     return view('login.login');
 });
 
+Route::get('foto',function(){
+	return view('alumnos.prueba');
+});
+
 Route::get('repro','TutoriaController@reprobados');
+
 Route::get('justifica',function()
 {
 	return view('tutor.fjustificaciones');
 });
 
-Route::get('tutor','TutoriaController@index');
+Route::get('tutor','TutoriaController@index')->middleware('esTutor');
 
 //Route::get('tutoria','AccesoController@logear');
 Route::get('logout','AccesoController@salir');

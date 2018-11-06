@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input;
 use Session;
 use App\Http\Requests;
 use App\Alumno;
+use App\Grupo;
 use DB;
 
 class AlumnosController extends Controller
@@ -22,6 +23,26 @@ class AlumnosController extends Controller
 
     	if (Session('matricula') == $matricula)
     	{
+
+        $datos = Alumno::where('matricula','=',$matricula)->first();
+        $grupo=$datos->grupoactual;
+
+        
+        
+        $datgrup=Grupo::where('clavegrupo','=',$grupo)->first();
+        $mitutor=$datgrup->idtutor;
+
+        
+
+        $dato_tutor=DB::connection('mysql')
+        ->table('profesores')
+        ->where('cedula','=',$mitutor)
+        ->select('tratamiento','apellidop','apellidom','nombre')
+        ->first();
+
+        //return response()->json($dato_tutor);
+        $mitutor = $dato_tutor->tratamiento .' ' .$dato_tutor->nombre . ' '. $dato_tutor->apellidop. ' '.$dato_tutor->apellidom;
+        //return $mitutor;
 
 	    	$alumnos = DB::connection('mysql')
 	    	->table('alumnos')
@@ -44,7 +65,8 @@ class AlumnosController extends Controller
 	    	->with("alumnos",$alumnos)
 	    	->with("sangres",$sangres)
             ->with('periodos',$periodos)
-	    	->with("villas",$villas);
+	    	->with("villas",$villas)
+            ->with('tutor',$mitutor);
 
 	    	//return view('alumnos.index');
 	    }

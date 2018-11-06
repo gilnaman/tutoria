@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Alumno;
+use APP\Grupo;
+use Session;
+
+
+
 use Barryvdh\DomPDF\Facade;
 class TutoriaController extends Controller
 {
@@ -15,9 +20,11 @@ class TutoriaController extends Controller
      */
     public function index()
     {
-        $alumnos = Alumno::where('grupoactual','=','TTS-4A')
+        $alumnos = Alumno::where('grupoactual','=',Session::get('grupo'))
         ->where('bajatemporal','=','0')
         ->where('bajadefinitiva','=','0')
+        ->orderby('apellidop','ASC')
+
         ->paginate(20);
 
       return view('tutor.panel_tutor')
@@ -66,6 +73,10 @@ class TutoriaController extends Controller
      */
     public function edit($id)
     {
+       
+
+
+
         $alumnos = DB::connection('mysql')
             ->table('alumnos')
             ->join('carreras','carreras.idcarrera','=','alumnos.idcarrera')

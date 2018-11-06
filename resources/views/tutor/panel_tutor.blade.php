@@ -25,8 +25,11 @@
 						
 
 			  		<a href="" data-target="#modal-delete-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></a>
+
+            <a href="" data-target="#add-just-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-inverse'><span class='glyphicon glyphicon-heart'></span></button></a>
                   </td>
                 </tr>
+              @include('tutor.addjustificaciones')
                 @endforeach
                 
                 
@@ -36,4 +39,7 @@
             <!-- /.box-body -->
           </div>
 		{{$alumnos->render()}}
+
+<!-- Modal -->
+
 @endsection

@@ -91,7 +91,7 @@
            <div class="form-row">
             <div class="form-group col-md-12">
               <label >Tutor</label>
-            <input type="text" class="form-control" id="tutor" name="tutor" value="{{$alumnos->tutor}}">
+            <input type="text" class="form-control" id="tutor" name="tutor" value="{{$tutor}}" readonly="true">
             </div>
            </div>
 
@@ -125,7 +125,7 @@
                 <div class="form-group col-md-12">
                  
                   @if($alumnos->foto!=null)
-                      <img src="{{asset('imagenes/alumnos/'.$alumnos->foto)}}" class="img-rounded" alt="{{$alumnos->matricula}} Terre" width="180" height="200">
+                      <img src="{{asset('imagenes/alumnos/'.$alumnos->foto)}}" class="img-rounded" alt="{{$alumnos->matricula}} Terre" width="180" height="200" id="mostrar_foto">
                   @else
                     <img src="{{asset('imagenes/alumnos/no.jpg')}}" class="img-rounded" alt="{{$alumnos->matricula}} Terre" width="180" height="200">
                   @endif
@@ -138,7 +138,10 @@
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="imagen">Imagen</label>
-                        <input type="file" name="imagen" class="form-control">
+                        <input type="file" name="imagen" id="files" class="form-control">
+                        
+                        <br>
+                        <output id="list"></output>
                 </div>
               </div>
             </div>
@@ -495,4 +498,6 @@
 
 </div>
 
+
+       
 @endsection

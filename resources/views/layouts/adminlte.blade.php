@@ -64,7 +64,7 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>U</b>TC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Totorías</b>UTC</span>
+      <span class="logo-lg"><b>Tutorías</b>UTC</span>
     </a>
 
     <!-- Header Navbar -->
@@ -92,7 +92,7 @@ desired effect
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="{{asset('adminlte/img/user2.jpg')}}" class="img-circle" alt="User Image">
+                        <img src="{{asset('imagenes/tutores/'. Session::get('foto'))}}" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
@@ -177,22 +177,24 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="{{asset('adminlte/img/user2.jpg')}}" class="user-image" alt="User Image">
+              <img src="{{asset('imagenes/tutores/'. Session::get('foto'))}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Gilberto Balam</span>
+              <span class="hidden-xs">{{Session::get('usuario')}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{asset('adminlte/img/user2.jpg')}}" class="img-circle" alt="User Image">
+                <img src="{{asset('imagenes/tutores/'. Session::get('foto'))}}" class="img-circle" alt="User Image">
 
                 <p>
-                  Gilberto Balam - Desarrollador Web
+                  {{Session::get('usuario')}} - {{Session::get('rol')}}
                   <small>Miembro desde Sept. 2011</small>
                 </p>
+
               </li>
               <!-- Menu Body -->
               <li class="user-body">
+                {{--
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -204,15 +206,19 @@ desired effect
                     <a href="#">Friends</a>
                   </div>
                 </div>
+                --}}
+
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
+                {{--
                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
+                --}}
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{url('logout')}}" class="btn btn-default btn-flat">Salir</a>
                 </div>
               </li>
             </ul>
@@ -234,12 +240,13 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('adminlte/img/user2.jpg')}}" class="img-circle" alt="User Image">
+          <img src="{{asset('imagenes/tutores/'. Session::get('foto'))}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Gilberto Balam</p>
+          <p>{{Session::get('usuario')}}</p>
+
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> {{Session::get('rol')}}</a>
         </div>
       </div>
 
@@ -259,7 +266,7 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENÚ PRINCIPAL</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="{{ route('alumnos.index') }}"><i class="fa fa-link"></i> <span>Tutorados</span></a></li>
+        <li class="active"><a href="{{ url('tutor') }}"><i class="fa fa-link"></i> <span>Tutorados</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Justificaciones</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Estadisticas</span>

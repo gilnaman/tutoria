@@ -11,10 +11,12 @@ use Cookie;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
-Use Laracasts\Flash\Flash;
+//Use Laracasts\Flash\Flash;
 
 //use App\Alumno;
 use DB;
+use App\Periodo;
+use App\Grupo;
 
 class AccesoController extends Controller
 {
@@ -39,7 +41,7 @@ class AccesoController extends Controller
 	 		$res=DB::connection('mysql')
 	 		->table('users')
 	 		->join('roles','users.idrol','=','roles.idrol')
-	 		->select('roles.idrol','roles.rol','users.proviene','users.login')
+	 		->select('roles.idrol','roles.rol','users.proviene','users.login','users.clave')
 	 		->where('users.login','=',$user)
 	 		->where('users.pass','=',$pass)
 	 		->first();
@@ -52,6 +54,17 @@ class AccesoController extends Controller
 	 			$rol=$res->rol;
 	 			$proviene=$res->idrol;
 	 			$login=$res->login;
+	 			$cedula=$res->clave;
+
+	 			//OBTENGO EL PERIODO ACTIVO
+	 			$periodo=Periodo::where('activo','=',1)
+	 			->first();
+	 			Session::put('periodo',$periodo->claveperiodo);
+	 			Session::put('idrol',$proviene);
+
+	 			//return response()->json($periodo);
+	 			//return $periodo->claveperiodo;
+	 			
 
 	 			// SECCION QUE MANEJA EL ACCESO DE LOS ALUMNOS
 	 			if($proviene==5)
@@ -65,6 +78,8 @@ class AccesoController extends Controller
 	 				Session::put('usuario',$alumno->nombre.' '.$alumno->apellidop.' '.$alumno->apellidom);
 	 				Session::put('rol',$res->rol);
 	 				Session::put('matricula',$login);
+	 				
+
 	 				//\Flash::success('Esta es una prueba');
 	 				return view('alumnos.bienvenido');
 
@@ -81,6 +96,37 @@ class AccesoController extends Controller
 	 				return 'BIENVENIDO COORDINADOR '.$user;
 	 			}
 
+	 			if ($proviene==2) //ES UN TUTOR
+	 			{
+	 				
+	 				$grupo=Grupo::where('idtutor','=',$cedula)
+	 				->where('periodo','=',$periodo->claveperiodo)
+	 				->first();
+
+	 				$migrupo=$grupo->clavegrupo;
+
+	 				//return $migrupo;
+	 				Session::put('grupo',$migrupo);
+
+	 				$alumno=DB::connection('mysql')
+	 				->table('profesores')
+	 				->select('tratamiento','nombre','apellidop','apellidom','foto')
+	 				->where('cedula','=',$cedula)
+	 				->first();
+
+	 				//return response()->json($alumno);
+
+	 				Session::put('usuario',$alumno->tratamiento.' '. $alumno->nombre.' '.$alumno->apellidop.' '.$alumno->apellidom);
+	 				Session::put('rol',$res->rol);
+
+	 				if (!empty($alumno->foto))
+	 					Session::put('foto',$alumno->foto);
+	 				else
+	 					Session::put('foto','no.jpg');
+
+
+	 				return Redirect::to('tutor');	
+	 			}
 	 			
 
 	 			//return "El usuario existe, se llama ". $res->nombre.' '.$res->apellidop.' '.$res->apellidom."es un ".$res->rol;;

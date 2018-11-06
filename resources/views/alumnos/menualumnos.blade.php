@@ -4,8 +4,20 @@
 <head>
   <title></title>
   @include('layouts.bootstrap')
+
+     
 </head>
 <body>
+
+   <style>
+          .thumb {
+           
+            border: 1px solid #000;
+            width:180px;
+            height:200px;
+            margin: 10px 5px 0 0;
+          }
+        </style>
 
     <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -86,7 +98,32 @@
   
   @yield('contenido')
 
-
+ <script>
+              function archivo(evt) {
+                  var files = evt.target.files; // FileList object
+             
+                  // Obtenemos la imagen del campo "file".
+                  for (var i = 0, f; f = files[i]; i++) {
+                    //Solo admitimos imágenes.
+                    if (!f.type.match('image.*')) {
+                        continue;
+                    }
+             
+                    var reader = new FileReader();
+             
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                          // Insertamos la imagen
+                         document.getElementById("list").innerHTML = ['<img class="thumb" width="180px" height="200px" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+                        };
+                    })(f);
+             
+                    reader.readAsDataURL(f);
+                  }
+              }
+             
+              document.getElementById('files').addEventListener('change', archivo, false);
+      </script>
 
 </body>
 
