@@ -275,7 +275,7 @@ desired effect
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Reprobacion</a></li>
+            <li><a href="{{url('repro')}}">Reprobacion</a></li>
             <li><a href="#">Calificaciones</a></li>
           </ul>
         </li>

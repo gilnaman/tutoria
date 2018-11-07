@@ -126,15 +126,18 @@ class TutoriaController extends Controller
 
     public function reprobados()
     {
+        $grupo=Session::get('grupo');
+        $periodo = Session::get('periodo');
+
         $reprobados = DB::select("SELECT matricula,concat(apellidop,' ',apellidom,' ',nombre) as 'alumno',
-            getReprobadas(matricula,1,'2018C','TTS-4A') as u1,
-            getReprobadas(matricula,2,'2018C','TTS-4A') as u2,
-            getReprobadas(matricula,3,'2018C','TTS-4A') as u3,
-            getReprobadas(matricula,4,'2018C','TTS-4A') as u4,
-            getReprobadas(matricula,5,'2018C','TTS-4A') as u5,
-            getReprobadas(matricula,6,'2018C','TTS-4A') as u6
+            getReprobadas(matricula,1,'$periodo','$grupo') as u1,
+            getReprobadas(matricula,2,'$periodo','$grupo') as u2,
+            getReprobadas(matricula,3,'$periodo','$grupo') as u3,
+            getReprobadas(matricula,4,'$periodo','$grupo') as u4,
+            getReprobadas(matricula,5,'$periodo','$grupo') as u5,
+            getReprobadas(matricula,6,'$periodo','$grupo') as u6
             FROM alumnos 
-            WHERE grupoactual='TTS-4A' and bajadefinitiva=0");
+            WHERE grupoactual='$grupo' and bajadefinitiva=0");
 
         //return $reprobados;
 
