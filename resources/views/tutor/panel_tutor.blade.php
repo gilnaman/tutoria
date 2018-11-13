@@ -24,9 +24,15 @@
 						
 						
 
-			  		<a href="" data-target="#modal-delete-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></a>
+			  		         <a href="" data-target="#modal-delete-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></a>
 
-            <a href="" data-target="#add-just-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-inverse'><span class='glyphicon glyphicon-heart'></span></button></a>
+                    <a href="" data-target="#add-just-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-inverse'><span class='glyphicon glyphicon-heart'></span></button></a>
+
+                    <a href="{{route('alumnos.show',$alumno->matricula)}}" target="_blank">
+                      <button type='button' class='btn btn-primary'><span class='glyphicon glyphicon-print'></span></button>
+
+                    </a>
+
                   </td>
                 </tr>
               @include('tutor.addjustificaciones')

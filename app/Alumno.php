@@ -24,14 +24,35 @@ class Alumno extends Model
    	'nombre',
    	'apellidop',
    	'apellidom',
-    'foto'
+    'foto',
+    'id_villa',
+    'id_tipo_sangre'
     
    	];
 
- public function getFullNameAttribute() {
+    public function getFullNameAttribute() {
         return ucfirst($this->apellidop) . ' ' . ucfirst($this->apellidom)
         . ' '. ucfirst($this->nombre);
     }
+
+  public function villa()
+  {
+    return $this->belongsTo(Villa::class, 'id_villa');
+
+  }
+
+  public function sangre()
+  {
+    return $this->belongsTo(Sangre::class, 'id_tipo_sangre');
+
+  }
+
+
+  public function carrera()
+  {
+    return $this->belongsTo(Carrera::class, 'idcarrera');
+
+  }
 
 
     

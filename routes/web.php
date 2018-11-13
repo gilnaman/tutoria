@@ -27,6 +27,10 @@ Route::get('justifica',function()
 	return view('tutor.fjustificaciones');
 });
 
+Route::get('promasig','TutoriaController@promediosgrupo');
+
+
+
 Route::get('tutor','TutoriaController@index')->middleware('esTutor');
 
 //Route::get('tutoria','AccesoController@logear');
@@ -35,3 +39,16 @@ Route::post('validar','AccesoController@validar');
 Route::get('cardex/{matricula}','AlumnosController@cardex');
 Route::resource('acceso','AccesoController');
 Route::resource('alumnos','AlumnosController');
+
+
+// RUTAS DE PRUEBA EXCEL
+
+Route::get('excel', 'ExcelController@getExcel');
+Route::post('import-excel', 'ExcelController@importExcel');
+Route::get('download-excel/{type}', 'ExcelController@downloadExcel');
+
+
+//RUTAS FPDF
+Route::get('ficha/{id}','TutoriaController@show');
+
+Route::get('otro','TutoriaController@otro');

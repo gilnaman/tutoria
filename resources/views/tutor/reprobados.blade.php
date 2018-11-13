@@ -74,6 +74,8 @@
 				<td><h3>{{$totales[3]}}</h3></td>
 				<td><h3>{{$totales[4]}}</h3></td>
 				<td><h3>{{$totales[5]}}</h3></td>
+
+
 				{{--<td class="btn btn-danger"><h4>{{$totales[1]}}</h4></td>
 				<td class="btn btn-danger"><h4>{{$totales[2]}}</h4></td>
 				--}}
