@@ -13,16 +13,22 @@
           
           @foreach($promedios as $promedio)
 
-            ['{{$promedio->materia}}',{{$promedio->U1}},{{$promedio->U2}},{{$promedio->U3}},{{$promedio->U4}},{{$promedio->U5}},],
+            ['{{$promedio->materia}}',{{$promedio->U1}},{{$promedio->U2}},{{$promedio->U3}},{{$promedio->U4}},{{$promedio->U5}},0],
           @endforeach
           
           
         ]);
 
+
         var options = {
           chart: {
             title: 'PROMEDIO POR ASIGNATURA',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            subtitle: 'Al segundo corte',
+            hAxis:{title:'Year End Figures', titleTextStyle: {color: '#007DB0', fontSize: 8}},
+            textStyle:  {fontName: 'TimesNewRoman',fontSize:8,bold: true},
+            legend: { position: 'labeled' },
+            is3D: true,
+
           }
         };
 
@@ -33,6 +39,6 @@
     </script>
   </head>
   <body>
-    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    <div id="columnchart_material" style="width: 98%; height: 80%;"></div>
   </body>
 </html>

@@ -20,18 +20,23 @@
                   <td>{{$alumno->matricula}}</td>
                   <td>{{$alumno->fullname}}</td>
                   <td>
-                  	<a href="{{route('alumnos.edit',$alumno->matricula)}}"><button type='button' class='btn btn-primary'><span class='glyphicon glyphicon-pencil'></span></button></a>
+                  	<a href="{{route('alumnos.edit',$alumno->matricula)}}" data-toggle="tooltip" title="Ver ficha"><button type='button' class="btn btn-default btn-sm">
+                      <span class='glyphicon glyphicon-pencil'></span>
+                    </button></a>
 						
 						
-
+                    {{--
 			  		         <a href="" data-target="#modal-delete-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></a>
+                    --}}
 
-                    <a href="" data-target="#add-just-{{$alumno->matricula}}" data-toggle="modal"><button type='button' class='btn btn-inverse'><span class='glyphicon glyphicon-heart'></span></button></a>
+                    <a href="" data-target="#add-just-{{$alumno->matricula}}" data-toggle="modal" data-toggle="tooltip" title="Otorgar Justificacion"><button type='button' class="btn btn-default btn-sm"><span class='glyphicon glyphicon-file'></span></button></a>
 
-                    <a href="{{route('alumnos.show',$alumno->matricula)}}" target="_blank">
-                      <button type='button' class='btn btn-primary'><span class='glyphicon glyphicon-print'></span></button>
+                    <a href="{{route('alumnos.show',$alumno->matricula)}}" target="_blank" data-toggle="tooltip" title="Imprimir ficha">
+                      <button type='button' class="btn btn-default btn-sm"><span class='glyphicon glyphicon-print'></span></button>
 
                     </a>
+
+                    
 
                   </td>
                 </tr>

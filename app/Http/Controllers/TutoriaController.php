@@ -514,9 +514,71 @@ class TutoriaController extends Controller
             From docentesporgrupo as carga INNER JOIN asignaturas on asignaturas.ClaveAsig=carga.ClaveAsig
             WHERE carga.ClaveGrupo='$grupo'");
 
+        //return $promedios;
+
+    
+        
         return view('tutor.promasig')
         ->with('promedios',$promedios);
         //return response()->json($promedios);
+
+    }
+
+     public function promediosjs()
+    {
+        //$grupo=Session::get('grupo');
+        //$periodo = Session::get('periodo');
+        $grupo='TTS-4A';
+        $periodo='2018C';
+
+        $promedios = DB::select("SELECT carga.ClaveAsig,asignaturas.Nombre as materia,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,1),1) as U1,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,2),1) as U2,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,3),1) as U3,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,4),1) as U4,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,5),1) as U5,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,6),1) as U6
+            From docentesporgrupo as carga INNER JOIN asignaturas on asignaturas.ClaveAsig=carga.ClaveAsig
+            WHERE carga.ClaveGrupo='$grupo'");
+
+        
+        //$promedios= response()->json($promedios);
+        //return $promedios;
+        $asigs = array();
+        $u1 = array();
+        $u2 = array();
+
+        
+        foreach($promedios as $promedio)
+        {
+            $asig = $promedio->materia;
+            array_push($asigs,$asig);
+
+            $vu1 = $promedio->U1;
+            array_push($u1,$vu1);
+
+             $vu2 = $promedio->U2;
+             array_push($u2,$vu2);
+        }
+
+        
+        $todos = array("materias" => $asigs,
+                        "u1" =>$u1,
+                        "u2" =>$u2
+                        );
+
+        //return $asigs;
+        return view('tutor.promediosjs')
+        ->with("materias",$asigs)
+        ->with("u1",$u1)
+        ->with("u2",$u2);
+
+        //endforeach
+
+    
+        
+               
+        
 
     }
 

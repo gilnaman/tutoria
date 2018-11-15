@@ -28,6 +28,7 @@ Route::get('justifica',function()
 });
 
 Route::get('promasig','TutoriaController@promediosgrupo');
+Route::get('promjs','TutoriaController@promediosjs');
 
 
 
