@@ -504,16 +504,7 @@ class TutoriaController extends Controller
         $grupo='TTS-4A';
         $periodo='2018C';
 
-        $promedios = DB::select("SELECT carga.ClaveAsig,asignaturas.Nombre as materia,
-            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,1),1) as U1,
-            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,2),1) as U2,
-            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,3),1) as U3,
-            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,4),1) as U4,
-            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,5),1) as U5,
-            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,6),1) as U6
-            From docentesporgrupo as carga INNER JOIN asignaturas on asignaturas.ClaveAsig=carga.ClaveAsig
-            WHERE carga.ClaveGrupo='$grupo'");
-
+        
         //return $promedios;
 
     
@@ -605,5 +596,70 @@ class TutoriaController extends Controller
             return Response::make($fpdf->Output(),200,$headers);
 
 
-    }    
+    }
+
+    public function resumen()
+     {
+        $grupo='TTS-4A';
+        $periodo='2018C';
+
+        $becas=DB::select("SELECT Count(*) as becados
+                    from alumnos inner join grupos 
+                    on grupos.clavegrupo=alumnos.grupoactual
+                    where alumnos.tipo_beca<>'' 
+                    and alumnos.grupoactual='$grupo' 
+                    and alumnos.tiene_beca='Si' 
+                    and grupos.periodo='$periodo'" );
+
+        $villas=DB::select("SELECT Count(*) as villas
+                from alumnos inner join grupos 
+                on grupos.clavegrupo=alumnos.grupoactual
+                where alumnos.id_villa <> '' 
+                and alumnos.grupoactual='$grupo' 
+                and grupos.periodo='$periodo'");
+
+
+        $promedios = DB::select("SELECT carga.ClaveAsig,asignaturas.Nombre as materia,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,1),1) as U1,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,2),1) as U2,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,3),1) as U3,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,4),1) as U4,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,5),1) as U5,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,6),1) as U6
+            From docentesporgrupo as carga INNER JOIN asignaturas on asignaturas.ClaveAsig=carga.ClaveAsig
+            WHERE carga.ClaveGrupo='$grupo'");
+
+        $asigs = array();
+        $u1 = array();
+        $u2 = array();
+
+        
+        foreach($promedios as $promedio)
+        {
+            $asig = $promedio->materia;
+            array_push($asigs,$asig);
+
+            $vu1 = $promedio->U1;
+            array_push($u1,$vu1);
+
+             $vu2 = $promedio->U2;
+             array_push($u2,$vu2);
+        }
+
+        //return $u2;
+
+        //return json_encode($becas);
+        return view('tutor.resumen')
+        ->with('becados',$becas)
+        ->with('villas',$villas)
+        ->with("materias",$asigs)
+        ->with("u1",$u1)
+        ->with("u2",$u2);
+
+     }
+
+     public function avance()
+     {
+        return view('tutor.avance');       
+     }
 }

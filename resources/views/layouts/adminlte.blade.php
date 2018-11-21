@@ -8,6 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Sistema de gestión de tutorias</title>
+  <meta name="token" id="token" value="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
@@ -21,6 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{asset('adminlte/css/skins/skin-yellow.min.css')}}">
+  <script type="text/javascript" src="{{asset('js/vue.min.js')}}"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,6 +34,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+      @stack('headers')
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -54,6 +58,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-yellow sidebar-mini">
+  
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -284,7 +289,7 @@ desired effect
         <li class="header">MENÚ PRINCIPAL</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{ url('tutor') }}"><i class="fa fa-link"></i> <span>Tutorados</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Justificaciones</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Informe</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Estadisticas</span>
             <span class="pull-right-container">
@@ -293,7 +298,8 @@ desired effect
           </a>
           <ul class="treeview-menu">
             <li><a href="{{url('repro')}}">Reprobacion</a></li>
-            <li><a href="#">Calificaciones</a></li>
+            <li><a href="{{url('avance')}}"
+              data-toggle="tooltip" title="Calificacion detallada">Avance temarios</a></li>
           </ul>
         </li>
       </ul>
@@ -427,6 +433,7 @@ desired effect
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/js/adminlte.min.js')}}"></script>
 
+@stack('scripts')
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 

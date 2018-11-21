@@ -1,6 +1,7 @@
 @extends('layouts.adminlte')
 @section('contenido')
 	
+<div id="justificacion">
 
 
 		<div class="box">
@@ -49,8 +50,13 @@
             </div>
             <!-- /.box-body -->
           </div>
+    </div>
 		{{$alumnos->render()}}
 
 <!-- Modal -->
 
 @endsection
+
+@push('scripts')
+    <script type="text/javascript" src="{{asset('js/justifica.js')}}"></script>
+@endpush

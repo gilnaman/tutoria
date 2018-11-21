@@ -22,6 +22,7 @@ Route::get('foto',function(){
 
 Route::get('repro','TutoriaController@reprobados');
 
+
 Route::get('justifica',function()
 {
 	return view('tutor.fjustificaciones');
@@ -52,4 +53,13 @@ Route::get('download-excel/{type}', 'ExcelController@downloadExcel');
 //RUTAS FPDF
 Route::get('ficha/{id}','TutoriaController@show');
 
-Route::get('otro','TutoriaController@otro');
+
+// Acceso a la APi del avance de asignatura
+Route::apiResource('apiAvance','AvanceController');
+Route::get('avance','TutoriaController@avance');
+
+Route::get('detalle','AvanceController@detalle');
+
+Route::get('resumen','TutoriaController@resumen');
+
+

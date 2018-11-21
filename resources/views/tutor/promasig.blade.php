@@ -1,5 +1,5 @@
-<html>
-  <head>
+@extends('layouts.adminlte')
+  @push('headers')
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
@@ -37,8 +37,8 @@
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
     </script>
-  </head>
-  <body>
+  @endpush
+@section('contenido')
     <div id="columnchart_material" style="width: 98%; height: 80%;"></div>
   </body>
-</html>
+@endsection
