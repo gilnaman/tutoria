@@ -9,6 +9,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Sistema de gestión de tutorias</title>
   <meta name="token" id="token" value="{{ csrf_token() }}">
+  <meta name="route" id="route" value="{{url('/')}}">
+  
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
@@ -298,8 +300,7 @@ desired effect
           </a>
           <ul class="treeview-menu">
             <li><a href="{{url('repro')}}">Reprobacion</a></li>
-            <li><a href="{{url('avance')}}"
-              data-toggle="tooltip" title="Calificacion detallada">Avance temarios</a></li>
+            <li><a href="{{url('avance')}}">Avance temarios</a></li>
           </ul>
         </li>
       </ul>

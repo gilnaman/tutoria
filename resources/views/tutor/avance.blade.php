@@ -179,4 +179,5 @@
 	<script src="{{asset('js/vue-resource.min.js')}}"></script>
 	<script src="{{asset('js/avance.js')}}"></script>
 @endpush
+<input type="hidden" name="route" value="{{url('/')}}">
 

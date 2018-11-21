@@ -2,7 +2,8 @@
 function init()
 {
 
-var urlUser='http://localhost/tutoria/apiAvance';
+var $route = document.querySelector("[name=route]").value;
+//var urlUser='http://localhost/tutoria/apiAvance';
 
 new Vue({
 
@@ -43,7 +44,7 @@ new Vue({
 		getAsignaturas:function()
 		{
 
-			this.$http.get(urlUser).then
+			this.$http.get($route + '/apiAvance').then
 			(	function(response){
 				console.log(response);
 				this.asignaturas=response.data;
@@ -56,7 +57,7 @@ new Vue({
 			//this.edit = true
 			var asig = this.asignaturas[indice].clave;
 			//alert(asig);
-			this.$http.get(urlUser +'/' + asig).then
+			this.$http.get($route +'/apiAvance/' + asig).then
 			(function (response){
 				console.log(response);
 				if(response.data.length)
