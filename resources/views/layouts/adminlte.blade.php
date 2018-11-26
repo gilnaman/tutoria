@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('adminlte/css/font-awesome.min.css')}}">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="{{asset('adminlte/css/ionicons.min.css')}}">
+  <link rel="stylesheet" href="{{asset('adminlte/Ionicons/css/ionicons.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminlte/css/AdminLTE.min.css')}}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -291,7 +291,7 @@ desired effect
         <li class="header">MENÚ PRINCIPAL</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{ url('tutor') }}"><i class="fa fa-link"></i> <span>Tutorados</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Informe</span></a></li>
+        <li><a href="{{url('resumen2')}}"><i class="fa fa-link"></i> <span>Informe</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Estadisticas</span>
             <span class="pull-right-container">
@@ -444,5 +444,6 @@ $(document).ready(function(){
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+     <input type="hidden" name="route" value="{{url('/')}}">
 </body>
 </html>

@@ -1,5 +1,6 @@
 
-<div class="modal fade" id="add-just-{{$alumno->matricula}}" tabindex="-1" role="dialog" 
+{{-- -{{$alumno->matricula}} --}}
+<div class="modal fade" id="add_just" tabindex="-1" role="dialog" 
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -11,10 +12,22 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
                     <strong>Justificacion : {{$alumno->matricula}} - {{$alumno->fullname}}<br></strong>
-                    <strong>Tutor: {{Session::get('usuario')}}</strong>
+                    <strong>Tutor: {{Session::get('usuario')}}</strong><br>
+                    
+                     <strong>Folio: 
+                      {{-- <label class="label label-primary" v-bind:currentUser='{!!substr(uniqid(),0,8)!!}'> 
+                      </label>
+                        --}}
                       
-            
+                     <label class="label label-primary"> 
+                       {{--   @{{unaJustifica.folio="{!!Session::get('periodo').'-'.substr(uniqid(),0,8).date("H:s")!!} "}} --}}
+                      @{{unaJustifica.folio}}
+                      {{-- date("Ymd H:i:s");  --}}
+                      </label>
+                    </strong>
+         
                 </h4>
+
             </div>
             
             <!-- Modal Body -->
@@ -75,29 +88,20 @@
                         
                         <div class="input-group">
                           <div class="alert alert-sucess">
-                            <button class="btn btn-primary" v-for="(dato,indice) of fechas" v-on:click="delFecha(indice)" 
+                            <button class="btn btn-primary" v-for="(dato,indice) of fechasM" v-on:click="delFecha(indice)" 
                             style="margin-left: 2px">
-                              <span class="pull-right clickable close-icon" data-effect="fadeOut"><i class="fa fa-times"> </i></span> 
-                              @{{dato.fecha}} 
-
-                            </button>
-                            
+                              <span class="pull-right clickable close-icon" data-effect="fadeOut"> <i class="fa fa-times"> </i></span> 
+                              @{{dato.fecha }}
+                         </button>
+                              
                         </div>
                           
                         </div>                    
                     </div>
                   </div>
-
-
-                 
-                 
-                </div>
+            </div>
                 
-                
-                
-                
-                
-                
+          
             </div>
             
             <!-- Modal Footer -->

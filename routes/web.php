@@ -62,4 +62,27 @@ Route::get('detalle','AvanceController@detalle');
 
 Route::get('resumen','TutoriaController@resumen');
 
+Route::apiResource('apiEval','EvaluacionController');
+Route::get('evaldoc',function(){
+	return view('profesor.evaluacion');
+});
 
+Route::apiResource('apiJustificaciones','ApiJustificacionController');
+Route::apiResource('apiResumen','ApiResumenController');
+
+Route::get('resumen2','TutoriaController@promediosjs');
+
+
+// Route::get('resumenvue',function(){
+// 	return view('tutor.resumenvue');
+// });
+
+Route::get('becados','ApiResumenController@becados');
+Route::get('listaBecados','ApiResumenController@listaBecados');
+Route::get('listaVillas','ApiResumenController@listaVillas');
+
+Route::get('google',function(){
+	return view('tutor.google');
+});
+
+Route::get('chart','TutoriaController@promediosgrupo');

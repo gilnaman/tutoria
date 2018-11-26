@@ -175,7 +175,7 @@
 
 
 @push('scripts')
-	<script src="{{asset('adminlte/js/adminlte.min.js')}}"></script>
+	{{-- <script src="{{asset('adminlte/js/adminlte.min.js')}}"></script> --}}
 	<script src="{{asset('js/vue-resource.min.js')}}"></script>
 	<script src="{{asset('js/avance.js')}}"></script>
 @endpush

@@ -499,17 +499,25 @@ class TutoriaController extends Controller
 
     public function promediosgrupo()
     {
-        //$grupo=Session::get('grupo');
-        //$periodo = Session::get('periodo');
-        $grupo='TTS-4A';
-        $periodo='2018C';
+        $grupo=Session::get('grupo');
+        $periodo = Session::get('periodo');
+        // $grupo='TTS-4A';
+        // $periodo='2018C';
 
-        
+        $promedios = DB::select("SELECT carga.ClaveAsig,asignaturas.Nombre as materia,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,1),1) as U1,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,2),1) as U2,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,3),1) as U3,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,4),1) as U4,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,5),1) as U5,
+            Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,6),1) as U6
+            From docentesporgrupo as carga INNER JOIN asignaturas on asignaturas.ClaveAsig=carga.ClaveAsig
+            WHERE carga.ClaveGrupo='$grupo'");
         //return $promedios;
 
     
         
-        return view('tutor.promasig')
+        return view('tutor.resumenvue')
         ->with('promedios',$promedios);
         //return response()->json($promedios);
 
@@ -517,10 +525,29 @@ class TutoriaController extends Controller
 
      public function promediosjs()
     {
-        //$grupo=Session::get('grupo');
-        //$periodo = Session::get('periodo');
-        $grupo='TTS-4A';
-        $periodo='2018C';
+
+        $grupo=Session::get('grupo');
+        $periodo = Session::get('periodo');
+        // return Session::get('grupo');
+
+        // $grupo='TTS-4B';
+        // $periodo='2018C';
+
+        $becas=DB::select("SELECT Count(*) as becados
+                    from alumnos inner join grupos 
+                    on grupos.clavegrupo=alumnos.grupoactual
+                    where alumnos.tipo_beca<>'' 
+                    and alumnos.grupoactual='$grupo' 
+                    and alumnos.tiene_beca='Si' 
+                    and grupos.periodo='$periodo'" );
+
+        $villas=DB::select("SELECT Count(*) as villas
+                from alumnos inner join grupos 
+                on grupos.clavegrupo=alumnos.grupoactual
+                where alumnos.id_villa <> '' 
+                and alumnos.grupoactual='$grupo' 
+                and grupos.periodo='$periodo'");
+
 
         $promedios = DB::select("SELECT carga.ClaveAsig,asignaturas.Nombre as materia,
             Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,1),1) as U1,
@@ -538,6 +565,10 @@ class TutoriaController extends Controller
         $asigs = array();
         $u1 = array();
         $u2 = array();
+        $u3 = array();
+        $u4 = array();
+        $u5 = array();
+        $u6 = array();
 
         
         foreach($promedios as $promedio)
@@ -550,19 +581,44 @@ class TutoriaController extends Controller
 
              $vu2 = $promedio->U2;
              array_push($u2,$vu2);
+
+             $vu3 = $promedio->U3;
+             array_push($u3,$vu3);
+
+             $vu4 = $promedio->U4;
+             array_push($u4,$vu4);
+
+            $vu5 = $promedio->U5;
+             array_push($u5,$vu5);
+
+              $vu6 = $promedio->U6;
+             array_push($u6,$vu6);
         }
+        //return $u3;
 
         
         $todos = array("materias" => $asigs,
                         "u1" =>$u1,
-                        "u2" =>$u2
+                        "u2" =>$u2,
+                        "u3" =>$u3,
+                        "u4" =>$u4,
+                        "u5" =>$u5,
+                        "u6" =>$u6
+
                         );
 
         //return $asigs;
-        return view('tutor.promediosjs')
+        //return view('tutor.promediosjs')
+        return view('tutor.resumenvue')
         ->with("materias",$asigs)
-        ->with("u1",$u1)
-        ->with("u2",$u2);
+        ->with("unidad1",$u1)
+        ->with("unidad2",$u2)
+        ->with("unidad3",$u3)
+        ->with("unidad4",$u4)
+        ->with("unidad5",$u5)
+        ->with("unidad6",$u6)
+        ->with('becados',$becas)
+        ->with('villas',$villas);
 
         //endforeach
 
@@ -632,6 +688,8 @@ class TutoriaController extends Controller
         $asigs = array();
         $u1 = array();
         $u2 = array();
+        $u3 = array();
+        $u4 = array();
 
         
         foreach($promedios as $promedio)
@@ -644,6 +702,9 @@ class TutoriaController extends Controller
 
              $vu2 = $promedio->U2;
              array_push($u2,$vu2);
+
+              $vu3 = $promedio->U3;
+             array_push($u3,$vu3);
         }
 
         //return $u2;
@@ -654,7 +715,8 @@ class TutoriaController extends Controller
         ->with('villas',$villas)
         ->with("materias",$asigs)
         ->with("u1",$u1)
-        ->with("u2",$u2);
+        ->with("u2",$u2)
+        ->with("u3",$u3);
 
      }
 
