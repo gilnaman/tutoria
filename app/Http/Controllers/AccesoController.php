@@ -56,6 +56,7 @@ class AccesoController extends Controller
 	 			$login=$res->login;
 	 			$cedula=$res->clave;
 
+
 	 			//OBTENGO EL PERIODO ACTIVO
 	 			$periodo=Periodo::where('activo','=',1)
 	 			->first();
@@ -71,14 +72,22 @@ class AccesoController extends Controller
 	 			{
 	 				$alumno=DB::connection('mysql')
 	 				->table('alumnos')
-	 				->select('matricula','nombre','apellidop','apellidom')
+	 				->select('matricula','nombre','apellidop','apellidom','grupoactual')
 	 				->where('matricula','=',$login)
 	 				->first();
 
 	 				Session::put('usuario',$alumno->nombre.' '.$alumno->apellidop.' '.$alumno->apellidom);
 	 				Session::put('rol',$res->rol);
 	 				Session::put('matricula',$login);
+	 				Session::put('grupo',$alumno->grupoactual);
 	 				
+	 				$yaPresento=DB::connection('mysql')
+	 				->table('users')
+	 				->select('presento')
+	 				->where('login','=',$login)
+	 				->first();
+
+	 				Session::put('presento',$yaPresento->presento);
 
 	 				//\Flash::success('Esta es una prueba');
 	 				return view('alumnos.bienvenido');
@@ -115,7 +124,7 @@ class AccesoController extends Controller
 	 				->first();
 
 	 				//return response()->json($alumno);
-
+	 				Session::put('cedula',$cedula);
 	 				Session::put('usuario',$alumno->tratamiento.' '. $alumno->nombre.' '.$alumno->apellidop.' '.$alumno->apellidom);
 	 				Session::put('rol',$res->rol);
 

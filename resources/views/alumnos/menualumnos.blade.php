@@ -44,6 +44,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accciones <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{url('cardex',['matricula' =>Session::get('matricula')])}}">Perfil</a></li>
+
+              <li><a href="{{url('evaldoc')}}" target="_blank">Evaluacion docente</a></li>
+              
               
               {{--
                 <li><a href="{{url('cardex',['matricula' =>Session::get('matricula')])}}">Perfil</a></li>
