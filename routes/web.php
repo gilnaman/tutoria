@@ -52,6 +52,8 @@ Route::get('download-excel/{type}', 'ExcelController@downloadExcel');
 
 //RUTAS FPDF
 Route::get('ficha/{id}','TutoriaController@show');
+Route::get('justificacion','ApiJustificacionController@imprimir');
+//->name('products.pdf');
 
 
 // Acceso a la APi del avance de asignatura
@@ -62,13 +64,22 @@ Route::get('detalle','AvanceController@detalle');
 
 Route::get('resumen','TutoriaController@resumen');
 
+// EVALUACION DOCENTE 
+
 Route::apiResource('apiEval','EvaluacionController');
 Route::get('evaldoc',function(){
 	return view('profesor.evaluacion');
 });
 
+
+
+
+// RUTAS DE APIS
+
+Route::apiResource('apiAlumnos','Apis\ApiAlumnoController');
 Route::apiResource('apiJustificaciones','ApiJustificacionController');
 Route::apiResource('apiResumen','ApiResumenController');
+Route::apiResource('apiRespuestas','apiRespController');
 
 Route::get('resumen2','TutoriaController@promediosjs');
 
@@ -81,8 +92,14 @@ Route::get('becados','ApiResumenController@becados');
 Route::get('listaBecados','ApiResumenController@listaBecados');
 Route::get('listaVillas','ApiResumenController@listaVillas');
 
+
 Route::get('google',function(){
 	return view('tutor.google');
 });
 
+
 Route::get('chart','TutoriaController@promediosgrupo');
+
+Route::get('tutor2',function(){
+	return view ('tutor.panel_tutor2');
+});
