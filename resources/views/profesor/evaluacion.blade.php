@@ -5,7 +5,7 @@
 	<meta name="token" id="token" value="{{ csrf_token() }}">
 
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-	<link rel="stylesheet" href="{{asset('css/animate.css')}}">
+	
 	
 	<script src="{{asset('js/vue.min.js')}}"></script>
 	<script src="{{asset('js/vue-resource.min.js')}}"></script>
@@ -68,7 +68,7 @@
 
 <div v-if="presento==false">
 <div v-if="ok==false">
-		<div v-show="pagAct==1" class="animated" transition="fade">
+		<div v-show="pagAct==1">
 		 <h4><strong>1.- El profesor de esta asignatura explica con claridad. </strong></h4><hr>
 		 		
 			<table class="preg1 table table-bordered">
@@ -110,9 +110,9 @@
 			
 		{{-- Pregunta 2 --}}
 	
-	<div v-show="pagAct==2" class="animated" transition="fade">
+	<div v-show="pagAct==2">
 		 <h4><strong>2.- El profesor es ordenado y sistemático en sus exposiciones. </strong></h4><hr>
-			<table class="animated preg1 table table-bordered" transition="fadeInLeft">
+			<table class="preg1 table table-bordered" transition="fadeInLeft">
 				<thead>
 					<th hidden="">Clave</th>
 					<th>Asignatura</th>
