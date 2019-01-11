@@ -13,7 +13,12 @@
                 <h4 class="modal-title" id="myModalLabel">
                     <strong>Justificacion : {{$alumno->matricula}} - {{$alumno->fullname}}<br></strong>
                     <strong>Tutor: {{Session::get('usuario')}}</strong><br>
+                    <input type="" name="" value="1" id="matricula" name="matricula">
                     
+                    @{{unaJustifica.periodo="{!!Session::get('periodo')!!}"}}
+                    @{{unaJustifica.grupo="{!!Session::get('grupo')!!}"}}
+                    
+
                      <strong>Folio: 
                       {{-- <label class="label label-primary" v-bind:currentUser='{!!substr(uniqid(),0,8)!!}'> 
                       </label>
@@ -38,7 +43,8 @@
                     <label  class="col-sm-2 control-label"
                               for="inputEmail3">Motivo</label>
                     <div class="col-sm-10">
-                        <select name="id_motivo" id="" class="form-control" required="required">
+                        <select name="id_motivo" id="" class="form-control" required="required"
+                         v-model="unaJustifica.motivo">
                           <option value="1" selected="">Salud</option>
                           <option value="2">Personal</option>
                           <option value="3">Académico</option>
@@ -50,8 +56,10 @@
                     <label class="col-sm-2 control-label"
                           for="inputPassword3" >Fecha solicitud</label>
                     <div class="col-sm-10">
+
                         <input type="date" class="form-control"
-                            id="inputPassword3" placeholder="Password"/>
+                            id="inputPassword3" placeholder="Password"
+                            v-model="unaJustifica.fecha_solicitud">
                     </div>
                   </div>
 
@@ -59,10 +67,11 @@
                     <label  class="col-sm-2 control-label"
                               for="inputEmail3">Modulos</label>
                     <div class="col-sm-10">
-                        <select name="id_motivo" id="" class="form-control" required="required">
-                          <option value="1" selected="">Todos</option>
-                          <option value="2">1</option>
-                          <option value="3">2</option>
+                        <select name="id_motivo" id="" class="form-control" required="required"
+                        v-model.string="unaJustifica.modulos">
+                          <option value="Todos" selected>Todos</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
                         </select>
                     </div>
                   </div>
@@ -106,6 +115,8 @@
             
             <!-- Modal Footer -->
             <div class="modal-footer">
+                @{{unaJustifica}}
+                <h3>Motivo : @{{unaJustifica.motivo}}</h3>
               
                 <button type="button" class="btn btn-default"
                         data-dismiss="modal">

@@ -97,7 +97,26 @@ class AccesoController extends Controller
 
 	 			if($proviene==4)
 	 			{
-	 				return 'BIENVENIDO PROFESOR'.$user;
+	 				$profesor=DB::connection('mysql')
+	 				->table('profesores')
+	 				->select('tratamiento','nombre','apellidop','apellidom','foto')
+	 				->where('cedula','=',$cedula)
+	 				->first();
+
+	 				Session::put('cedula',$cedula);
+	 				Session::put('usuario',$profesor->tratamiento.' '. $profesor->nombre.' '.$profesor->apellidop.' '.$profesor->apellidom);
+	 				Session::put('rol',$res->rol);
+
+	 				if (!empty($profesor->foto))
+	 					Session::put('foto',$profesor->foto);
+	 				else
+	 					Session::put('foto','no.jpg');
+
+
+	 				return Redirect::to('profesor');	
+
+
+	 				//return view('layouts.adminprofe');
 	 			}
 
 	 			if($proviene==3)

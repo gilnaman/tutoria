@@ -80,6 +80,8 @@ Route::apiResource('apiAlumnos','Apis\ApiAlumnoController');
 Route::apiResource('apiJustificaciones','ApiJustificacionController');
 Route::apiResource('apiResumen','ApiResumenController');
 Route::apiResource('apiRespuestas','apiRespController');
+Route::apiResource('apiCargas','ApiAsigsPorGrupo');
+Route::apiResource('apiPonderacion','Apis\ApiPonderacionController');
 
 Route::get('resumen2','TutoriaController@promediosjs');
 
@@ -102,4 +104,24 @@ Route::get('chart','TutoriaController@promediosgrupo');
 
 Route::get('tutor2',function(){
 	return view ('tutor.panel_tutor2');
+});
+
+
+// PROFESORES
+
+Route::get('profesor',function(){
+	return view('layouts.adminprofe');
+});
+
+//LISTAS
+Route::get('profesor/listas','Profesor\ProfesorController@index');
+
+Route::get('listar/{asignatura}/{grupo}/{unidad}', [
+    'as' => 'listar',
+    'uses' => 'Profesor\ProfesorController@imprimir_lista',
+]);
+
+
+Route::get('profesor/cargas',function(){
+	return view('profesor.cargas');
 });
