@@ -6,7 +6,7 @@
 
 		<div class="row">
 			<br>
-			<div class="col-md-6">
+			<div class="col-md-10">
 				
 				<table class="table table-bordered">
 					<thead>
@@ -14,7 +14,7 @@
 						<th>Clave</th>
 						<th>Asignatura</th>
 						
-						<th></th>
+						<th><span class="glyphicon glyphicon-print"></span></th>
 					</thead>
 
 					<tbody>
