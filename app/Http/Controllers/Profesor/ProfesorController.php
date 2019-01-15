@@ -45,6 +45,17 @@ class ProfesorController extends Controller
             //return $asig;
         
         $cuatrimestre=substr($clavegrupo,4,1);
+        $carrera=DB::connection('mysql')
+        ->table('carreras')
+        ->select('nombrelargo')
+        ->where('idcarrera','=',substr($clavegrupo,0,3))
+        ->get();
+
+         foreach($carrera as $carr){
+                $ncar=$carr->nombrelargo;
+            }
+        //return $ncar;
+
         
 
         //$grupo,$asignatura,$unidad
@@ -71,7 +82,7 @@ for ($i=0; $i < 1; $i++)
     $pdf->SetFillColor(206,250,0);
     $pdf->SetFont('Arial','B',7); 
     $pdf->SetXY(10,26);
-    $pdf->Cell(277,4,utf8_decode('TECNOLOGÍAS DE LA INFORMACIÓN'),0,1,'C');
+    $pdf->Cell(277,4,utf8_decode($ncar),0,1,'C');
     $pdf->Cell(10.5);
     $pdf->Cell(20,4,'DOCENTE: ',0,0,'C');
     $pdf->Cell(72,4,utf8_decode(Session::get('usuario')),'B',0,'C');
@@ -142,7 +153,7 @@ for ($i=0; $i < 1; $i++)
             $pdf->Cell(5,4,$ix,1,0,'C');
             $pdf->SetFont('Arial','',7);
             $pdf->Cell(20,4,$matricula,1,0,'C');
-            $pdf->Cell(72,4,$nombre_alumno,1,0,'L');
+            $pdf->Cell(72,4,utf8_decode($nombre_alumno),1,0,'L');
             $pdf->Cell(6.5,4,'',1);
             $pdf->Cell(6.5,4,'',1);
             $pdf->Cell(6.5,4,'',1);
@@ -171,7 +182,7 @@ for ($i=0; $i < 1; $i++)
             $pdf->Cell(6.5,4,'',1,1);
         }
         
-        while($ix < 30)
+        while($ix < 32)
         {
             $ix = $ix+1;
             $pdf->Cell(5.5);
