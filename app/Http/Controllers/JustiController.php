@@ -18,7 +18,10 @@ class JustiController extends Controller
         $grupo=Session::get('grupo');
         $periodo=Session::get('periodo');
 
-        $justificacion=Justificacion::orderBy('created_at','DESC')->get();
+        $justificacion=Justificacion::orderBy('created_at','DESC')
+        ->where('grupo','=',$grupo)
+        ->where('periodo','=',$periodo)
+        ->get();
         //return $justificacion;
         return view('tutor.listajustificacion')
         ->with('justificaciones',$justificacion);
