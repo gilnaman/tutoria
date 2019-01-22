@@ -17,8 +17,8 @@ class ApiAlumnoController extends Controller
     public function index()
     {
         //
-        $grupo = Session::get('grupo')
-        $alumno = Alumno::where('GrupoActual','=',$grupo)
+        $grupo = Session::get('grupo');
+        $alumno = Alumno::where('grupoactual','=',$grupo)
         ->where('bajadefinitiva','=','0')
         ->get();
         return $alumno;
