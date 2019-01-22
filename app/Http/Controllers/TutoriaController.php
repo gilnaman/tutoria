@@ -24,15 +24,15 @@ class TutoriaController extends Controller
      */
     public function index()
     {
-        $alumnos = Alumno::where('grupoactual','=',Session::get('grupo'))
-        ->where('bajatemporal','=','0')
-        ->where('bajadefinitiva','=','0')
-        ->orderby('apellidop','ASC')
+        // $alumnos = Alumno::where('grupoactual','=',Session::get('grupo'))
+        // ->where('bajatemporal','=','0')
+        // ->where('bajadefinitiva','=','0')
+        // ->orderby('apellidop','ASC')
 
-        ->paginate(20);
-
-      return view('tutor.panel_tutor')
-      ->with('alumnos',$alumnos);
+        // ->paginate(20);
+        
+      return view('tutor.panel_tutor2');
+      // ->with('alumnos',$alumnos);
         
         
     }

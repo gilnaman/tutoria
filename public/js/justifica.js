@@ -2,17 +2,29 @@ function init(){
 
 moment.locale('es'); // Se especifica que las fechas de moment son en español
 
+var $route = document.querySelector("[name=route]").value;
+
 var url='http://localhost/tutoria/apiJustificaciones'; //referencia a la api
+var urlAlumnos = "http://localhost/tutoria/apiAlumnos";
+
 new Vue({
 	
 	http:{
 		headers:{
-			'X-CSRF-TOKEN':document.querySelector('#token').getAttribute('value')
+			'X-CSRF-TOKEN':document.querySelector('#token').getAttribute('value'),
+			'Content-Type':'aplication/pdf'
 		}
 	},
 	props: ['currentUser'],
 	el:"#justificacion",
+	
+
+	created:function(){
+		//this.getAlumnos();
+	},
+
 	data:{
+		alumnos:[],
 		fechas:[],
 		fechasM:[],
 		unaFecha:'',
@@ -23,10 +35,12 @@ new Vue({
 			id_carrera:'',
 			matricula:'',
 			id_motivo:'',
-			fecha_solicitud:'',
+			fecha_solicitud:moment().,
 			num_dias:'',
 			id_tutor:'',
-			comentario:''
+			comentario:'',
+			fechas:[],
+			modulos:''
 			}
 	},
 
@@ -43,6 +57,7 @@ new Vue({
 			if(mifecha){
 				this.fechas.push({fecha:mifecha});
 				this.fechasM.push({fecha:mifecha2})
+				this.unaJustifica.fechas=this.fechas;
 			}
 		},
 
@@ -53,10 +68,24 @@ new Vue({
 			//alert(indice);
 		},
 
-		showModal:function(){
+		showModal:function(id){
+			
 			var a = this.unaJustifica.folio='2018C' + moment().format('hmmss');
+			this.unaJustifica.folio=a;
+
 			//alert(a);
 			$('#add_just').modal('show');
+		},
+
+		getAlumnos:function(){
+
+			this.$http.get($route + '/apiAlumnos').then
+			(function(response){
+				console.log(response);
+				this.alumnos = response.data;
+			});
+
+
 		}
 
 
@@ -65,6 +94,10 @@ new Vue({
 	computed:{
 		foliar:function(){
 			return moment().format('MMMM Do YYYY, h:mm:ss a');
+		},
+
+		ncompleto:function(id){
+			return this.alumnos[id].apellidop + ' ' + this.alumnos[id].apellidopm;
 		}
 	}
 })

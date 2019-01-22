@@ -4,23 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Detalle_Justificacion extends Model
+class Motivo extends Model
 {
+    
     protected $connection= 'mysql';
-    protected $table='detalle_justificaciones';
+    protected $table='motivos';
 
    	// Se especificar la clave primaria
-   	protected $primaryKey='id';
+   	protected $primaryKey='id_motivo';
 
    	//Solo cuando la PK no sea numerica
-   	public $incrementing=false;
+   	public $incrementing=true;
 
    	//Desactiva las etiquetas de tiempo
    	public $timestamps=false;
 
    	//Definimos los campos que van a recibir valor
    	protected $fillable=[
-   	'folio',
-   	'fecha'
+   	'id_motivo',
+   	'motivo'   	  
    	];
 }

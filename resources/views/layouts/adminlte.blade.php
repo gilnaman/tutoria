@@ -292,6 +292,9 @@ desired effect
         <li class="header">MENÚ PRINCIPAL</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{ url('tutor') }}"><i class="fa fa-link"></i> <span>Tutorados</span></a></li>
+
+        <li class="active"><a href="{{ url('prueba') }}"><i class="fa fa-link"></i> <span>Justificaciones</span></a></li>
+        
         <li><a href="{{url('resumen2')}}"><i class="fa fa-link"></i> <span>Informe</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Estadisticas</span>

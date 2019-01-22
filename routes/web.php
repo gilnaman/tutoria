@@ -82,6 +82,7 @@ Route::apiResource('apiResumen','ApiResumenController');
 Route::apiResource('apiRespuestas','apiRespController');
 Route::apiResource('apiCargas','ApiAsigsPorGrupo');
 Route::apiResource('apiPonderacion','Apis\ApiPonderacionController');
+Route::apiResource('apiCarrera','ApiCarreraController');
 
 Route::get('resumen2','TutoriaController@promediosjs');
 
@@ -122,6 +123,15 @@ Route::get('listar/{asignatura}/{grupo}/{unidad}', [
 ]);
 
 
+Route::get('imprimir/{folio}', [
+    'as' => 'imprimir',
+    'uses' => 'ApiJustificacionController@imprimir',
+]);
+
 Route::get('profesor/cargas',function(){
 	return view('profesor.cargas');
 });
+
+Route::get('listaCo','CoordinadorController@index');
+
+Route::get('prueba','JustiController@index');
