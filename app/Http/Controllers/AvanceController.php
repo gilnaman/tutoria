@@ -20,6 +20,16 @@ class AvanceController extends Controller
         $grado=$grupo[4];
         //return " $carrera  $grado";
 
+        $plan=DB::select("SELECT claveplan 
+                          FROM grupos 
+                          WHERE clavegrupo='$grupo' AND periodo='$periodo'");
+
+        $getplan='';
+
+        foreach ($plan as $pla) {
+            $getPlan= $pla->claveplan;
+        }
+
         $avance=DB::select("SELECT
                 ClaveAsig AS clave,
                 Nombre AS asignatura,
@@ -29,7 +39,7 @@ class AvanceController extends Controller
                 Asignaturas
             WHERE
                 idCarrera = '$carrera'
-            AND Cuatrimestre =$grado");
+            AND Cuatrimestre =$grado AND id_plan='$getPlan'");
 
         return $avance;
     }
