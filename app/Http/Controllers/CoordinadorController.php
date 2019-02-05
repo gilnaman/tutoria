@@ -19,7 +19,10 @@ class CoordinadorController extends Controller
 
     public function listaGrupo($id){
 
-    	$alumnos=Alumno::where('grupoactual','=',$id)->orderby('apellidop','ASC')->get();
+    	$alumnos=Alumno::where('grupoactual','=',$id)
+    	->where('bajadefinitiva','=',0)
+    	->where('bajatemporal','=',0)
+    	->orderby('apellidop','ASC')->get();
     	//return $alumnos;
 
 
