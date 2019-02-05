@@ -34,6 +34,7 @@ Route::get('promjs','TutoriaController@promediosjs');
 
 
 Route::get('tutor','TutoriaController@index')->middleware('esTutor');
+Route::get('coordinador','CoordinadorController@index');
 
 //Route::get('tutoria','AccesoController@logear');
 Route::get('logout','AccesoController@salir');
@@ -83,6 +84,7 @@ Route::apiResource('apiRespuestas','apiRespController');
 Route::apiResource('apiCargas','ApiAsigsPorGrupo');
 Route::apiResource('apiPonderacion','Apis\ApiPonderacionController');
 Route::apiResource('apiCarrera','ApiCarreraController');
+Route::apiResource('apiGrupo','Apis\ApiGruposController');
 
 Route::get('resumen2','TutoriaController@promediosjs');
 
@@ -117,6 +119,8 @@ Route::get('profesor',function(){
 //LISTAS
 Route::get('profesor/listas','Profesor\ProfesorController@index');
 
+
+
 Route::get('listar/{asignatura}/{grupo}/{unidad}', [
     'as' => 'listar',
     'uses' => 'Profesor\ProfesorController@imprimir_lista',
@@ -127,6 +131,14 @@ Route::get('imprimir/{folio}', [
     'as' => 'imprimir',
     'uses' => 'ApiJustificacionController@imprimir',
 ]);
+
+// Ruta para imprimir listas grupales, solicitud del coordinador
+Route::get('listaGrupo/{grupo}', [
+    'as' => 'listaGrupo',
+    'uses' => 'CoordinadorController@listaGrupo',
+]);
+
+
 
 Route::get('profesor/cargas',function(){
 	return view('profesor.cargas');

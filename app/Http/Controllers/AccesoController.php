@@ -95,6 +95,7 @@ class AccesoController extends Controller
 
 	 			}
 
+	 			// SECCION QUE PERMITE EL ACCESO AL PROFESOR
 	 			if($proviene==4)
 	 			{
 	 				$profesor=DB::connection('mysql')
@@ -119,12 +120,33 @@ class AccesoController extends Controller
 	 				//return view('layouts.adminprofe');
 	 			}
 
+
 	 			if($proviene==3)
 	 			{ 
-	 				return 'BIENVENIDO COORDINADOR '.$user;
+	 				//return 'BIENVENIDO COORDINADOR '.$user;
+
+	 				$profesor=DB::connection('mysql')
+	 				->table('profesores')
+	 				->select('tratamiento','nombre','apellidop','apellidom','foto')
+	 				->where('cedula','=',$cedula)
+	 				->first();
+
+	 				Session::put('cedula',$cedula);
+	 				Session::put('usuario',$profesor->tratamiento.' '. $profesor->nombre.' '.$profesor->apellidop.' '.$profesor->apellidom);
+	 				Session::put('rol',$res->rol);
+
+	 				if (!empty($profesor->foto))
+	 					Session::put('foto',$profesor->foto);
+	 				else
+	 					Session::put('foto','no.jpg');
+
+	 				return Redirect::to('coordinador');	
+
 	 			}
 
-	 			if ($proviene==2) //ES UN TUTOR
+	 			//ES UN TUTOR
+
+	 			if ($proviene==2) 
 	 			{
 	 				
 	 				$grupo=Grupo::where('idtutor','=',$cedula)
