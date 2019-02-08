@@ -193,7 +193,20 @@ new Vue({
 			this.fechasM=[],
 			this.unaJustifica.modulos=''
 			
-		}
+		},
+
+		showLista:function(){
+			//window.location.href = $route + '/alumnos/' + id;
+			if(this.unaJustifica.periodo && this.unaJustifica.grupo)
+			{
+				var id= this.unaJustifica.grupo
+				window.open($route + '/listaGrupo/' + id,'_blank');
+
+				this.clavegrupo='';
+			}
+			else
+				alert('No ha especificado el grupo');
+		},
 
 		
 
