@@ -6,7 +6,10 @@
    
 		<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Listado de tutorados</h3>
+              <h3 class="box-title">Listado de tutorados  </h3> <span 
+              class="glyphicon glyphicon-print btn btn-sm btn-success" v-on:click="showLista()">
+                
+              </span>
 
             </div>
             <!-- /.box-header -->
