@@ -36,8 +36,9 @@
                   </thead>
                   <tbody>
                   <tr v-for="(asig,indice) of asignaturas">
-                    <td>@{{asig.clave}}</a></td>
-                    <td>@{{asig.asignatura}}</td>
+                    <td><small>@{{asig.clave}}</small></a></td>
+                    <td><strong>@{{asig.asignatura}} <br> <small>
+                      <p class="text-success">@{{asig.tratamiento}}  @{{asig.docente}}</small></p></strong></td>
                     <td>@{{asig.entregadas}}</td>
                     <td>
                       @{{asig.avance}}
@@ -77,7 +78,7 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Detalle de asignatura</h3>
+              <h3 class="box-title">Detalle de asignatura : <strong>@{{asigSelected}} - @{{profeSelected}}</strong> Acumulado : <strong>@{{puntajeAcum}}</strong></h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
