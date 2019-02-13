@@ -30,30 +30,16 @@ class AvanceController extends Controller
             $getPlan= $pla->claveplan;
         }
 
-        // $avance=DB::select("SELECT
-        //         ClaveAsig AS clave,
-        //         Nombre AS asignatura,
-        //         GetUnidadesEntregadasPorMateria ('$periodo', '$grupo', ClaveAsig) AS entregadas,
-        //         GetUnidadesAcumuladaEntregadasPorMateria ('$periodo', '$grupo', ClaveAsig) AS 'avance'
-
-        //     FROM
-        //         Asignaturas
-        //     WHERE
-        //         idCarrera = '$carrera'
-        //     AND Cuatrimestre =$grado AND id_plan='$getPlan'");
-
-
-         $avance=DB::select("SELECT Asig.ClaveAsig as clave,asignaturas.Nombre as asignatura,
-        GetUnidadesEntregadasPorMateria ('$periodo', '$grupo', Asig.ClaveAsig) AS entregadas,
-        GetUnidadesAcumuladaEntregadasPorMateria ('$periodo', '$grupo', Asig.ClaveAsig) AS 'avance',
-        profesores.cedula,concat(profesores.apellidop,' ',profesores.apellidom,' ',profesores.nombre) as docente,profesores.tratamiento
-        from (docentesporgrupo as Asig INNER JOIN profesores on profesores.cedula=Asig.Cedula)
-        INNER JOIN asignaturas on asignaturas.ClaveAsig=Asig.ClaveAsig
-        WHEre asignaturas.idCarrera='$carrera' AND asignaturas.Cuatrimestre=$grado AND asignaturas.id_plan='$getPlan' AND
-Asig.ClaveGrupo='$grupo'");
-
-
-       //return $grupo;
+        $avance=DB::select("SELECT
+                ClaveAsig AS clave,
+                Nombre AS asignatura,
+                GetUnidadesEntregadasPorMateria ('$periodo', '$grupo', ClaveAsig) AS entregadas,
+                GetUnidadesAcumuladaEntregadasPorMateria ('$periodo', '$grupo', ClaveAsig) AS 'avance'
+            FROM
+                Asignaturas
+            WHERE
+                idCarrera = '$carrera'
+            AND Cuatrimestre =$grado AND id_plan='$getPlan'");
 
         return $avance;
     }

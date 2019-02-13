@@ -23,9 +23,19 @@ new Vue({
 		asignaturas:[],
 		detalles:[],
 		nombre:'Gilberto',
-		asigSelected:'',
-		profeSelected:'',
-		puntajeAcum:0,
+		
+		/*
+		newAuto: {
+			placa:'',
+			modelo:'',
+			anio_fabricacion:'',
+			costo:'',
+			imagen:'',
+			id_fabricante:''
+
+		},
+		*/
+
 		success: false,
 		edit:false,
 	},
@@ -47,9 +57,6 @@ new Vue({
 			//this.edit = true
 			var asig = this.asignaturas[indice].clave;
 			//alert(asig);
-			this.asigSelected = this.asignaturas[indice].asignatura;
-			this.profeSelected = this.asignaturas[indice].tratamiento + ' ' + this.asignaturas[indice].docente;
-			this.puntajeAcum = this.asignaturas[indice].avance;
 			this.$http.get($route +'/apiAvance/' + asig).then
 			(function (response){
 				console.log(response);
