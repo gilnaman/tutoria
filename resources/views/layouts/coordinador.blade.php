@@ -300,6 +300,10 @@ desired effect
          --}}
         <li>
           <a href="#"><i class="fa fa-link"></i> Listas de asistencia<span></span></a>
+          {{-- <a href="{{url('resumenGrupo')}}"><i class="fa fa-link"></i> Estadisticas<span></span></a>
+ --}}
+
+          <a href="{{url('entregas')}}"><i class="fa fa-link"></i> Control de entregas<span></span></a>
         </li>
         
         {{-- <li class="treeview">

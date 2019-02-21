@@ -85,6 +85,7 @@ Route::apiResource('apiCargas','ApiAsigsPorGrupo');
 Route::apiResource('apiPonderacion','Apis\ApiPonderacionController');
 Route::apiResource('apiCarrera','ApiCarreraController');
 Route::apiResource('apiGrupo','Apis\ApiGruposController');
+Route::apiResource('apiEntregas','Apis\ApiEntregaController');
 
 Route::get('resumen2','TutoriaController@promediosjs');
 
@@ -138,12 +139,25 @@ Route::get('listaGrupo/{grupo}', [
     'uses' => 'CoordinadorController@listaGrupo',
 ]);
 
+Route::get('resumenGrupo/{grupo}/{periodo}', [
+    'as' => 'resumenGrupo',
+    'uses' => 'CoordinadorController@resumenGrupo',
+]);
+
+
 
 
 Route::get('profesor/cargas',function(){
 	return view('profesor.cargas');
 });
 
+Route::get('entregas',function(){
+    return view('coordinador.entregas');
+});
+
+
 Route::get('listaCo','CoordinadorController@index');
 
 Route::get('prueba','JustiController@index');
+
+Route::get('evento','TutoriaController@regsEvento');

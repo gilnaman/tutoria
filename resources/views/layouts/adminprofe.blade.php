@@ -300,6 +300,8 @@ desired effect
          --}}
         <li>
           <a href="{{url('profesor/listas')}}"><i class="fa fa-link"></i> Listas de asistencia<span></span></a>
+
+             <a href="{{url('entregas')}}"><i class="fa fa-link"></i> Mis entregas<span></span></a>
         </li>
         
         {{-- <li class="treeview">
