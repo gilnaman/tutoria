@@ -94,23 +94,35 @@
                   <table class="table no-margin table-responsive table-bordered">
                     <thead>
                     <tr>
-                      <th>Matricula</th>
-                      <th>Alumno</th>
+                      <th rowspan="2" style="text-align:center">Matricula</th>
+                      <th rowspan="2" style="text-align:center">Alumno</th>
                       <th>U1</th>
                       <th>U2</th>
                       <th>U3</th>
                       <th>U4</th>
                       <th>U5</th>
                       <th>U6</th>
-                      <th>Acumulado</th>
-                      <th>Promedio ponderado</th>
+                      <th rowspan="2">Acumulado</th>
+                      <th rowspan="2">Promedio ponderado</th>
+                    </tr>
+
+                    <tr>
+                      <th>10</th>
+                      <th>20</th>
+                      <th>30</th>
+                      <th>10</th>
+                      <th>20</th>
+                      <th>30</th>
                     </tr>
                   </thead>
                   <tbody >
                     <tr v-for="det in detalles">
                       <td>@{{det.matricula}}</td>
                       <td>@{{det.Alumno}}</td>
-                      <td>@{{det.U1}}</td>
+                      <td>
+                        <button v-if="det.U1<7" class="btn btn-danger btn-xs">@{{det.U1}}</button>
+                        <p v-else="det.U1>=7"><strong>@{{det.U1}}</strong></p>
+                      </td>
                       <td>@{{det.U2}}</td>
                       <td>@{{det.U3}}</td>
                       <td>@{{det.U4}}</td>
