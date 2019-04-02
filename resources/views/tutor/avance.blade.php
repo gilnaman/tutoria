@@ -123,11 +123,33 @@
                         <button v-if="det.U1<7" class="btn btn-danger btn-xs">@{{det.U1}}</button>
                         <p v-else="det.U1>=7"><strong>@{{det.U1}}</strong></p>
                       </td>
-                      <td>@{{det.U2}}</td>
-                      <td>@{{det.U3}}</td>
-                      <td>@{{det.U4}}</td>
-                      <td>@{{det.U5}}</td>
-                      <td>@{{det.U6}}</td>
+
+                       <td>
+                        <button v-if="det.U2 && det.U2<7" class="btn btn-danger btn-xs">@{{det.U2}}</button>
+                        <p v-else="det.U2>=7"><strong>@{{det.U2}}</strong></p>
+                      </td>
+                      
+                       <td>
+                        <button v-if="det.U3 && det.U3<7" class="btn btn-danger btn-xs">@{{det.U3}}</button>
+                        <p v-else="det.U3>=7"><strong>@{{det.U3}}</strong></p>
+                      </td>
+
+                       <td>
+                        <button v-if="det.U4 && det.U4<7" class="btn btn-danger btn-xs">@{{det.U4}}</button>
+                        <p v-else="det.U4>=7"><strong>@{{det.U4}}</strong></p>
+                      </td>
+
+                       <td>
+                        <button v-if="det.U5 && det.U5<7" class="btn btn-danger btn-xs">@{{det.U5}}</button>
+                        <p v-else="det.U5>=7"><strong>@{{det.U5}}</strong></p>
+                      </td>
+
+                      
+                       <td>
+                        <button v-if="det.U6 && det.U6<7" class="btn btn-danger btn-xs">@{{det.U6}}</button>
+                        <p v-else="det.U6>=7"><strong>@{{det.U6}}</strong></p>
+                      </td>
+
                       <td>@{{det.acumulado}}</td>
                       <td><strong>@{{det.promedio}}</strong></td>
                     </tr>
