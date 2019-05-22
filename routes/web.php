@@ -31,7 +31,18 @@ Route::get('justifica',function()
 Route::get('promasig','TutoriaController@promediosgrupo');
 Route::get('promjs','TutoriaController@promediosjs');
 
+// RUTAS SERVICIOS ESCOLARES
+Route::get('servicios',function(){
+    return view('layouts.servicios');
+});
 
+Route::get('servicios/alumnado',function(){
+    return view('servicios.alumnado');
+});
+
+
+
+// FIN DE SERVICIOS ESCOLARES
 
 Route::get('tutor','TutoriaController@index')->middleware('esTutor');
 Route::get('coordinador','CoordinadorController@index');
@@ -78,6 +89,7 @@ Route::get('evaldoc',function(){
 // RUTAS DE APIS
 
 Route::apiResource('apiAlumnos','Apis\ApiAlumnoController');
+Route::apiResource('apiAlumnado','Apis\ApiAlumnadoGralController');
 Route::apiResource('apiJustificaciones','ApiJustificacionController');
 Route::apiResource('apiResumen','ApiResumenController');
 Route::apiResource('apiRespuestas','apiRespController');
@@ -86,6 +98,7 @@ Route::apiResource('apiPonderacion','Apis\ApiPonderacionController');
 Route::apiResource('apiCarrera','ApiCarreraController');
 Route::apiResource('apiGrupo','Apis\ApiGruposController');
 Route::apiResource('apiEntregas','Apis\ApiEntregaController');
+Route::apiResource('apiActa','ActaEntregaController');
 
 Route::get('resumen2','TutoriaController@promediosjs');
 
@@ -122,11 +135,27 @@ Route::get('profesor/listas','Profesor\ProfesorController@index');
 
 
 
+
+
+
+// RUTAS PARAMETRIZADAS
+
 Route::get('listar/{asignatura}/{grupo}/{unidad}', [
     'as' => 'listar',
     'uses' => 'Profesor\ProfesorController@imprimir_lista',
 ]);
 
+
+Route::get('getBoletas/{grupo}/{matricula}', [
+    'as' => 'getBoletas',
+    'uses' => 'AlumnosController@getBoletas',
+]);
+
+
+Route::get('boleta/{grupo}/{matricula}', [
+    'as' => 'boleta',
+    'uses' => 'AlumnosController@boleta',
+]);
 
 Route::get('imprimir/{folio}', [
     'as' => 'imprimir',
@@ -144,6 +173,10 @@ Route::get('resumenGrupo/{grupo}/{periodo}', [
     'uses' => 'CoordinadorController@resumenGrupo',
 ]);
 
+Route::get('getPonderacion/{asig}', [
+    'as' => 'getPonderacion',
+    'uses' => 'AvanceController@getPonderacion',
+]);
 
 
 
@@ -161,3 +194,15 @@ Route::get('listaCo','CoordinadorController@index');
 Route::get('prueba','JustiController@index');
 
 Route::get('evento','TutoriaController@regsEvento');
+
+Route::get('export', 'ExcelController@export')->name('export');
+Route::get('importExcel', 'ExcelController@importExportView');
+Route::post('import', 'ExcelController@importExcel')->name('import');
+Route::get('acuse','Profesor\AcuseController@acuse');
+
+
+//route::get('boleta','AlumnosController@boleta'); Se parametrizó
+
+Route::get('grupo',function(){
+    return view('grupos.grupos');
+});
