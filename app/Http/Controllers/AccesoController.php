@@ -61,11 +61,35 @@ class AccesoController extends Controller
 	 			$periodo=Periodo::where('activo','=',1)
 	 			->first();
 	 			Session::put('periodo',$periodo->claveperiodo);
+	 			//return $periodo;
 	 			Session::put('idrol',$proviene);
 
 	 			//return response()->json($periodo);
 	 			//return $periodo->claveperiodo;
-	 			
+				
+				if ($proviene==7)
+				{
+					//return 'Accede SERVICIOS ESCOLARES';
+
+
+					$profesor=DB::connection('mysql')
+	 				->table('profesores')
+	 				->select('tratamiento','nombre','apellidop','apellidom','foto')
+	 				->where('cedula','=',$cedula)
+	 				->first();
+
+	 				Session::put('cedula',$cedula);
+	 				Session::put('usuario',$profesor->tratamiento.' '. $profesor->nombre.' '.$profesor->apellidop.' '.$profesor->apellidom);
+	 				Session::put('rol',$res->rol);
+
+	 				if (!empty($profesor->foto))
+	 					Session::put('foto',$profesor->foto);
+	 				else
+	 					Session::put('foto','no.jpg');
+
+	 				return Redirect::to('servicios');	
+
+				}
 
 	 			// SECCION QUE MANEJA EL ACCESO DE LOS ALUMNOS
 	 			if($proviene==5)
@@ -153,7 +177,9 @@ class AccesoController extends Controller
 	 				->where('periodo','=',$periodo->claveperiodo)
 	 				->first();
 
+
 	 				$migrupo=$grupo->clavegrupo;
+	 				//return $migrupo;
 
 	 				//return $migrupo;
 	 				Session::put('grupo',$migrupo);

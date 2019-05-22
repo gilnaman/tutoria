@@ -524,5 +524,344 @@ public function edit($id)
 
     
     }
+        // Fin de la ficha 
+
+
+    public function getBoletas($grupo,$matricula){
+        $periodo='2019A';
+
+        $boleta = DB::connection('boletas')
+        ->Select("SELECT  det.clavePeriodo,det.claveGrupo,det.claveAsig,asignaturas.Nombre,asignaturas.HrsTotales,det.matricula,
+                concat(alumnos.apellidop,' ',alumnos.apellidom,' ',alumnos.nombre) as alumno,det.calificacion,det.nivel
+                from (detalles_cardex as det INNER JOIN asignaturas on asignaturas.ClaveAsig=det.claveAsig)
+                INNER JOIN alumnos on alumnos.matricula=det.matricula
+                WHERE det.claveGrupo='$grupo' and det.matricula='$matricula' and det.clavePeriodo='$periodo'");
+
+        return $boleta;
+
+    }
+
+
+
+    public function boleta($grupo,$matricula)
+    {
+      
+
+
+        $periodo='2019A';
+
+        $boleta = DB::connection('boletas')
+        ->Select("SELECT  det.clavePeriodo,det.claveGrupo,det.claveAsig,asignaturas.Nombre,asignaturas.HrsTotales,det.matricula,
+                concat(alumnos.apellidop,' ',alumnos.apellidom,' ',alumnos.nombre) as alumno,det.calificacion,det.nivel
+                from (detalles_cardex as det INNER JOIN asignaturas on asignaturas.ClaveAsig=det.claveAsig)
+                INNER JOIN alumnos on alumnos.matricula=det.matricula
+                WHERE det.claveGrupo='$grupo' and det.matricula='$matricula' and det.clavePeriodo='$periodo'");
+
+        //return $boleta;
+
+
+
+
+
+        $pdf = new Fpdf('P','mm','A4');
+
+        $pdf->AddPage();
+
+        //Principio
+        $pdf->SetXY(10,8);
+        $pdf-> Image('imagenes/logos/logo.png',15, 8, 30);//x, y, tamaño
+
+        $pdf->SetFont('Arial','I',11);
+        $pdf->Cell(180,4,'Departamento de Servicios Escolares',0,1,'R');
+        $pdf->Ln(3);
+
+        //Titulo
+
+        $pdf->SetFont('Arial','B',14);
+        $pdf->Cell(180,14,'BOLETA DE CALIFICACIONES','B',1,'C');
+        $pdf->Ln(5);
+
+        $pdf->SetFont('Arial','',11);
+
+        //Datos del Alumno
+
+        $pdf->Cell(16,4,'Nombre: ',0,0,'L');
+        $pdf->SetFont('Arial','B',11);
+        $pdf->Cell(80,4,utf8_decode($boleta[0]->alumno),0,0,'L');
+
+        $pdf->SetFont('Arial','',11);
+
+        $pdf->Cell(18,4,utf8_decode('Matrícula:'),0,0,'L');
+        $pdf->SetFont('Arial','B',11);
+        $pdf->Cell(28,4,utf8_decode($boleta[0]->matricula),0,0,'L');
+
+        $pdf->SetFont('Arial','',11);
+
+        $pdf->Cell(13,4,utf8_decode('Grupo:'),0,0,'L');
+        $pdf->SetFont('Arial','B',11);
+        $pdf->Cell(25,4,utf8_decode($boleta[0]->claveGrupo),0,1,'L');
+        $pdf->Ln(5);
+
+        $pdf->SetFont('Arial','',11);
+
+        $pdf->Cell(15,4,'Carrera: ',0,0,'L');
+        $pdf->SetFont('Arial','B',11);
+        $pdf->Cell(81,4,utf8_decode('T.S.U. EN GASTRONOMÍA'),0,0,'L');
+
+
+        $pdf->SetFont('Arial','',11);
+
+        $pdf->Cell(24,4,'Cuatrimestre: ',0,0,'L');
+        $pdf->SetFont('Arial','B',11);
+        $pdf->Cell(60,4,'ENERO-ABRIL 2019',0,1,'L');
+        $pdf->Ln(15);
+
+        //Tabla
+        //Títulos
+
+        $pdf->SetFont('Arial','B',11);
+        $pdf->Cell(120,14,'ASIGNATURAS',1,0,'C');
+        $pdf->Cell(20,14,'HORAS',1,0,'C');
+        $pdf->Cell(40,7,utf8_decode('CALIFICACIÓN'),1,1,'C');
+        $pdf->Cell(140,7,'',0,0,'C');
+        $pdf->Cell(20,7,utf8_decode('NÚMERO'),1,0,'C');
+        $pdf->Cell(20,7,'LETRA',1,1,'C');
+
+        //Datos de Tabla
+
+        $pdf->SetFont('Arial','',11);
+
+        //Repite el bloque de código
+
+        foreach ($boleta as $bole) {
+            $pdf->Cell(120,10,utf8_decode($bole->Nombre),1,0,'L');
+            $pdf->Cell(20,10,utf8_decode($bole->HrsTotales),1,0,'C');
+            $pdf->Cell(20,10,utf8_decode($bole->calificacion),1,0,'C');
+            $pdf->Cell(20,10,utf8_decode($bole->nivel),1,1,'C');
+            
+        }
+
+
+         for ($i=0; $i <(8-count($boleta)) ; $i++) { 
+             $pdf->Cell(120,10,'',1,0,'L');
+            $pdf->Cell(20,10,'',1,0,'C');
+            $pdf->Cell(20,10,'',1,0,'C');
+            $pdf->Cell(20,10,'',1,1,'C');
+         }
+        
+         
+        //Firmas
+
+        $pdf->Ln(30);
+    
+
+        $pdf->SetFont('Arial','',10);
+        $pdf->Cell(50,4,'',0,0,'C');
+        $pdf->Cell(80,4,utf8_decode('VALIDACIÓN'),0,0,'C');
+        $pdf->Cell(50,4,'',0,1,'C');
+        $pdf->Ln(56);
+
+        
+        $pdf-> Image('imagenes/logos/firma_boletas.jpg',40,200, 120, 35);//x, y, tamaño
+      
+
+        //Tabla de Abreviaturas
+
+        $pdf->SetFont('Arial','',6);
+
+        $pdf->Cell(40,4,'ASIGNATURAS NO INTEGRADORAS:','L T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(10,4,'10 AU','T B',0,'C');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(30,4,utf8_decode('AUTÓNOMO'),'T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(10,4,'9 DE','T B',0,'C');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(30,4,'DESTACADO','T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(10,4,'8 SA','T B',0,'C');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(25,4,'SATISFACTORIO','T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(5,4,'NA','T B',0,'C');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(20,4,'NO ACREDITADO','R T B',1,'L');
+
+
+        $pdf->SetFont('Arial','',6);
+
+        $pdf->Cell(40,4,'ASIGNATURAS INTEGRADORAS:','L T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(10,4,'10 CA','T B',0,'C');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(30,4,utf8_decode('COMPETENTE AUTÓNOMO'),'T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(10,4,'9 CD','T B',0,'C');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(30,4,'COMPETENTE DESTACADO','T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(10,4,'8 CO','T B',0,'C');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(25,4,'COMPETENTE','T B',0,'L');
+
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(5,4,'NA','T B',0,'L');
+
+        $pdf->SetFont('Arial','',6);
+        $pdf->Cell(20,4,'NO ACREDITADO','R T B',1,'L');
+        $pdf->Ln(18);
+
+        //Pie de Página
+
+        $pdf->SetFont('Arial','',11);
+        $pdf->Cell(180,4,'F-UTC-SES-06/01',0,1,'R');
+        
+
+        $pdf->output();
+        exit;
+
+
+
+
+    }
+    // Fin de boleta
+
+    public function boleta2()
+    {
+
+
+$pdf = new FPDF('L', 'mm', 'A5'); //Creamos un objeto de la librería horizontal o vertical, tamaño en milimetros y tipo de hoja
+$pdf->AddPage();
+
+$pdf->SetXY(10,8);
+$pdf-> Image('imagenes/logos/logo.png',15, 12, 35);//x, y, tamaño
+$pdf->SetFont('Arial','', 9);
+$pdf->SetXY(10,19);
+$pdf->Cell(188,5,utf8_decode('Universidad Tecnológica del Centro'),0,1,'C');
+$pdf->SetFont('Arial','B', 12);
+$pdf->Cell(188,6,'BOLETA DE CALIFICACIONES',0,1,'C');
+$pdf->Ln(2);
+$pdf->Cell(188,6,'','T');
+$pdf->Ln(5);
+
+$pdf->SetXY(5,37);
+$pdf->Cell(5);
+$pdf->SetFont('Arial','B',6);
+$pdf->Cell(14,5,'NOMBRE:',0,0,'L');
+$pdf->SetFont('Arial','',6);
+$pdf->Cell(55,5,utf8_decode('JOSÉ GILBERTO BALAM'),0,0,'C');
+$pdf->SetFont('Arial','B',6);
+$pdf->Cell(18,5,utf8_decode('MATRÍCULA:'),0,0,'L');
+$pdf->SetFont('Arial','',6);
+$pdf->Cell(16,5,utf8_decode('12345'),0,0,'C');
+$pdf->SetFont('Arial','B',6);
+$pdf->Cell(14,5,utf8_decode('PERÍODO:'),0,0,'L');
+$pdf->SetFont('Arial','',6);
+$pdf->Cell(32,5,utf8_decode('2019A'),0,0,'C');
+$pdf->SetFont('Arial','B',6);
+$pdf->Cell(29,5,utf8_decode('CUATRIMESTRE-GRUPO:'),0,0,'L');
+$pdf->SetFont('Arial','',6);
+$pdf->Cell(10,5,utf8_decode('ENERO-ABRIL'),0,1,'C');
+
+$pdf->SetXY(5,45);
+$pdf->Cell(5);
+$pdf->SetFont('Arial','B',6);
+$pdf->Cell(14,5,'CARRERA:',0,0,'L');
+$pdf->SetFont('Arial','',6);
+$pdf->Cell(75,5,utf8_decode('TECNOLOGÍAS'),0,0,'C');
+$pdf->SetFont('Arial','B',6);
+$pdf->Cell(18,5,utf8_decode('GENERACIÓN:'),0,0,'L');
+$pdf->SetFont('Arial','',6);
+$pdf->Cell(31,5,utf8_decode('generacionX'),0,0,'C');
+$pdf->SetFont('Arial','B',6);
+$pdf->Cell(25,5,utf8_decode('FECHA DE EMISIÓN:'),0,0,'L');
+$pdf->SetFont('Arial','',6);
+$pdf->Cell(25,5,date("d/m/Y"),0,1,'C');
+
+$pdf->SetXY(5,55);
+$pdf->Cell(5);
+$pdf->SetFillColor(216,216,216);
+$pdf->SetFont('Arial','B',7);
+$pdf->Cell(120,6,'ASIGNATURA',1,0,'C',1);
+$pdf->Cell(50,6,utf8_decode('CALIFICACIÓN'),1,0,'C',1);
+$pdf->Cell(18,6,'EVAL',1,1,'C',1);
+
+$pdf->SetFont('Arial','',7);
+$pdf->Cell(5,6,'','L');
+$pdf->Cell(115,6,utf8_decode('algebra'),'R',0,'L');
+$pdf->Cell(50,6,'9.2','L,R',0,'C');
+$pdf->Cell(18,6,'AU','L,R',1,'C');
+
+// $pdf->Cell(5,6,'','L');
+// $pdf->Cell(115,6,$prueba2[utf8_decode('desarrollo')],'R',0,'L');
+// $pdf->Cell(50,6,$prueba2['calificacion_dos'],'L,R',0,'C');
+// $pdf->Cell(18,6,$calificacion_dos,'L,R',1,'C');
+
+
+// $pdf->Cell(5,6,'','L');
+// $pdf->Cell(115,6,$prueba2[utf8_decode('fundamentos')],'R',0,'L');
+// $pdf->Cell(50,6,$prueba2['calificacion_tres'],'L,R',0,'C');
+// $pdf->Cell(18,6,$calificacion_tres,'L,R',1,'C');
+
+
+// $pdf->Cell(5,6,'','L');
+// $pdf->Cell(115,6,$prueba2[utf8_decode('metodologia')],'R',0,'L');
+// $pdf->Cell(50,6,$prueba2['calificacion_cuatro'],'L,R',0,'C');
+// $pdf->Cell(18,6,$calificacion_cuatro,'L,R',1,'C');
+
+// $pdf->Cell(5,6,'','L');
+// $pdf->Cell(115,6,$prueba2[utf8_decode('red')],'R',0,'L');
+// $pdf->Cell(50,6,$prueba2['calificacion_cinco'],'L,R',0,'C');
+// $pdf->Cell(18,6,$calificacion_cinco,'L,R',1,'C');
+
+// $pdf->Cell(5,6,'','L');
+// $pdf->Cell(115,6,$prueba2[utf8_decode('ingles')],'R',0,'L');
+// $pdf->Cell(50,6,$prueba2['calificacion_seis'],'L,R',0,'C');
+// $pdf->Cell(18,6,$calificacion_seis,'L,R',1,'C');
+
+$pdf->SetFont('Arial','B',8);
+$pdf->Cell(5,6,'','L,B');
+$pdf->Cell(110,6,'PROMEDIO: ','B',0,'R');
+$pdf->Cell(5,6,'','R,B');
+$pdf->Cell(50,6,round(9.8,1),'L,R,B',0,'C');
+$pdf->Cell(18,6,'','L,R,B',1,'C');
+
+$pdf->SetFont('Arial','',7);
+$pdf->Cell(18,4,'U: Unidad',0,1,'L');
+$pdf->Cell(18,4,'O: Ordinario',0,1,'L');
+$pdf->Cell(18,4,'G: Global',0,1,'L');
+$pdf->Cell(18,4,'R: Remedial',0,1,'L');
+$pdf->Cell(18,4,'E: Especial',0,1,'L');
+
+$pdf->SetFont('Arial','',7);
+$pdf->Cell(0,5,'F-UTC-SES-18/V04',0,1,'R');
+
+$pdf->Output(); 
+
+
+
+    }
+
+
+
+
+
 }
+// Fin de la clase
+
+
 
