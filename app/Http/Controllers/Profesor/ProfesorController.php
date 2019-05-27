@@ -66,7 +66,7 @@ class ProfesorController extends Controller
         // ->where('bajadefinitiva','=',0)
         // ->orderBy('apellidop','ASC')
         // ->get();
-            
+
         //return $alumno;
 
 
@@ -75,7 +75,7 @@ class ProfesorController extends Controller
         $alumnos = DB::Select("SELECT alumnos.matricula,concat(alumnos.apellidop,' ', alumnos.apellidom,' ',alumnos.nombre) as alumno
             FROM alumnos INNER JOIN alumnos_grupo on alumnos.matricula=alumnos_grupo.matricula
             WHERE alumnos_grupo.periodo='2019B' and alumnos_grupo.clave_grupo='$clavegrupo'
-            ORDER BY alumnos.apellidop ASC")->get();
+            ORDER BY alumnos.apellidop ASC");
 
         return $alumnos;
 
