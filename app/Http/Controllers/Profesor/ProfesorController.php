@@ -77,7 +77,7 @@ class ProfesorController extends Controller
             WHERE alumnos_grupo.periodo='2019B' and alumnos_grupo.clave_grupo='$clavegrupo'
             ORDER BY alumnos.apellidop ASC");
 
-        return $alumnos;
+        //return $alumnos;
 
         // FIN DE OBTENER ALUMNOS
 
