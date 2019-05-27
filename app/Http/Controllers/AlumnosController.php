@@ -606,7 +606,7 @@ public function edit($id)
 
         $pdf->Cell(15,4,'Carrera: ',0,0,'L');
         $pdf->SetFont('Arial','B',11);
-        $pdf->Cell(81,4,utf8_decode('T.S.U. EN GASTRONOMÍA'),0,0,'L');
+        $pdf->Cell(81,4,utf8_decode($boleta[0]->Nombre),0,0,'L');
 
 
         $pdf->SetFont('Arial','',11);
