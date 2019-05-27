@@ -168,8 +168,8 @@ for ($i=0; $i < 7; $i++)
             $pdf->SetFont('Arial','B',7);
             $pdf->Cell(5,3.9,$ix,1,0,'C');
             $pdf->SetFont('Arial','',7);
-            $pdf->Cell(20,3.9,$alumno[$i]->matricula,1,0,'C');
-            $pdf->Cell(72,3.9,utf8_decode($alumno[$i]->alumnno),1,0,'L');
+            $pdf->Cell(20,3.9,$alumno[$fila]->matricula,1,0,'C');
+            $pdf->Cell(72,3.9,utf8_decode($alumno[$fila]->alumnno),1,0,'L');
             $pdf->Cell(6.5,3.9,'',1);
             $pdf->Cell(6.5,3.9,'',1);
             $pdf->Cell(6.5,3.9,'',1);
