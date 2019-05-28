@@ -36,10 +36,10 @@
 									
 							    <li>
 							    	<a href="{{url('listar',['claveasig'=>$carga->ClaveAsig,'clavegrupo'=>$carga->ClaveGrupo,'unidad'=>1])}}" target="_blank">
-							    	Unidad 1
+							    	Imprimir
 									</a>
 							    </li>
-							    <li>
+							    {{-- <li>
 							    	<a href="{{url('listar',['claveasig'=>$carga->ClaveAsig,'clavegrupo'=>$carga->ClaveGrupo,'unidad'=>2])}}" target="_blank">
 							    	Unidad 2
 									</a>
@@ -73,7 +73,7 @@
 							    	<a href="{{url('listar',['claveasig'=>$carga->ClaveAsig,'clavegrupo'=>$carga->ClaveGrupo,'unidad'=>7])}}" target="_blank">
 							    	Unidad 7
 									</a>
-							    </li>
+							    </li> --}}
 
 							  </ul>
 							</div>

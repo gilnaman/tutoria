@@ -72,7 +72,7 @@ class ProfesorController extends Controller
 
         // OBTENGO LISTADO DE ALUMNOS
 
-        $alumnos = DB::Select("SELECT alumnos.matricula,concat(alumnos.apellidop,' ', alumnos.apellidom,' ',alumnos.nombre) as alumno
+        $alumnos = DB::Select("SELECT alumnos.matricula,alumnos.apellidop,alumnos.apellidom,alumnos.nombre
             FROM alumnos INNER JOIN alumnos_grupo on alumnos.matricula=alumnos_grupo.matricula
             WHERE alumnos_grupo.periodo='2019B' and alumnos_grupo.clave_grupo='$clavegrupo'
             ORDER BY alumnos.apellidop ASC");
@@ -163,13 +163,13 @@ for ($i=0; $i < 7; $i++)
             $fila++;
             $ix = $ix+1;
             $matricula =$alumno->matricula;
-            $nombre_alumno = "";
+            $nombre_alumno = "$alumno->apellidop $alumno->apellidom $alumno->nombre";
             $pdf->Cell(5.5);
             $pdf->SetFont('Arial','B',7);
             $pdf->Cell(5,3.9,$ix,1,0,'C');
             $pdf->SetFont('Arial','',7);
-            $pdf->Cell(20,3.9,$alumno[0]->matricula,1,0,'C');
-            $pdf->Cell(72,3.9,utf8_decode($alumno[0]->alumnno),1,0,'L');
+            $pdf->Cell(20,3.9,$alumno->matricula,1,0,'C');
+            $pdf->Cell(72,3.9,utf8_decode($nombre_alumno),1,0,'L');
             $pdf->Cell(6.5,3.9,'',1);
             $pdf->Cell(6.5,3.9,'',1);
             $pdf->Cell(6.5,3.9,'',1);
