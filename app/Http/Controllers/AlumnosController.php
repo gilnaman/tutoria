@@ -557,7 +557,7 @@ public function edit($id)
         elseif (($auxCarrera=="TMI")) 
             $carr="MANTENIMIENTO ÁREA INDUSTRIAL";
         elseif ($auxCarrera=="TTD")
-            $carr = "T.I AREA DESARROLLO DE SOFTWARE MULT.";
+            $carr = "T.I AREA DESARROLLO DE SOFTWARE";
         elseif ($auxCarrera=="TGA")
             $carr="GASTRONOMÍA";
         elseif ($auxCarrera=="TTH")
