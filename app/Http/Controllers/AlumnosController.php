@@ -550,6 +550,22 @@ public function edit($id)
 
         $periodo='2019A';
 
+        $auxCarrera = substr($grupo,0,3);
+        $carr="";
+        if ($auxCarrera=="TAF")
+            $carr="ADMINISTRACIÓN A.F.P";
+        elseif (($auxCarrera=="TMI")) 
+            $carr="MANTENIMIENTO ÁREA INDUSTRIAL";
+        elseif ($auxCarrera=="TTD")
+            $carr = "T.I AREA DESARROLLO DE SOFTWARE MULT.";
+        elseif ($auxCarrera=="TGA")
+            $carr="GASTRONOMÍA";
+        elseif ($auxCarrera=="TTH")
+            $carr="TURISMO ÁREA HOTELERÍA";
+        elseif ($auxCarrera=="TTS")
+            $carr="T.I.C ÁREA SISTEMAS INFORMÁTICOS";
+
+        
         $boleta = DB::connection('boletas')
         ->Select("SELECT  det.clavePeriodo,det.claveGrupo,det.claveAsig,asignaturas.Nombre,asignaturas.HrsTotales,det.matricula,
                 concat(alumnos.apellidop,' ',alumnos.apellidom,' ',alumnos.nombre) as alumno,det.calificacion,det.nivel
@@ -606,7 +622,7 @@ public function edit($id)
 
         $pdf->Cell(15,4,'Carrera: ',0,0,'L');
         $pdf->SetFont('Arial','B',11);
-        $pdf->Cell(81,4,utf8_decode($boleta[0]->Nombre),0,0,'L');
+        $pdf->Cell(81,4,utf8_decode($carr),0,0,'L');
 
 
         $pdf->SetFont('Arial','',11);
