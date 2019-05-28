@@ -668,7 +668,7 @@ public function edit($id)
          
         //Firmas
 
-        $pdf->Ln(30);
+        $pdf->Ln(25);
     
 
         $pdf->SetFont('Arial','',10);
@@ -739,7 +739,7 @@ public function edit($id)
 
         $pdf->SetFont('Arial','',6);
         $pdf->Cell(20,4,'NO ACREDITADO','R T B',1,'L');
-        $pdf->Ln(18);
+        $pdf->Ln(12);
 
         //Pie de Página
 
