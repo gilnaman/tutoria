@@ -112,7 +112,7 @@ for ($i=0; $i < 7; $i++)
     $pdf->Cell(64.5,4,'GRUPO: ',0,0,'R');
     $pdf->Cell(20,4,$clavegrupo,'B',0,'C');
     $pdf->Cell(54.5,4,'PERIODO: ',0,0,'R');
-    $pdf->Cell(30,4,'ENERO-ABRIL 2019','B',1,'C');
+    $pdf->Cell(30,4,'MAYO-AGOSTO 2019','B',1,'C');
 
     $pdf->SetXY(10,35);
     $pdf->SetFont('Arial','B',9); 
