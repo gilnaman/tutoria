@@ -35,9 +35,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet"
+  {{-- <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
+ --}}
       @stack('headers')
 </head>
 <!--
@@ -299,10 +299,16 @@ desired effect
         </li>
          --}}
         <li>
-          <a href="{{url('profesor/listas')}}"><i class="fa fa-link"></i> Listas de asistencia<span></span></a>
 
-             <a href="{{url('entregas')}}"><i class="fa fa-link"></i> Mis entregas<span></span></a>
-        </li>
+          <a href="{{url('profesor/listas')}}"><i class="fa fa-address-book"></i> Listas de asistencia<span></span></a>
+         </li>
+         <li>
+            <a href="{{url('profesor/cargas')}}"><i class="fa fa-balance-scale"></i> Desglose de Unidades<span></span></a>
+          </li>
+
+          <li>
+          <a href="#"><i class="fa fa-calendar-check-o"></i> Unidades entregadas<span></span></a>
+       </li>
         
         {{-- <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Opcion</span>

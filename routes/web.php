@@ -179,6 +179,14 @@ Route::get('getPonderacion/{asig}', [
 ]);
 
 
+// Permite obtener el desgloce de unidades 
+Route::get('getPondera/{periodo}/{grupo}/{asignatura}/{cedula}', [
+    'as' => 'getPondera',
+    'uses' => 'Apis\ApiPonderacionController@getPondera',
+]);
+
+
+
 
 Route::get('profesor/cargas',function(){
 	return view('profesor.cargas');
