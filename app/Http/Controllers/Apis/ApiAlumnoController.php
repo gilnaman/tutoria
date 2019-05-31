@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Alumno;
 use Session;
+use DB;
 
 class ApiAlumnoController extends Controller
 {
@@ -18,10 +19,16 @@ class ApiAlumnoController extends Controller
     {
         //
         $grupo = Session::get('grupo');
-        $alumno = Alumno::where('grupoactual','=',$grupo)
-        ->where('bajadefinitiva','=','0')
-        ->get();
+        // $alumno = Alumno::where('grupoactual','=',$grupo)
+        // ->where('bajadefinitiva','=','0')
+        // ->get();
+
+
+        $alumno = DB::select("SELECT alumnos.matricula,alumnos.apellidop,alumnos.apellidom,alumnos.nombre 
+            FROM alumnos_grupo INNER JOIN alumnos on alumnos.matricula=alumnos_grupo.matricula  
+            where alumnos_grupo.clave_grupo='$grupo'");
         return $alumno;
+
         
     }
 
