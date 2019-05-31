@@ -20,7 +20,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href=""><b>Tutorias </b>UTC</a>
+    <a href=""><b>SISTEMA DE GESTIÓN ACADÉMICA </b>{{-- SeUTC --}}</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
