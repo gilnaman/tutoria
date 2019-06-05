@@ -75,7 +75,7 @@ class ProfesorController extends Controller
         $alumnos = DB::Select("SELECT alumnos.matricula,alumnos.apellidop,alumnos.apellidom,alumnos.nombre
             FROM alumnos INNER JOIN alumnos_grupo on alumnos.matricula=alumnos_grupo.matricula
             WHERE alumnos_grupo.periodo='2019B' and alumnos_grupo.clave_grupo='$clavegrupo'
-            ORDER BY alumnos.apellidop ASC");
+            ORDER BY alumnos.apellidop ASC, alumnos.apellidom ASC");
 
         //return $alumnos;
 
