@@ -30,17 +30,7 @@ class AvanceController extends Controller
             $getPlan= $pla->claveplan;
         }
 
-        // $avance=DB::select("SELECT
-        //         ClaveAsig AS clave,
-        //         Nombre AS asignatura,
-        //         GetUnidadesEntregadasPorMateria ('$periodo', '$grupo', ClaveAsig) AS entregadas,
-        //         GetUnidadesAcumuladaEntregadasPorMateria ('$periodo', '$grupo', ClaveAsig) AS 'avance'
-
-        //     FROM
-        //         Asignaturas
-        //     WHERE
-        //         idCarrera = '$carrera'
-        //     AND Cuatrimestre =$grado AND id_plan='$getPlan'");
+        
 
 
          $avance=DB::select("SELECT Asig.ClaveAsig as clave,asignaturas.Nombre as asignatura,
@@ -96,7 +86,9 @@ Asig.ClaveGrupo='$grupo'");
             $sum
             Round(getAcumuladoPorAlumno('$periodo','$grupo','$asignatura',alumnos.Matricula),2) as acumulado, 
             Round(getPromedioPorAlumno('$periodo','$grupo','$asignatura',alumnos.Matricula),1) as promedio 
-            FROM alumnos WHERE alumnos.GrupoActual='$grupo' and alumnos.bajadefinitiva=0");
+            FROM alumnos INNER JOIN alumnos_grupo ON alumnos.matricula=alumnos_grupo.matricula
+            WHERE alumnos_grupo.clave_grupo='$grupo' and alumnos_grupo.periodo='$periodo'
+            ORDER BY alumnos.apellidop ASC,alumnos.apellidom ASC");
         return $detalle_avance;
         
 
@@ -128,5 +120,13 @@ Asig.ClaveGrupo='$grupo'");
     public function destroy($id)
     {
         //
+    }
+
+    public function getPonderacion($id)
+    {
+        $periodo=Session::get('periodo');
+        $ponderaciones=DB::select("SELECT idasignatura,unidad,porcentaje,tipounidad from ponderaciones WHERE ponderaciones.idperiodo='$periodo' AND idasignatura='$id'
+ORDER BY unidad ASC");
+        return $ponderaciones;
     }
 }
