@@ -431,15 +431,16 @@ class TutoriaController extends Controller
         $grupo=Session::get('grupo');
         $periodo = Session::get('periodo');
 
-        $reprobados = DB::select("SELECT matricula,concat(apellidop,' ',apellidom,' ',nombre) as 'alumno',
-            getReprobadas(matricula,1,'$periodo','$grupo') as u1,
-            getReprobadas(matricula,2,'$periodo','$grupo') as u2,
-            getReprobadas(matricula,3,'$periodo','$grupo') as u3,
-            getReprobadas(matricula,4,'$periodo','$grupo') as u4,
-            getReprobadas(matricula,5,'$periodo','$grupo') as u5,
-            getReprobadas(matricula,6,'$periodo','$grupo') as u6
-            FROM alumnos 
-            WHERE grupoactual='$grupo' and bajadefinitiva=0");
+        $reprobados = DB::select("SELECT alumnos.matricula,concat(alumnos.apellidop,' ',alumnos.apellidom,' ',alumnos.nombre) as 'alumno',
+            getReprobadas(alumnos.matricula,1,'$periodo','$grupo') as u1,
+            getReprobadas(alumnos.matricula,2,'$periodo','$grupo') as u2,
+            getReprobadas(alumnos.matricula,3,'$periodo','$grupo') as u3,
+            getReprobadas(alumnos.matricula,4,'$periodo','$grupo') as u4,
+            getReprobadas(alumnos.matricula,5,'$periodo','$grupo') as u5,
+            getReprobadas(alumnos.matricula,6,'$periodo','$grupo') as u6
+            FROM alumnos INNER JOIN alumnos_grupo ON alumnos.matricula=alumnos_grupo.matricula
+            WHERE alumnos_grupo.periodo='$periodo' AND alumnos_grupo.clave_grupo='$grupo'
+            ORDER BY alumnos.apellidop ASC");
 
         //return $reprobados;
 
@@ -483,9 +484,6 @@ class TutoriaController extends Controller
         ->with('reprobados',$reprobados)
         ->with('totales',$totales);
        
-        
-        
-
     }
 
     public function pdf()
@@ -724,4 +722,82 @@ class TutoriaController extends Controller
      {
         return view('tutor.avance');       
      }
+
+     public function regsEvento()
+     {
+         $pdf=new Fpdf('P','mm','A4');    
+         $pdf->AddPage();
+
+        //ENCABEZADO
+        $pdf->SetXY(10,8);
+        $pdf->Image(public_path().'/imagenes/logos/logo.png', 8, 5, 30);//x, y, tamaño
+        $pdf->SetFont('Arial','B', 10);
+        $pdf->Cell(70);
+        $pdf->Cell(100,6,utf8_decode('REGISTRO DE ASISTENCIA'),1,0,'C');
+        $pdf->Ln(6);
+        $pdf->Cell(70);
+        $pdf->Cell(100,6,utf8_decode('PARA CONFERENCIA'),0,0,'C');
+        $pdf->Ln(10);
+        $pdf->Cell(70,6,'',0,0,'C');
+        $pdf->Cell(30,6,utf8_decode('CARRERA :'),0,0,'L');
+        $pdf->Cell(10,6,'',0,0,'L');
+        $pdf->Cell(75,6,'','B',0,'L');
+
+        $pdf->Ln(8);
+        $pdf->Cell(70,6,'',0,0,'C');
+        $pdf->Cell(30,6,utf8_decode('CUATRIMESTRE :'),0,0,'L');
+        $pdf->Cell(10,6,'',0,0,'L');
+        $pdf->Cell(25,6,'','B',0,'L');
+
+        $pdf->Cell(15,6,utf8_decode('GRUPO:'),0,0,'R');
+        $pdf->Cell(7,6,'',0,0,'L');
+        $pdf->Cell(28,6,'','B',0,'L');
+
+        $pdf->Ln(9);
+        $pdf->Cell(15,6,'',0,0,'C');
+        $pdf->Cell(60,6,'NOMBRE DE LA CONFERENCIA: ',0,0,'L');
+        $pdf->Cell(80,6,'','B',0,'L');
+
+        $pdf->Ln(6);
+        $pdf->Cell(15,6,'',0,0,'C');
+        $pdf->Cell(60,6,'EXPOSITOR : ',0,0,'C');
+        $pdf->Cell(80,6,'','B',0,'L');
+
+        $pdf->Ln(6);
+        $pdf->Cell(15,6,'',0,0,'C');
+        $pdf->Cell(60,6,'FECHA : ',0,0,'C');
+        $pdf->Cell(80,6,'','B',0,'L');
+
+
+        $pdf->SetFont('Arial','', 8);
+        $pdf->Ln(8);
+        $pdf->Cell(15,6,'No',0,0,'C');
+        $pdf->Cell(90,6,'NOMBRE DEL ALUMNO',0,0,'C');
+        $pdf->Cell(10,6,'',0,0,'L');
+        $pdf->Cell(70,6,'FIRMA',0,0,'C');
+
+        $pdf->Ln(5);
+        for ($i=0; $i <35 ; $i++) { 
+        
+        
+        $pdf->Cell(15,6,$i+1,0,0,'C');
+        $pdf->Cell(90,6,'12345678-'.' '.'MARIA ANA VICTORIA POOL BALAM',1,0,'L');
+        $pdf->Cell(10,6,'',0,0,'L');
+        $pdf->Cell(70,6,'','B',0,'C');
+        $pdf->Ln(5.9);
+
+        }
+
+
+
+
+         $headers=['Content-Type'=>'aplication/pdf'];
+
+            return Response::make($pdf->Output(),200,$headers);
+
+     }
+
+
+
+    
 }
