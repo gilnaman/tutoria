@@ -20,7 +20,28 @@ Route::get('foto',function(){
 	return view('alumnos.prueba');
 });
 
-Route::get('repro','TutoriaController@reprobados');
+// ZONA TUTOR 
+
+Route::prefix('tutor')->group(function () {
+    Route::get('tutorados','TutoriaController@index')->middleware('esTutor');
+    // Route::get('/','TutoriaController@index')->middleware('esTutor');
+    Route::get('justifica','JustiController@index');
+    Route::get('/','TutoriaController@promediosjs');
+
+    Route::get('repro',function(){
+        return view('tutor.v-reprobados');
+    });
+    // Route::get('repro','TutoriaController@reprobados');
+    Route::get('avance','TutoriaController@avance');
+
+});
+
+// Estadistica de reprobacion
+
+Route::get('vrepro','Apis\ApiTutoriaController@reprobados');
+
+
+
 
 
 Route::get('justifica',function()
@@ -44,13 +65,19 @@ Route::get('servicios/alumnado',function(){
 
 // FIN DE SERVICIOS ESCOLARES
 
-Route::get('tutor','TutoriaController@index')->middleware('esTutor');
+
 Route::get('coordinador','CoordinadorController@index');
 
+// RUTAS DE COORDINADOR
+
+Route::get('entregaDesglose','CoordinadorController@entregaDesglose');
+
+// FIN RUTAS COORDINADOR
 //Route::get('tutoria','AccesoController@logear');
 Route::get('logout','AccesoController@salir');
 Route::post('validar','AccesoController@validar');
 Route::get('cardex/{matricula}','AlumnosController@cardex');
+Route::get('cardex2','TutoriaController@cardex');
 Route::resource('acceso','AccesoController');
 Route::resource('alumnos','AlumnosController');
 
@@ -70,7 +97,7 @@ Route::get('justificacion','ApiJustificacionController@imprimir');
 
 // Acceso a la APi del avance de asignatura
 Route::apiResource('apiAvance','AvanceController');
-Route::get('avance','TutoriaController@avance');
+
 
 Route::get('detalle','AvanceController@detalle');
 
@@ -100,7 +127,8 @@ Route::apiResource('apiGrupo','Apis\ApiGruposController');
 Route::apiResource('apiEntregas','Apis\ApiEntregaController');
 Route::apiResource('apiActa','ActaEntregaController');
 
-Route::get('resumen2','TutoriaController@promediosjs');
+
+
 
 
 // Route::get('resumenvue',function(){
@@ -146,6 +174,13 @@ Route::get('listar/{asignatura}/{grupo}/{unidad}', [
 ]);
 
 
+// PARAMETRIZADAS POR TUTOR
+Route::get('reproPorAlumno/{matricula}/{periodo?}', [
+    'as' => 'reproPorAlumno',
+    'uses' => 'Apis\ApiTutoriaController@reproPorAlumno',
+]);
+
+
 Route::get('getBoletas/{grupo}/{matricula}', [
     'as' => 'getBoletas',
     'uses' => 'AlumnosController@getBoletas',
@@ -161,6 +196,10 @@ Route::get('imprimir/{folio}', [
     'as' => 'imprimir',
     'uses' => 'ApiJustificacionController@imprimir',
 ]);
+
+Route::get('getAlumnoToCedula','Apis\ApiCedulaController@getAlumnoToCedula');
+
+// getAlumnoToCedula
 
 // Ruta para imprimir listas grupales, solicitud del coordinador
 Route::get('listaGrupo/{grupo}', [
@@ -199,7 +238,7 @@ Route::get('entregas',function(){
 
 Route::get('listaCo','CoordinadorController@index');
 
-Route::get('prueba','JustiController@index');
+
 
 Route::get('evento','TutoriaController@regsEvento');
 
@@ -213,4 +252,8 @@ Route::get('acuse','Profesor\AcuseController@acuse');
 
 Route::get('grupo',function(){
     return view('grupos.grupos');
+});
+
+Route::get('cedula',function(){
+    return view('alumnos.cedula');
 });

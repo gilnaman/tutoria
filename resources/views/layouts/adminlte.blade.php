@@ -291,20 +291,32 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENÚ PRINCIPAL</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="{{ url('tutor') }}"><i class="fa fa-link"></i> <span>Tutorados</span></a></li>
-
-        <li class="active"><a href="{{ url('prueba') }}"><i class="fa fa-link"></i> <span>Justificaciones</span></a></li>
         
-        <li><a href="{{url('resumen2')}}"><i class="fa fa-link"></i> <span>Informe</span></a></li>
+         <li><a href="{{url('/tutor')}}"><i class="fa fa-bar-chart"></i> <span>Informe</span></a></li>
+
+    
+
+         <li><a href="{{url('tutor/tutorados')}}"><i class="fa fa-users"></i> <span>Tutorados</span></a></li>
+
+      
+
+         <li><a href="{{ url('tutor/justifica') }}"><i class="fa fa-bed"></i> <span>Justificaciones</span></a></li>
+
+        
+       
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Estadisticas</span>
+          <a href="#"><i class="fa fa-area-chart"></i> <span>Estadisticas</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('repro')}}">Reprobacion</a></li>
-            <li><a href="{{url('avance')}}">Avance temarios</a></li>
+            <li><a href="{{url('tutor/repro')}}"><i class="fa fa-thumbs-down"></i> <span>Reprobación</span></a></li>
+
+            <li><a href="{{url('tutor/avance')}}"><i class="fa fa-line-chart"></i> <span>Avance académico</span></a></li>
+
+            
+
           </ul>
         </li>
       </ul>
