@@ -103,7 +103,14 @@ class AccesoController extends Controller
 	 				Session::put('usuario',$alumno->nombre.' '.$alumno->apellidop.' '.$alumno->apellidom);
 	 				Session::put('rol',$res->rol);
 	 				Session::put('matricula',$login);
-	 				Session::put('grupo',$alumno->grupoactual);
+
+	 				// $periodo->claveperiodo
+
+	 				$migrupo=DB::select("SELECT clave_grupo from alumnos_grupo
+										WHERE matricula='$login' and periodo='2019B'");
+	 				// return $migrupo[0]->clave_grupo;
+
+	 				Session::put('grupo',$migrupo[0]->clave_grupo);
 	 				
 	 				$yaPresento=DB::connection('mysql')
 	 				->table('users')
@@ -179,7 +186,7 @@ class AccesoController extends Controller
 
 
 	 				$migrupo=$grupo->clavegrupo;
-	 				//return $migrupo;
+	 				
 
 	 				//return $migrupo;
 	 				Session::put('grupo',$migrupo);

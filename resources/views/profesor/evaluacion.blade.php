@@ -24,8 +24,15 @@
 			<h3>@{{periodo}}</h3> 
 			<h3>@{{presento}}</h3> 
 			--}}
-			<small><strong>{{Session::get('usuario')}}</strong></small>
-		<div class="row">
+			<h4>AGRADECEMOS TU PARTICIPACIÓN : <strong>{{Session::get('usuario')}}</strong></h4>
+		
+
+<div v-if="presento==false">
+<div v-if="ok==false">
+		<div v-show="pagAct==1">
+		 <h4><strong>1.- El profesor de esta asignatura explica con claridad. </strong></h4><hr>
+
+		 <div class="row">
 			<br>
 			<div class="col-md-10" v-if="error==true">
 				
@@ -65,11 +72,6 @@
 			
 			</div>
 		</div>
-
-<div v-if="presento==false">
-<div v-if="ok==false">
-		<div v-show="pagAct==1">
-		 <h4><strong>1.- El profesor de esta asignatura explica con claridad. </strong></h4><hr>
 		 		
 			<table class="preg1 table table-bordered">
 				<thead>
@@ -974,6 +976,8 @@
 				<button class="btn  btn-success btn-block" v-on:click="enviarRespuestas()">Enviar respuestas</button>
 			</div>
 		</div>
+
+
 	</div> {{--  FIN DEL TODAS LAS PREGUNTAS --}}
 </div> 
 {{-- Fin cuando no ha presentado el examen --}}
