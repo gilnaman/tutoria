@@ -314,11 +314,11 @@ desired effect
           </a>
           <ul class="treeview-menu">
             
-            <li><a href="{{url('coordinador/dash')}}"><i class="fa fa-thumbs-down"></i> <span>Promedios</span></a></li>
+            <li><a href="{{url('coordinador/dash')}}"><i class="fa fa-graduation-cap"></i> <span>Promedios</span></a></li>
 
             <li><a href="{{url('coordinador/repro')}}"><i class="fa fa-thumbs-down"></i> <span>Reprobación</span></a></li>
 
-            <li><a href="#"><i class="fa fa-line-chart"></i> <span>Avance académico</span></a></li>
+            {{-- <li><a href="#"><i class="fa fa-line-chart"></i> <span>Avance académico</span></a></li> --}}
 
             
 

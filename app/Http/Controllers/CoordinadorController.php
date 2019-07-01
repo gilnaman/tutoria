@@ -324,15 +324,15 @@ class CoordinadorController extends Controller
    // }
 
 
-    public function promediosjs(Request $request)
+    public function promediosjs($periodo='2019B',$grupo='TAF-3A')
     {
 
         // $grupo=Session::get('grupo');
         // $periodo = Session::get('periodo');
         // // return Session::get('grupo');
 
-        $grupo='TTD-3A';
-        $periodo='2019B';
+        // $grupo='TTD-3A';
+        // $periodo='2019B';
 
         // $grupo=$request->get('grupo');
         // $periodo=$request->get('periodo');
@@ -425,7 +425,8 @@ class CoordinadorController extends Controller
         ->with("unidad3",$u3)
         ->with("unidad4",$u4)
         ->with("unidad5",$u5)
-        ->with("unidad6",$u6);
+        ->with("unidad6",$u6)
+        ->with("grupo",$grupo);
         // ->with('becados',$becas)
         // ->with('villas',$villas);
 

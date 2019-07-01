@@ -1,4 +1,4 @@
-var $route = document.querySelector("[name=route]").value;
+var route = document.querySelector("[name=route]").value;
 
 //var urlUser='http://localhost/tutoria/apiAvance';
 new Vue({
@@ -7,6 +7,10 @@ new Vue({
       headers: {
         'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
       }
+    },
+
+    mounted:function(){
+        this.getGrupos();
     },
 
     created:function()
@@ -22,12 +26,14 @@ new Vue({
         dat:['Asignaturas','U1','U2','U3','U4','U5','U6'],
         becados:[],
         materias:['BD','INGLES','FOSO'],
-        villas:[]
+        villas:[],
+        grupo:'',
+        grupos:[]
     },
 
     methods:{
     	getDatos:function(){
-    		this.$http.get($route + '/becados').then
+    		this.$http.get(route + '/becados').then
 			(function(response)
 			{
 				console.log(response);
@@ -35,11 +41,20 @@ new Vue({
 			});
     	},
 
+        getGrupos:function(){
+            var options={periodo:this.periodo};
+            this.$http.post(route + '/listaGrupos',options).then(function(response){
+                console.log(response);
+                this.grupos=response.data;
+            })
+        },
+
+
         
 
         showBecados:function(){
-            console.log($route);
-            this.$http.get($route + '/listaBecados').then
+            console.log(route);
+            this.$http.get(route + '/listaBecados').then
             (function(response){
                 console.log(response);
                 this.becados = response.data;
@@ -49,9 +64,13 @@ new Vue({
             
         },
 
+        getResumen:function(){
+            window.open(route + '/coordinador/dash/2019B/' + this.grupo,"_self" );
+        },
+
           showVillas:function(){
-            console.log($route);
-            this.$http.get($route + '/listaVillas').then
+            console.log(route);
+            this.$http.get(route + '/listaVillas').then
             (function(response){
                 console.log(response);
                 this.villas = response.data;

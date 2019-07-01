@@ -2,12 +2,33 @@
 
 @section('contenido')
 
+<div id="resumen">
+
+  <div class="row">
+            
+            <div class="form-group">
+              <label class="col-md-2">Grupo</label>
+              
+              <div class="col-md-4">
+              <select v-model="grupo" class="form-control">
+                <option disabled="">Elije un grupo</option>
+                <option v-for="grupo in grupos" v-bind:value="grupo.clavegrupo">@{{grupo.clavegrupo}}</option>
+              </select>
+              </div>
+            </div>
+
+            {{-- <div class="col-xs-4"> --}}
+                  <button class="btn btn-primary" v-on:click="getResumen()">Obtener datos</button>
+            {{-- </div> --}}
+            
+      </div>
+
 {{-- Seccion de etiquetas --}}
 <div class="row">
-  <div id="resumen" class="col-md-12"> {{-- Inicio de VUE --}}
+  <div  class="col-md-12"> {{-- Inicio de VUE --}}
        <div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">Portada</h3>
+              <h3 class="box-title">Portada  </h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -174,8 +195,10 @@
 
 
   </div>
-  {{-- Fin de VUE --}}
+  
 </div> 
+
+
 {{-- Fin de seccion de etiquetas --}}
 
 <section class="content">
@@ -244,7 +267,7 @@
           <!-- BAR CHART -->
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Promedios por asignatura</h3>
+              <h3 class="box-title">Promedios por asignatura  del grupo  <b>{{$grupo}} </b></h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -253,6 +276,7 @@
               </div>
             </div>
             <div class="box-body">
+
               <div class="chart">
                 <canvas id="barChart" style="height:600px"></canvas>
               </div>
@@ -268,6 +292,7 @@
 
     </section>
 
+</div> {{-- Fin de VUE --}}
 @endsection
 
 
@@ -277,7 +302,7 @@
 	
 	
 	<script src="{{asset('js/vue-resource.min.js')}}"></script>
-	<script src="{{asset('js/coordinador/resumen.js')}}"></script>
+	<script src="{{asset('js/api/coordinador/resumen.js')}}"></script>
 	
 
   <script>

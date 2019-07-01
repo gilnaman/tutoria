@@ -67,10 +67,16 @@ Route::prefix('coordinador')->group(function(){
     return view('coordinador.v-reprobados');
    });
 
-   Route::get('dash','CoordinadorController@promediosjs');
+   // Route::get('dash','CoordinadorController@promediosjs');
    // Route::get('dash',function(){
    //      // return view('coordinador.resumenvue');
    // });
+
+   Route::get('dash/{periodo?}/{grupo?}', [
+    'as' => 'dash',
+    'uses' => 'CoordinadorController@promediosjs',
+    ]);
+
 
 });
 
