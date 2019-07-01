@@ -42,12 +42,12 @@ new Vue({
 
 			var options={periodo:this.periodo,grupo:this.grupo}
 			console.log(options);
-			// this.$http.post(urlRepro,options).then(function(response){
-			// 	this.reprobados=response.data;
-			// 	console.log(response);
-			// }).catch(function(response){
-			// 	console.log(response);
-			// });
+			this.$http.post(urlRepro,options).then(function(response){
+				this.reprobados=response.data;
+				console.log(response);
+			}).catch(function(response){
+				console.log(response);
+			});
 		},
 
 		getGrupos:function(){
