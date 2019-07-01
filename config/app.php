@@ -149,7 +149,6 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Codedge\Fpdf\FpdfServiceProvider::class,
-        
 
 
         /*

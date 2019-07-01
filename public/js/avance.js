@@ -28,7 +28,6 @@ new Vue({
 		puntajeAcum:0,
 		success: false,
 		edit:false,
-		class:''
 	},
 
 	methods:{
@@ -41,7 +40,7 @@ new Vue({
 				this.asignaturas=response.data;
 			});
 
-		},		
+		},
 
 		showDetalles: function(indice)
 		{	

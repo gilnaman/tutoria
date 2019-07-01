@@ -16,10 +16,7 @@ class EvaluacionController extends Controller
     public function index()
     {
         $grupo=Session::get('grupo');
-
-        
         $periodo=Session::get('periodo');
-
         
         $cargas=DB::select("SELECT d.Periodo,d.ClaveAsig,a.Nombre as asignatura,d.Cedula,concat(p.apellidop,' ',p.apellidom,' ',p.nombre) as profesor
             FROM (docentesporgrupo as d INNER JOIN asignaturas as a on a.ClaveAsig=d.ClaveAsig)

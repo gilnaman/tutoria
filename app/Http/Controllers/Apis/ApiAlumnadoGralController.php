@@ -18,7 +18,6 @@ class ApiAlumnadoGralController extends Controller
          return $alumnos = Alumno::where('bajatemporal','=','0')
         ->where('bajadefinitiva','=','0')
         ->orderBy('apellidop','asc')
-        ->orderBy('apellidom','asc')
         ->get();
            
     }

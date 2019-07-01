@@ -43,6 +43,9 @@
     					<li v-for="error in errores">@{{error.mensaje}}</li>
     				</ul>
 				</div>
+
+				
+			
 			</div>
 
 			<div class="col-md-10" v-if="ok==true">

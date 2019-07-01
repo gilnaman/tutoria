@@ -48,7 +48,6 @@ new Vue({
 			this.$http.get($route + '/apiGrupo/' + grup).then
 			(function(response){
 				this.grupos = response.data
-
 			})
 		},
 
@@ -57,7 +56,6 @@ new Vue({
 			if(this.id_carrera && this.clavegrupo)
 			{
 				var id= this.clavegrupo
-				// this.$session.set('grupo',this.clavegrupo);
 				window.open($route + '/listaGrupo/' + id,'_blank');
 
 				this.clavegrupo='';
