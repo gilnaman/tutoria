@@ -34,14 +34,14 @@ new Vue({
 		matriculaSel:'',
 		alumnoSel:'',
 		periodo:'2019B',
-		grupo:null,
+		grupo:'',
 	},
 
 	methods:{
 		getReprobadas:function(){
 
 			var options={periodo:this.periodo,grupo:this.grupo}
-			this.$http.post(urlRepro,options).then(function(response){
+			this.$http.get(urlRepro + '/' + this.grupo + '/' + this.periodo).then(function(response){
 				this.reprobados=response.data;
 				console.log(response);
 			}).catch(function(response){

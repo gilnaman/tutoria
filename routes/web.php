@@ -77,7 +77,13 @@ Route::prefix('coordinador')->group(function(){
 
 // Estadistica de reprobacion
 
-Route::post('vrepro','Apis\ApiTutoriaController@reprobados');
+// Route::get('vrepro','Apis\ApiTutoriaController@reprobados');
+
+Route::get('vrepro/{grupo}/{periodo?}', [
+    'as' => 'vrepro',
+    'uses' => 'Apis\ApiTutoriaController@reprobados',
+]);
+
 Route::post('listaGrupos','Apis\apiGruposController@listaGrupos');
 
 

@@ -40,9 +40,10 @@ new Vue({
 	methods:{
 		getReprobadas:function(){
 
-			var options={periodo:this.periodo,grupo:this.grupo}
-			console.log(options);
-			this.$http.post(urlRepro,options).then(function(response){
+			// var options={periodo:this.periodo,grupo:this.grupo}
+			// console.log(options);
+			
+			this.$http.get(urlRepro + '/' + this.grupo + '/' + this.periodo).then(function(response){
 				this.reprobados=response.data;
 				console.log(response);
 			}).catch(function(response){

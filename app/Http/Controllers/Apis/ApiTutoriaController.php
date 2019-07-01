@@ -64,12 +64,12 @@ class ApiTutoriaController extends Controller
     }
 
 
-     public function reprobados(Request $request)
+     public function reprobados($grupo,$periodo)
     {
      
-            $grupo=$request->get('grupo');
+            // $grupo=$request->get('grupo');
         
-            $periodo = $request->get('periodo');
+            // $periodo = $request->get('periodo');
 
         
 

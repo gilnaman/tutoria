@@ -2,7 +2,10 @@
 @section('contenido')
   <div id="reprobados">
 	<div class="box">
-      
+            
+            <div hidden="">
+               @{{grupo="{!!Session::get('grupo')!!}"}}
+            </div>
             <div class="box-header">
               <h3 class="box-title">Reprobados por unidad</h3>
             </div>
