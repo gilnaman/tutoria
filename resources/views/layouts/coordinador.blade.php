@@ -299,24 +299,31 @@ desired effect
         </li>
          --}}
         <li>
-          <a href="#"><i class="fa fa-link"></i> Listas de asistencia<span></span></a>
+          <a href="{{url('coordinador/index')}}"><i class="fa fa-link"></i> Listas de asistencia<span></span></a>
           {{-- <a href="{{url('resumenGrupo')}}"><i class="fa fa-link"></i> Estadisticas<span></span></a>
  --}}
 
-          <a href="{{url('entregas')}}"><i class="fa fa-link"></i> Control de entregas<span></span></a>
+          <a href="{{url('coordinador/entregas')}}"><i class="fa fa-link"></i> Control de entregas<span></span></a>
         </li>
         
-        {{-- <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Opcion</span>
+          <li class="treeview">
+          <a href="#"><i class="fa fa-area-chart"></i> <span>Estadisticas</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Opcion</a></li>
-            <li><a href="#">Opcion</a></li>
+            
+            <li><a href="{{url('coordinador/dash')}}"><i class="fa fa-thumbs-down"></i> <span>Promedios</span></a></li>
+
+            <li><a href="{{url('coordinador/repro')}}"><i class="fa fa-thumbs-down"></i> <span>Reprobación</span></a></li>
+
+            <li><a href="#"><i class="fa fa-line-chart"></i> <span>Avance académico</span></a></li>
+
+            
+
           </ul>
-        </li> --}}
+        </li>
 
       </ul>
       <!-- /.sidebar-menu -->

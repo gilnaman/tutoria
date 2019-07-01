@@ -72,4 +72,11 @@ class apiGruposController extends Controller
     {
         //
     }
+
+    public function listaGrupos(Request $request){
+        $periodo=$request->get('periodo');
+
+        $grupos=DB::select("SELECT * from grupos where periodo='2019B'");
+        return $grupos;
+    }
 }
