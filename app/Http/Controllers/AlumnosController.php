@@ -20,7 +20,8 @@ class AlumnosController extends Controller
 
     public function cardex($matricula)
     {	
-    
+        $alumno=Alumno::find($matricula);
+        return $alumno;
 
 
     	if (Session('matricula') == $matricula)
@@ -128,8 +129,7 @@ public function edit($id)
     public function show($id)
     {
         $alumno=Alumno::find($id);
-
-
+        // return $alumno;
     
     $pdf=new Fpdf('P','mm','A4');    
     $pdf->AddPage();
@@ -156,26 +156,37 @@ public function edit($id)
         $pdf->Cell(38,6,'CARRERA: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
         //$pdf->Cell(150,6,$prueba[utf8_decode('carrera')],1,1,'C');
+
         $pdf->Cell(150,6,utf8_decode($alumno->carrera->nombrelargo),1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(38,6,utf8_decode('PERÍODO: '),1,0,'R');
         $pdf->SetFont('Arial','',6);
 
-        $pdf->Cell(55,6,'2018C',1,0,'C');
+        if($alumno->clavePeriodo!=null)
+            $pdf->Cell(55,6,utf8_decode($alumno->periodo->nombregenerico),1,0,'C');
+        else
+            $pdf->Cell(55,6,utf8_decode(''),1,0,'C');
 
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(12,6,utf8_decode('AÑO: '),1,0,'C');
         $pdf->SetFont('Arial','',6);
 
-        $pdf->Cell(20,6,'2018',1,0,'C');
+        $pdf->Cell(20,6,$alumno->anio,1,0,'C');
 
         $pdf->Cell(63,6,' ',1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(38,6,utf8_decode('TUTOR ACADÉMICO: '),1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(87,6,utf8_decode($alumno->tutor),1,0,'C');
+
+        
+        if($alumno->tutor!=null)
+        $tutor = $alumno->tutor->tratamiento. ' '. $alumno->tutor->apellidop. ' ' .$alumno->tutor->apellidom. ' '.$alumno->tutor->nombre;
+        else 
+            $tutor='';
+        
+        $pdf->Cell(87,6,utf8_decode($tutor),1,0,'C');
         $pdf->Cell(63,6,' ',1,1,'C');
 
 
@@ -220,7 +231,16 @@ public function edit($id)
         $pdf->Cell(38,6,'','L,R',0,'C');
         $pdf->Cell(38,6,'DOMICILIO: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(87,6,utf8_decode("Calle: $alumno->calle Entre: $alumno->cruzamiento  $alumno->localidad,  $alumno->municipio"),1,0,'C');
+
+
+        $municipio='';
+
+        if($alumno->municipio!=null)
+            $municipio=$alumno->municipio->nombre;
+        $dire='Calle: '. $alumno->calle .' Entre: '.$alumno->cruzamiento. ' '.  $alumno->localidad.','. $municipio;
+        
+
+        $pdf->Cell(87,6,utf8_decode($dire),1,0,'C');
         $pdf->Cell(25,6,' ',1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
@@ -273,7 +293,7 @@ public function edit($id)
         $pdf->SetFont('Arial','',6);
 
         if($alumno->tiene_beca=='Si')
-            $pdf->Cell(19,6,utf8_decode($alumno->tipo_beca),1,0,'C');
+            $pdf->Cell(19,6,utf8_decode($alumno->beca->nombre),1,0,'C');
         else
             $pdf->Cell(19,6,'',1,0,'C');
         
@@ -363,7 +383,12 @@ public function edit($id)
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(47,6,utf8_decode('ANTECEDENTES ACADÉMICOS: '),1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(116,6,utf8_decode($alumno->plantel_procedencia),1,0,'C');
+
+        $antecedente='';
+
+        if($alumno->escuela!=null)
+            $antecedente=$alumno->escuela->nombre;
+        $pdf->Cell(116,6,utf8_decode($antecedente),1,0,'C');
         $pdf->Cell(25,6,' ',1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
@@ -384,40 +409,74 @@ public function edit($id)
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(47,6,'EMPRESA: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(116,6,utf8_decode($alumno->dl_empresa),1,0,'C');
+        
+        if($alumno->dl_empresa!=null)
+            $pdf->Cell(116,6,utf8_decode($alumno->dl_empresa),1,0,'C');
+        else
+            $pdf->Cell(116,6,'',1,0,'C');
+
         $pdf->Cell(25,6,' ',1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(47,6,utf8_decode('DIRECCION: '),1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(116,6,utf8_decode($alumno->dl_direccion),1,0,'C');
+        
+        if($alumno->dl_direccion!="null")
+            $pdf->Cell(116,6,utf8_decode($alumno->dl_direccion),1,0,'C');
+        else
+            $pdf->Cell(116,6,'',1,0,'C');
+
         $pdf->Cell(25,6,' ',1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(47,6,'DEPARTAMENTO: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(46,6,utf8_decode($alumno->dl_depto),1,0,'C');
+
+        if($alumno->dl_depto!="null")
+            $pdf->Cell(46,6,utf8_decode($alumno->dl_depto),1,0,'C');
+        else
+            $pdf->Cell(46,6,'',1,0,'C');
         
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(48,6,'TEL. CONTACTO: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(22,6,utf8_decode($alumno->dl_telefono),1,0,'C');
+        
+        if($alumno->dl_telefono!="null")
+            $pdf->Cell(22,6,utf8_decode($alumno->dl_telefono),1,0,'C');
+        else
+            $pdf->Cell(22,6,'',1,0,'C');
+        
         $pdf->Cell(25,6,' ',1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(47,6,'JEFE INMEDIATO: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(56,6,utf8_decode($alumno->dl_jefe),1,0,'C');
+
+        if($alumno->dl_jefe!="null")
+            $pdf->Cell(56,6,utf8_decode($alumno->dl_jefe),1,0,'C');
+        else
+            $pdf->Cell(56,6,'',1,0,'C');
+        
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(38,6,'HORARIO DE TRABAJO: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(22,6,utf8_decode($alumno->dl_horario),1,0,'C');
+
+        if($alumno->dl_horario!="null")
+            $pdf->Cell(22,6,utf8_decode($alumno->dl_horario),1,0,'C');
+        else
+            $pdf->Cell(22,6,'',1,0,'C');
+        
         $pdf->Cell(25,6,' ',1,1,'C');
 
         $pdf->SetFont('Arial','B',7);
         $pdf->Cell(47,6,'PUESTO LABORAL: ',1,0,'R');
         $pdf->SetFont('Arial','',6);
-        $pdf->Cell(56,6,utf8_decode($alumno->dl_puesto),1,0,'C');
+
+        if($alumno->dl_puesto!="null")
+            $pdf->Cell(56,6,utf8_decode($alumno->dl_puesto),1,0,'C');
+        else
+            $pdf->Cell(56,6,'',1,0,'C');
+        
         $pdf->Cell(85,6,' ',1,1,'C');
 
         $pdf->Cell(188,3,'',1,1,'C');
@@ -431,7 +490,8 @@ public function edit($id)
         $pdf->Cell(50,3,'','L',0,'C');
         $pdf->Cell(88,3,utf8_decode($alumno->fullname),0,0,'C');
         $pdf->Cell(20,3,'',0,0,'C');
-        $pdf->Cell(30,3,date("d/m/Y"),'R',1,'C');
+        // date("d/m/Y")
+        $pdf->Cell(30,3, $alumno->updated_at,'R',1,'C');
         $pdf->Cell(188,3,'','L,B,R',1,'C');
 
         // PIE
@@ -787,7 +847,7 @@ $pdf->Cell(16,5,utf8_decode('12345'),0,0,'C');
 $pdf->SetFont('Arial','B',6);
 $pdf->Cell(14,5,utf8_decode('PERÍODO:'),0,0,'L');
 $pdf->SetFont('Arial','',6);
-$pdf->Cell(32,5,utf8_decode('2019A'),0,0,'C');
+$pdf->Cell(32,5,utf8_decode($alumnos->periodo->nombregenerico),0,0,'C');
 $pdf->SetFont('Arial','B',6);
 $pdf->Cell(29,5,utf8_decode('CUATRIMESTRE-GRUPO:'),0,0,'L');
 $pdf->SetFont('Arial','',6);

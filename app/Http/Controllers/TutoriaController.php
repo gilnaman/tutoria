@@ -11,7 +11,7 @@ use Response;
 
 
 
-use Barryvdh\DomPDF\Facade;
+// use Barryvdh\DomPDF\Facade;
 //use Codedge\Fpdf\Facades\Fpdf;
 use Codedge\Fpdf\Fpdf\Fpdf;
 
@@ -403,6 +403,93 @@ class TutoriaController extends Controller
             ->with("villas",$villas);
     }
 
+    public function cardex(){
+        $pdf=new Fpdf('L','mm','A4');    
+        $pdf->AddPage();
+
+        $pdf->SetFont('Arial','B',6);
+        
+        $pdf->Cell(5,3,'',1,0,'C');
+        $pdf->Cell(15,3,'',1,0,'C');
+        $pdf->Cell(50,3,'',1,0,'L');
+        
+
+        // Listado de asignaturas
+
+        $asignaturas = DB::select("SELECT doc.periodo,doc.claveasig,asignaturas.nombre,
+                (SELECT count(*) as unidades
+                from ponderaciones 
+                WHERE ponderaciones.idperiodo='2019B' AND ponderaciones.clavegrupo='TGA-3A' AND idasignatura=doc.ClaveAsig
+                ) as unidades,
+                doc.cedula,
+                doc.clavegrupo
+                from docentesporgrupo as doc INNER JOIN asignaturas on asignaturas.ClaveAsig=doc.ClaveAsig
+                WHERE doc.Periodo='2019B' AND doc.ClaveGrupo='TGA-3A'
+                ORDER BY ClaveAsig ASC");
+        $unid=0;
+        $ancho_col=0;
+        $num_asig=count($asignaturas);
+        $aux_cont=0;
+        foreach ($asignaturas as $asignatura) {
+            $aux_cont++;
+            $unid=$asignatura->unidades;
+            $ancho_col=$unid * 6;
+            if ($aux_cont<$num_asig)
+                $pdf->Cell($ancho_col,3,utf8_decode($asignatura->claveasig),1,0,'C');
+            else
+                $pdf->Cell($ancho_col,3,utf8_decode($asignatura->claveasig),1,1,'C');
+       }
+
+        $pdf->SetFont('Arial','',5);
+        $pdf->Cell(5,3,'',1,0,'C');
+        $pdf->Cell(15,3,'',1,0,'C');
+        $pdf->Cell(50,3,'',1,0,'L');
+
+        $num_unidades=0;
+        foreach ($asignaturas as $asignatura) {
+            $num_unidades=($asignatura->unidades);
+
+            for ($i=0; $i < ($num_unidades) ; $i++) { 
+                
+                    $pdf->Cell(6,3,utf8_decode($i+1),1,0,'C');
+                
+            }
+            // $pdf->Cell(6,3,utf8_decode('T'),1,0,'C');
+        }
+        $pdf->Ln(3);
+        $ponderaciones = DB::select("SELECT ponderaciones.*
+                        from ponderaciones where ponderaciones.idperiodo='2019B' and ponderaciones.clavegrupo='TGA-3A'
+                        ORDER BY ponderaciones.idasignatura,ponderaciones.unidad");
+        $pdf->Cell(5,3,'',1,0,'C');
+        $pdf->Cell(15,3,'',1,0,'C');
+        $pdf->Cell(50,3,'',1,0,'L');
+
+
+        // imprimo tipos de unidad
+        foreach ($ponderaciones   as $pond) {
+            $pdf->Cell(6,3,utf8_decode($pond->tipounidad),1,0,'C');
+        }
+
+
+
+        $pdf->Ln(3);
+
+        $pdf->Cell(5,3,'',1,0,'C');
+        $pdf->Cell(15,3,'',1,0,'C');
+        $pdf->Cell(50,3,'',1,0,'L');
+
+        // imprimo valor de unidades
+        foreach ($ponderaciones   as $pond) {
+            $pdf->Cell(6,3,utf8_decode($pond->porcentaje),1,0,'C');
+        }
+
+
+         $pdf->output();
+        exit;
+
+
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -532,19 +619,20 @@ class TutoriaController extends Controller
         // $periodo='2018C';
 
         $becas=DB::select("SELECT Count(*) as becados
-                    from alumnos inner join grupos 
-                    on grupos.clavegrupo=alumnos.grupoactual
-                    where alumnos.tipo_beca<>'' 
-                    and alumnos.grupoactual='$grupo' 
+                    from alumnos inner join alumnos_grupo 
+                    on alumnos_grupo.matricula=alumnos.matricula
+                    where alumnos.id_beca<>'' 
+                    and alumnos_grupo.clave_grupo='$grupo' 
                     and alumnos.tiene_beca='Si' 
-                    and grupos.periodo='$periodo'" );
+                    and alumnos_grupo.periodo='$periodo'" );
 
         $villas=DB::select("SELECT Count(*) as villas
-                from alumnos inner join grupos 
-                on grupos.clavegrupo=alumnos.grupoactual
-                where alumnos.id_villa <> '' 
-                and alumnos.grupoactual='$grupo' 
-                and grupos.periodo='$periodo'");
+                            FROM alumnos INNER JOIN alumnos_grupo 
+                            on alumnos_grupo.matricula=alumnos.matricula
+                            WHERE alumnos.id_villa <> '' 
+                            AND alumnos.tiene_villa='Si'
+                            AND alumnos_grupo.clave_grupo='$grupo' 
+                            AND alumnos_grupo.periodo='$periodo'");
 
 
         $promedios = DB::select("SELECT carga.ClaveAsig,asignaturas.Nombre as materia,
@@ -556,6 +644,8 @@ class TutoriaController extends Controller
             Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,6),1) as U6
             From docentesporgrupo as carga INNER JOIN asignaturas on asignaturas.ClaveAsig=carga.ClaveAsig
             WHERE carga.ClaveGrupo='$grupo'");
+
+        
 
         
         //$promedios= response()->json($promedios);
@@ -619,11 +709,6 @@ class TutoriaController extends Controller
         ->with('villas',$villas);
 
         //endforeach
-
-    
-        
-               
-        
 
     }
 

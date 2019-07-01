@@ -36,9 +36,51 @@ Route::prefix('tutor')->group(function () {
 
 });
 
+
+// ZONA ALUMNOS
+
+Route::prefix('alumnos')->group(function(){
+    
+    //  ACCESO A LA BIENVENIDA
+    Route::get('index',function(){
+        return view('alumnos.bienvenido');
+    });
+
+    // Acceso al acedula del alumno
+    Route::get('cedula',function(){
+    return view('alumnos.cedula');
+    });
+});
+
+
+// RUTAS DE COORDINADOR
+Route::prefix('coordinador')->group(function(){
+    
+    Route::get('index','CoordinadorController@index');
+    Route::get('entregaDesglose','CoordinadorController@entregaDesglose');
+
+    Route::get('entregas',function(){
+        return view('coordinador.entregas');
+    });
+
+   Route::get('repro',function(){
+    return view('coordinador.v-reprobados');
+   });
+
+   Route::get('dash','CoordinadorController@promediosjs');
+   // Route::get('dash',function(){
+   //      // return view('coordinador.resumenvue');
+   // });
+
+});
+
+
 // Estadistica de reprobacion
 
-Route::get('vrepro','Apis\ApiTutoriaController@reprobados');
+Route::post('vrepro','Apis\ApiTutoriaController@reprobados');
+Route::post('listaGrupos','Apis\apiGruposController@listaGrupos');
+
+
 
 
 
@@ -66,11 +108,7 @@ Route::get('servicios/alumnado',function(){
 // FIN DE SERVICIOS ESCOLARES
 
 
-Route::get('coordinador','CoordinadorController@index');
 
-// RUTAS DE COORDINADOR
-
-Route::get('entregaDesglose','CoordinadorController@entregaDesglose');
 
 // FIN RUTAS COORDINADOR
 //Route::get('tutoria','AccesoController@logear');
@@ -126,6 +164,17 @@ Route::apiResource('apiCarrera','ApiCarreraController');
 Route::apiResource('apiGrupo','Apis\ApiGruposController');
 Route::apiResource('apiEntregas','Apis\ApiEntregaController');
 Route::apiResource('apiActa','ActaEntregaController');
+Route::apiResource('apiSangre','Apis\ApiSangreController');
+Route::apiResource('apiMunicipio','Apis\ApiMunicipioController');
+Route::apiResource('apiBeca','Apis\ApiBecaController');
+Route::apiResource('apiVilla','Apis\ApiVillaController');
+Route::apiResource('apiPeriodo','Apis\ApiPeriodoController');
+Route::apiResource('apiProfesor','Apis\ApiProfesorController');
+Route::apiResource('apiEscuela','Apis\ApiEscuelaProcedenciaController');
+Route::apiResource('apiCedula','Apis\ApiCedulaController');
+
+
+
 
 
 
@@ -231,9 +280,6 @@ Route::get('profesor/cargas',function(){
 	return view('profesor.cargas');
 });
 
-Route::get('entregas',function(){
-    return view('coordinador.entregas');
-});
 
 
 Route::get('listaCo','CoordinadorController@index');
@@ -254,6 +300,7 @@ Route::get('grupo',function(){
     return view('grupos.grupos');
 });
 
-Route::get('cedula',function(){
-    return view('alumnos.cedula');
+Route::get('prueba',function(){
+    return view('coordinador.resumenvue');
 });
+

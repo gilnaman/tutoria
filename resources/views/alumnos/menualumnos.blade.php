@@ -3,21 +3,19 @@
 <html>
 <head>
   <title></title>
-  @include('layouts.bootstrap')
+  
+  <meta name="token" id="token" value="{{ csrf_token() }}">
+  <meta name="route" id="route" value="{{url('/')}}">
+  <script type="text/javascript" src="{{asset('js/vue.min.js')}}"></script>
 
+  @include('layouts.bootstrap')
+  
      
 </head>
 <body>
 
-   <style>
-          .thumb {
-           
-            border: 1px solid #000;
-            width:180px;
-            height:200px;
-            margin: 10px 5px 0 0;
-          }
-        </style>
+<div class="container">
+ 
 
     <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -43,9 +41,11 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accciones <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{url('cardex',['matricula' =>Session::get('matricula')])}}">Perfil</a></li>
+              {{-- <li><a href="{{url('cardex',['matricula' =>Session::get('matricula')])}}">Perfil</a></li> --}}
+              <li><a href="{{url('alumnos/cedula')}}">Perfil</a></li>
 
-              <li><a href="{{url('evaldoc')}}" target="_blank">Evaluacion docente</a></li>
+              <li><a href="#">Evaluacion docente</a></li>
+              {{-- <li><a href="{{url('evaldoc')}}" target="_blank">Evaluacion docente</a></li> --}}
               
               
               {{--
@@ -98,36 +98,13 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+</div>
   
   @yield('contenido')
 
- <script>
-              function archivo(evt) {
-                  var files = evt.target.files; // FileList object
-             
-                  // Obtenemos la imagen del campo "file".
-                  for (var i = 0, f; f = files[i]; i++) {
-                    //Solo admitimos imágenes.
-                    if (!f.type.match('image.*')) {
-                        continue;
-                    }
-             
-                    var reader = new FileReader();
-             
-                    reader.onload = (function(theFile) {
-                        return function(e) {
-                          // Insertamos la imagen
-                         document.getElementById("list").innerHTML = ['<img class="thumb" width="180px" height="200px" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
-                        };
-                    })(f);
-             
-                    reader.readAsDataURL(f);
-                  }
-              }
-             
-              document.getElementById('files').addEventListener('change', archivo, false);
-      </script>
 
+  @stack('scripts')
 </body>
 
 

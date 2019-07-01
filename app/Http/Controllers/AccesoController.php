@@ -121,7 +121,8 @@ class AccesoController extends Controller
 	 				Session::put('presento',$yaPresento->presento);
 
 	 				//\Flash::success('Esta es una prueba');
-	 				return view('alumnos.bienvenido');
+	 				
+	 				return Redirect::to('alumnos/index');
 
 
 	 			}
@@ -171,7 +172,7 @@ class AccesoController extends Controller
 	 				else
 	 					Session::put('foto','no.jpg');
 
-	 				return Redirect::to('coordinador');	
+	 				return Redirect::to('coordinador/index');	
 
 	 			}
 
