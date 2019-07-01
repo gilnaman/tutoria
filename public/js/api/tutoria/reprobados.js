@@ -15,25 +15,46 @@ new Vue({
     },
 
 	el: '#reprobados',
+
+	mounted:function(){
+		
+		this.getReprobadas();
+		this.getGrupos();
+	},
+
 	created:function()
 	{
-		this.getReprobadas();
+		
 	},
 	data:{
 		nombre:'GILBERTO',
 		reprobados:[],
 		reprobadosIndividual:[],
+		grupos:[],
 		matriculaSel:'',
-		alumnoSel:''
+		alumnoSel:'',
+		periodo:'2019B',
+		grupo:null,
 	},
 
 	methods:{
 		getReprobadas:function(){
-			this.$http.get(urlRepro).then(function(response){
+
+			var options={periodo:this.periodo,grupo:this.grupo}
+			this.$http.post(urlRepro,options).then(function(response){
 				this.reprobados=response.data;
+				console.log(response);
 			}).catch(function(response){
 				console.log(response);
 			});
+		},
+
+		getGrupos:function(){
+			var options={periodo:this.periodo};
+			this.$http.post(route + '/listaGrupos',options).then(function(response){
+				console.log(response);
+				this.grupos=response.data;
+			})
 		},
 
 		getReproIndividual:function(matricula){
