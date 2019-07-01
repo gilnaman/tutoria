@@ -3,7 +3,6 @@
 	
 <div id="justificacion">
 
-   
 		<div class="box">
             <div class="box-header">
               <h3 class="box-title">Listado de tutorados  </h3> <span 

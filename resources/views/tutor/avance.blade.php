@@ -3,7 +3,9 @@
 
 <div id="avance"> {{-- Inicio de VUE --}}
 
-	<div class="row">
+	<div class="row col-md-12">
+  
+  
 
 		<div class="col-md-8">
 
@@ -13,6 +15,8 @@
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+
+
                 </button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
@@ -23,22 +27,28 @@
                 	
                 	{{-- Inicio de tabla --}}
                   
-                        <table class="table no-margin">
+                <table class="table no-margin">
                   <thead>
-                  <tr>
-                    <th>Clave</th>
-                    <th>Asignatura</th>
-                    <th>Entregadas</th>
-                    <th>Avance</th>
-                    <th>Opciones</th>
-                  </tr>
+                    <tr>
+                      <th width="10%">Clave</th>
+                      <th width="30%">Asignatura</th>
+                      <th width="10%">Entregadas</th>
+                      <th width="10%">Avance</th>
+                      <th width="10%">Opciones</th>
+                    </tr>
 
                   </thead>
                   <tbody>
                   <tr v-for="(asig,indice) of asignaturas">
-                    <td><small>@{{asig.clave}}</small></a></td>
-                    <td><strong>@{{asig.asignatura}} <br> <small>
-                      <p class="text-success">@{{asig.tratamiento}}  @{{asig.docente}}</small></p></strong></td>
+                    <td><small>@{{asig.clave}}</small></td>
+                    <td>
+                      <strong>
+                      @{{asig.asignatura}} <br> 
+                      <small>
+                        <p class="text-success">@{{asig.tratamiento}}  @{{asig.docente}}</p>
+                      </small>
+                    </strong>
+                    </td>
                     <td>@{{asig.entregadas}}</td>
                     <td>
                       @{{asig.avance}}
@@ -67,12 +77,8 @@
             </div>
              /.box-footer -->
       </div> {{-- Fin del box.info --}}
-      
-
-
-
-		</div> {{-- Fin del Columna MD 6 --}}
-	</div> {{-- Fin del ROW --}}
+  	</div> {{-- Fin del Columna MD 8 --}}
+</div> {{-- Fin del ROW --}}
 
 <div class="row">
         <div class="col-md-12">
@@ -192,7 +198,7 @@
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      </div>
+</div>
       <!-- /.row -->
 
 
@@ -211,8 +217,11 @@
 
 @push('scripts')
 	{{-- <script src="{{asset('adminlte/js/adminlte.min.js')}}"></script> --}}
-	<script src="{{asset('js/vue-resource.min.js')}}"></script>
+	
+  <script src="{{asset('js/vue-resource.min.js')}}"></script>
 	<script src="{{asset('js/avance.js')}}"></script>
+
+ 
 @endpush
 <input type="hidden" name="route" value="{{url('/')}}">
 

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Session;
-use App\User;
-class EvaluacionController extends Controller
+use App\ActaEntrega;
+
+class ActaEntregaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,18 +14,9 @@ class EvaluacionController extends Controller
      */
     public function index()
     {
-        $grupo=Session::get('grupo');
+        //
 
-        
-        $periodo=Session::get('periodo');
-
-        
-        $cargas=DB::select("SELECT d.Periodo,d.ClaveAsig,a.Nombre as asignatura,d.Cedula,concat(p.apellidop,' ',p.apellidom,' ',p.nombre) as profesor
-            FROM (docentesporgrupo as d INNER JOIN asignaturas as a on a.ClaveAsig=d.ClaveAsig)
-            INNER JOIN profesores as p on p.cedula=d.Cedula
-            WHERE d.Periodo='$periodo' and d.ClaveGrupo='$grupo'
-            ORDER BY a.Nombre asc");
-        return $cargas;
+        return $acta= ActaEntrega::all();
     }
 
     /**
@@ -38,7 +28,6 @@ class EvaluacionController extends Controller
     public function store(Request $request)
     {
         //
-
     }
 
     /**
@@ -49,10 +38,7 @@ class EvaluacionController extends Controller
      */
     public function show($id)
     {
-        
-        $usuario=User::find($id);
-        return $usuario->presento;
-
+        //
     }
 
     /**

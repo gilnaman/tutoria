@@ -29,4 +29,9 @@ class Periodo extends Model
     
    	];
 
+    protected $hidden=[
+      'activo',
+      'cerrado'
+    ];
+
 }

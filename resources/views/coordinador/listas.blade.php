@@ -55,6 +55,7 @@
 @push('scripts')
 	<script src="{{asset('js/vue-resource.min.js')}}"></script>
 	<script src="{{asset('js/api/listasCoordi.js')}}"></script>
+	<script src="{{asset('js/session.js')}}"></script>
 @endpush
 
 <input type="hidden" name="route" value="{{url('/')}}">

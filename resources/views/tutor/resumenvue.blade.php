@@ -23,6 +23,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
+            
               <h3>{{$becados[0]->becados}}</h3>
 
               <p>Becados</p>

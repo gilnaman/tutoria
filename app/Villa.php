@@ -24,4 +24,6 @@ class Villa extends Model
    	'nombre',
    	'direccion'   
    	];
+
+    protected $hidden=['inactivo'];
 }
