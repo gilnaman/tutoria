@@ -75,8 +75,33 @@ new Vue({
 				entrega.claveGrupo.toLowerCase().match(this.search.toLowerCase().trim())
 
 			});
-		}
+		},
+
+
+		getStatus(){
+
+	        return (id) => {
+	        	var dif=0;
+	        	var resp='';
+
+	        		subida = this.entregas[id].fecha_subida;
+					planeada= this.entregas[id].fecha_planeada
+					
+						// resp=dateA.diff(dateB);
+						if (subida>planeada)
+							resp='Retraso';
+						else if(subida<=planeada)
+							resp='A tiempo';
+						
+						return resp;
+
+     
+			}
+
+
 	}
+}
+// Fin de computeed
 
 
 	

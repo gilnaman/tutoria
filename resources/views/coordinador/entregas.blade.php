@@ -22,12 +22,14 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<table class="table table-bordered table-responsive">
+					<table class="table table-bordered table-responsive tabla-condensed table-sm">
 						<thead>
+							
 							<th hidden="">ACTA</th>
 							<th>DOCENTE</th>
 							<th>GRUPO</th>
 							<th>ASIGNATURA</th>
+							<th>STATUS</th>
 							<th>UNIDAD</th>
 							<th>TIPO</th>
 							<th>VALOR</th>
@@ -36,12 +38,20 @@
 						</thead>
 
 						<tbody>
-							<tr v-for="entrega in filtroEntregas">
+							<tr v-for="(entrega,index) in filtroEntregas" :key="index">
+							
 								<td hidden=""><small>@{{entrega.acta}}</small></td>
 								<td>@{{entrega.tratamiento}} @{{entrega.docente}}</td>
 								<td>@{{entrega.claveGrupo}}</td>
-								<td>@{{entrega.asignatura}}</td>
-								<td>@{{entrega.unidad}}</td>
+								<td>@{{entrega.asignatura}}<br>
+									<b><small>Entregó: @{{entrega.fecha_subida}} - Planeó: @{{entrega.fecha_planeada}}</small></b></td>
+
+								<td>
+									
+									<p class="label label-success" v-if="entrega.status_entrega==1">En tiempo</p>
+									<p class="label label-danger" v-else>Tarde</p>
+								</td>
+								<td>@{{entrega.unidad}} / @{{entrega.unidades_totales}}</td>
 								<td>@{{entrega.tipo_unidad}}</td>
 								<td>@{{entrega.ponderacion}} %</td>
 								<td>
@@ -71,6 +81,7 @@
 	<script src="{{asset('js/vue-resource.min.js')}}"></script>
 	<script src="{{asset('js/api/entregasCoordi.js')}}"></script>
 	<script src="{{asset('js/session.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/moment-with-locales.min.js')}}"></script>
 @endpush
 
 <input type="hidden" name="route" value="{{url('/')}}">
