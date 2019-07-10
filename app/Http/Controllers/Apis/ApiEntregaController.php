@@ -22,7 +22,7 @@ class ApiEntregaController extends Controller
         
         if ($rol=='Administrador' || $rol=='Coordinador')
         $consulta = "SELECT actas_entrega.acta,profesores.cedula,profesores.tratamiento,CONCAT(profesores.apellidop,' ',profesores.apellidom,' ', profesores.nombre) as docente,actas_entrega.fecha_subida,
-            actas_entrega.claveGrupo,actas_entrega.claveAsig,asignaturas.Nombre as asignatura,actas_entrega.clavePeriodo,actas_entrega.unidad,getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula) as unidades_totales,actas_entrega.ponderacion,
+            actas_entrega.claveGrupo,actas_entrega.claveAsig,asignaturas.Nombre as asignatura,actas_entrega.clavePeriodo,actas_entrega.unidad,getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula,actas_entrega.claveGrupo) as unidades_totales,actas_entrega.ponderacion,
             actas_entrega.tipo_unidad,actas_entrega.promedio,actas_entrega.promedio_ajustado,actas_entrega.fecha_planeada,actas_entrega.fecha_entrega,getStatusEntrega(fecha_subida,fecha_planeada) as status_entrega
             FROM ((docentesporgrupo INNER JOIN profesores on profesores.cedula=docentesporgrupo.Cedula)
             INNER JOIN actas_entrega on actas_entrega.claveAsig=docentesporgrupo.ClaveAsig)
@@ -32,7 +32,7 @@ class ApiEntregaController extends Controller
             ";
         elseif ($rol=='Profesor')
             $consulta="SELECT actas_entrega.acta,profesores.cedula,profesores.tratamiento,CONCAT(profesores.apellidop,' ',profesores.apellidom,' ', profesores.nombre) as docente,actas_entrega.fecha_subida,
-            actas_entrega.claveGrupo,actas_entrega.claveAsig,asignaturas.Nombre as asignatura,actas_entrega.clavePeriodo,actas_entrega.unidad,getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula) as unidades_totales,actas_entrega.ponderacion,
+            actas_entrega.claveGrupo,actas_entrega.claveAsig,asignaturas.Nombre as asignatura,actas_entrega.clavePeriodo,actas_entrega.unidad,getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula,actas_entrega.claveGrupo) as unidades_totales,actas_entrega.ponderacion,
             actas_entrega.tipo_unidad,actas_entrega.promedio,actas_entrega.promedio_ajustado,actas_entrega.fecha_planeada,actas_entrega.fecha_entrega,getStatusEntrega(fecha_subida,fecha_planeada) as status_entrega
 
             FROM ((docentesporgrupo INNER JOIN profesores on profesores.cedula=docentesporgrupo.Cedula)
