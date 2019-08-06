@@ -292,9 +292,7 @@ public function edit($id)
         $pdf->Cell(25,6,'TIPO DE BECA: ',1,0,'C');
         $pdf->SetFont('Arial','',6);
 
-
-
-        if($alumno->tiene_beca=='Si' && empty($alumno->beca->nombre)==false)
+        if($alumno->tiene_beca=='Si')
             $pdf->Cell(19,6,utf8_decode($alumno->beca->nombre),1,0,'C');
         else
             $pdf->Cell(19,6,'',1,0,'C');

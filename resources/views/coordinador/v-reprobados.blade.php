@@ -1,11 +1,10 @@
 @extends('layouts.coordinador')
-{{-- @section('titulo','Reprobación por grupos'); --}}
+@section('titulo','Reprobación por grupos');
 @section('contenido')
   <div id="reprobados">
-      
 
     <div class="row">
-            <titulo></titulo>
+            
             <div class="form-group">
               <label class="col-md-2">Grupo</label>
               
@@ -20,7 +19,6 @@
             {{-- <div class="col-xs-4"> --}}
                   <button class="btn btn-primary" v-on:click="getReprobadas()">Obtener datos</button>
             {{-- </div> --}}
-            
             
       </div>
       

@@ -75,13 +75,8 @@ class apiGruposController extends Controller
 
     public function listaGrupos(Request $request){
         $periodo=$request->get('periodo');
-        $idcarrera=$request->get('idcarrera');
 
-        if($idcarrera==null)
-            $grupos=DB::select("SELECT * from grupos where periodo='$periodo'");
-        else
-            $grupos=DB::select("SELECT * from grupos where periodo='$periodo' AND idcarrera='$idcarrera'");
-        // $grupos=DB::select("SELECT * from grupos where periodo='2019B'");
+        $grupos=DB::select("SELECT * from grupos where periodo='2019B'");
         return $grupos;
     }
 }

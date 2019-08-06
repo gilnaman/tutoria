@@ -1,11 +1,3 @@
-var tit='HOLA MUNDO';
-Vue.component('titulo',{
-	template:`</h1> ${this.tit} </h1>`,
-
-	data:function(){
-		return {titulo:'- REPROBACIÓN POR GRUPOS -' }
-	}
-});
 
 function init()
 {

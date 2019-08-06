@@ -45,7 +45,7 @@
               <li><a href="{{url('alumnos/cedula')}}">Perfil</a></li>
 
               <li><a href="#">Evaluacion docente</a></li>
-              <li><a href="{{url('evaldoc')}}" target="_blank">Evaluacion docente</a></li>
+              {{-- <li><a href="{{url('evaldoc')}}" target="_blank">Evaluacion docente</a></li> --}}
               
               
               {{--
