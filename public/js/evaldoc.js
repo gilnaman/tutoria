@@ -766,10 +766,10 @@ new Vue({
         		});
         	}
         	else
-        		console.log('Aun no se envia la encuesta debido a un error');
+        		alert('Aun no se envia la encuesta debido a un error, revise la sección de errores');
         } // Fin del caso, cuando no ha presentado
         else
-        	console.log('El alumno ya presentó el examen')
+        	alert('El alumno ya presentó la evaluación');
         }, // Fin del método enviar respuestas
 
 
