@@ -37,9 +37,10 @@ new Vue({
 				this.grupos=response.data;
 				console.log(response.data);
 			});
+		},
 
-		}
-	},
+		
+	}, 	// Fin de methods
 
 	
 })

@@ -313,6 +313,24 @@ Route::get('grupo',function(){
 });
 
 Route::get('prueba',function(){
-    return view('coordinador.resumenvue');
+    return view('tutor.tutoria_individual');
 });
 
+// RUTAS DE PRUEBA DIRECTOR
+
+Route::get('director',function(){
+    return view('director.index');
+});
+
+Route::get('grupos',function(){
+    return view('director.grupos');
+});
+
+Route::apiResource('apiAuto','AutoController');
+
+Route::get('autos',function(){
+    return view('autos');
+});
+
+
+Route::apiResource('apiMascota','ApiMascotaController');

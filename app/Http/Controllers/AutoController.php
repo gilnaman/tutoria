@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Apis;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Grupo;
-use DB;
-use Session;
+// Hago referencia a un modelo
+use App\Auto;
 
-class apiGruposController extends Controller
+class AutoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,10 @@ class apiGruposController extends Controller
      */
     public function index()
     {
-         return Grupo::all();
+        $autos=Auto::all();
+
+        return $autos;
+        
     }
 
     /**
@@ -28,7 +29,7 @@ class apiGruposController extends Controller
      */
     public function store(Request $request)
     {
-       
+        
     }
 
     /**
@@ -39,15 +40,8 @@ class apiGruposController extends Controller
      */
     public function show($id)
     {
-        $periodo=Session::get('periodo');
-
-        $grupos= DB::table('grupos')
-        ->where('periodo','=',$periodo)
-        ->where('idcarrera','=',$id)
-        ->get();
-        return $grupos;
-
-
+        $auto=Auto::find($id);
+        return $auto;
     }
 
     /**
@@ -59,7 +53,16 @@ class apiGruposController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Localizando el RECURSO(auto) que se va modificar
+        $auto=Auto::find($id);
+
+        $auto->modelo=$request->get('modelo');
+        $auto->precio=$request->get('precio');
+
+        $auto->update();
+
+
+
     }
 
     /**
@@ -71,17 +74,6 @@ class apiGruposController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function listaGrupos(Request $request){
-        $periodo=$request->get('periodo');
-        $idcarrera=$request->get('idcarrera');
-
-        if($idcarrera==null)
-            $grupos=DB::select("SELECT * from grupos where periodo='$periodo'");
-        else
-            $grupos=DB::select("SELECT * from grupos where periodo='$periodo' AND idcarrera='$idcarrera'");
-        // $grupos=DB::select("SELECT * from grupos where periodo='2019B'");
-        return $grupos;
+        return Auto::destroy($id);
     }
 }
