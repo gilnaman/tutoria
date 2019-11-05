@@ -20,6 +20,10 @@ Route::get('foto',function(){
 	return view('alumnos.prueba');
 });
 
+Route::get('pase',function(){
+    return view('profesor.paselista');
+});
+
 // ZONA TUTOR 
 
 Route::prefix('tutor')->group(function () {
@@ -173,7 +177,7 @@ Route::apiResource('apiRespuestas','apiRespController');
 Route::apiResource('apiCargas','ApiAsigsPorGrupo');
 Route::apiResource('apiPonderacion','Apis\ApiPonderacionController');
 Route::apiResource('apiCarrera','ApiCarreraController');
-Route::apiResource('apiGrupo','Apis\ApiGruposController');
+Route::apiResource('apiGrupo','Apis\apiGruposController');
 Route::apiResource('apiEntregas','Apis\ApiEntregaController');
 Route::apiResource('apiActa','ActaEntregaController');
 Route::apiResource('apiSangre','Apis\ApiSangreController');
@@ -292,6 +296,11 @@ Route::get('profesor/cargas',function(){
 	return view('profesor.cargas');
 });
 
+Route::get('profesor/entregas',function(){
+    return view('profesor.entregas');
+});
+
+
 
 
 Route::get('listaCo','CoordinadorController@index');
@@ -316,3 +325,7 @@ Route::get('prueba',function(){
     return view('coordinador.resumenvue');
 });
 
+Route::get('reporteReprobados/{grupo}/{periodo?}', [
+    'as' => 'reporteReprobados',
+    'uses' => 'Apis\ApiTutoriaController@reporteReprobados',
+]);

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
 use DB;
+use Codedge\Fpdf\Fpdf\Fpdf;
+use Carbon\Carbon;
+use DateTime;
 class ApiTutoriaController extends Controller
 {
     /**
@@ -69,7 +72,7 @@ class ApiTutoriaController extends Controller
      
             // $grupo=$request->get('grupo');
         
-            // $periodo = $request->get('periodo');
+             $periodo = Session::get('periodo');
 
         
 
@@ -87,9 +90,180 @@ class ApiTutoriaController extends Controller
         return $reprobados;
     }
 
+    public function reporteReprobados($grupo,$periodo)
+    {
+     
+            // ('grupo');
+        
+            //  $periodo = Session::get('periodo');
+
+            // $grupo='TTD-3A';
+            // $periodo='2019B';
+        
+
+        $reprobados = DB::select("SELECT alumnos.matricula,concat(alumnos.apellidop,' ',alumnos.apellidom,' ',alumnos.nombre) as 'alumno',
+            getReprobadas(alumnos.matricula,1,'$periodo','$grupo') as u1,
+            getReprobadas(alumnos.matricula,2,'$periodo','$grupo') as u2,
+            getReprobadas(alumnos.matricula,3,'$periodo','$grupo') as u3,
+            getReprobadas(alumnos.matricula,4,'$periodo','$grupo') as u4,
+            getReprobadas(alumnos.matricula,5,'$periodo','$grupo') as u5,
+            getReprobadas(alumnos.matricula,6,'$periodo','$grupo') as u6
+            FROM alumnos INNER JOIN alumnos_grupo ON alumnos.matricula=alumnos_grupo.matricula
+            WHERE alumnos_grupo.periodo='$periodo' AND alumnos_grupo.clave_grupo='$grupo'
+            ORDER BY alumnos.apellidop ASC,alumnos.apellidom ASC");
+
+        // return $reprobados;
+
+          // $pdf = new FPDF('L', 'mm', 'A4'); 
+        $pdf = new FPDF('P', 'mm', 'A4'); 
+        $pdf->AddPage();
+        $pdf->SetXY(10,10);
+    $pdf-> Image(public_path().'/imagenes/logos/logo.png', 25, 8, 30);
+    $pdf->SetFont('Arial','B', 11);
+    $pdf->Cell(188,4,utf8_decode('UNIVERSIDAD TECNOLÓGICA DEL CENTRO'),0,1,'C');
+    $pdf->SetFont('Arial','B', 9);
+    $pdf->Cell(188,4,'DEPARTAMENTO DE TUTORIAS',0,1,'C');
+    $pdf->SetFont('Arial','B', 7);
+    $pdf->Cell(188,4,'RESUMEN DE REPROBADOS POR UNIDAD',0,1,'C');
+    $pdf->Ln(10);
+
+    $now = Carbon::now();
+    // $now = $date->format('d-m-Y');
+    // $now = new DateTime(); 
+    $pdf->Cell(188,5,$now,0,1,'R');
+    $pdf->SetFillColor(255,214,10);
+    $pdf->Cell(8,3.4,utf8_decode('N°'),1,0,'C',1);
+    $pdf->Cell(20,3.4,utf8_decode('Matrícula'),1,0,'C',1);
+    $pdf->Cell(60,3.4,utf8_decode('Alumno'),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode('U1'),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode('U2'),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode('U3'),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode('U4'),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode('U5'),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode('U6'),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode('TOTAL'),1,1,'C',1);
+
+    $no=0;
+    $sumU1=0;
+    $sumU2=0;
+    $sumU3=0;
+    $sumU4=0;
+    $sumU5=0;
+    $sumU6=0;
+    $sumTotal=0;
+    $pdf->SetFont('Arial','', 7);
+    foreach ($reprobados as $repro) {
+        $no++;
+        $total= $repro->u1 + $repro->u2 + $repro->u3 + $repro->u4 + $repro->u5 + $repro->u6;
+        $sumTotal=$sumTotal+$total;
+        $sumU1=$sumU1+$repro->u1;
+        $sumU2=$sumU2+$repro->u2;
+        $sumU3=$sumU3+$repro->u3;
+        $sumU4=$sumU4+$repro->u4;
+        $sumU5=$sumU5+$repro->u5;
+        $sumU6=$sumU6+$repro->u6;
+
+        $pdf->Cell(8,3.4,utf8_decode($no),1,0,'C');
+        $pdf->Cell(20,3.4,utf8_decode($repro->matricula),1,0,'C');
+        $pdf->Cell(60,3.4,utf8_decode($repro->alumno),1,0,'L');
+        $pdf->Cell(10,3.4,utf8_decode($repro->u1),1,0,'C');
+        $pdf->Cell(10,3.4,utf8_decode($repro->u2),1,0,'C');
+        $pdf->Cell(10,3.4,utf8_decode($repro->u3),1,0,'C');
+        $pdf->Cell(10,3.4,utf8_decode($repro->u4),1,0,'C');
+        $pdf->Cell(10,3.4,utf8_decode($repro->u5),1,0,'C');
+        $pdf->Cell(10,3.4,utf8_decode($repro->u6),1,0,'C');
+        $pdf->Cell(10,3.4,utf8_decode($total),1,1,'C');
+    }
+
+    $pdf->SetFont('Arial','B', 7);
+    $pdf->Cell(88,3.4,utf8_decode('TOTALES'),1,0,'R');
+    $pdf->SetFillColor(255,214,10);
+    $pdf->Cell(10,3.4,utf8_decode($sumU1),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode($sumU2),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode($sumU3),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode($sumU4),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode($sumU5),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode($sumU6),1,0,'C',1);
+    $pdf->Cell(10,3.4,utf8_decode($sumTotal),1,1,'C',1);
+
+    $pdf->SetFont('Arial','', 7);
+
+    $pdf->Ln(10);
+
+    $pdf->SetFont('Arial','B', 7);
+    $pdf->Cell(188,4,'DETALLE DE REPROBADOS POR UNIDAD',0,1,'C');
+      $pdf->Ln(8);
+
+
+    // LISTA DE REPROBADOS
+
+    $listado = DB::select("SELECT det.claveGrupo,
+        alumnos.matricula,
+        concat(alumnos.apellidop, ' ',alumnos.apellidom,' ',alumnos.nombre) as alumno, 
+        det.claveAsig,asignaturas.Nombre as asignatura,
+        concat(profesores.tratamiento,' ',profesores.apellidop, ' ',profesores.apellidom,' ',profesores.nombre) as profesor,act.unidad,
+        act.tipo_unidad,act.ponderacion,det.calificacion,det.inasistencia
+    FROM (((detalles_entrega as det INNER JOIN actas_entrega as act 
+    ON act.acta=det.acta)) INNER JOIN asignaturas ON asignaturas.ClaveAsig=det.claveAsig
+    INNER JOIN alumnos ON alumnos.matricula=det.matricula) INNER JOIN profesores ON profesores.cedula=act.cedula
+    WHERE act.clavePeriodo='$periodo' AND det.calificacion<8
+    AND act.claveGrupo='$grupo' 
+    ORDER BY alumno ASC");
+
+    // AND act.tipo_unidad='I'
+
+    // return $listado;
+    // $pdf->SetFillColor(206,250,0);
+
+    $pdf->SetFillColor(255,214,10);
+    $pdf->SetFont('Arial','B',7);
+     
+    $pdf->Cell(8,3.4,utf8_decode('N°'),1,0,'C',1);
+    $pdf->Cell(20,3.4,utf8_decode('Matrícula'),1,0,'C',1);
+    $pdf->Cell(50,3.4,utf8_decode('Alumno'),1,0,'C',1);
+    $pdf->Cell(60,3.4,utf8_decode('Asignatura'),1,0,'C',1);
+    $pdf->Cell(8,3.4,utf8_decode('Uni'),1,0,'C',1);
+    $pdf->Cell(8,3.4,utf8_decode('Tipo'),1,0,'C',1);
+    $pdf->Cell(8,3.4,utf8_decode('Pond.'),1,0,'C',1);
+    $pdf->Cell(8,3.4,utf8_decode('Cal.'),1,0,'C',1);
+    $pdf->Cell(8,3.4,utf8_decode('Ina'),1,1,'C',1);
+
+    $pdf->SetFont('Arial','', 7);
+
+    $no2=0;
+    foreach ($listado as $lista) {
+        $no2++;
+        
+
+        if ($lista->tipo_unidad=='C')
+            $pdf->SetFillColor(255,255,255);
+        else
+            $pdf->SetFillColor(249,177,177);
+        
+
+            $pdf->Cell(8,3.4,utf8_decode($no2),1,0,'C',1);
+            $pdf->Cell(20,3.4,utf8_decode($lista->matricula),1,0,'C',1);
+            $pdf->Cell(50,3.4,utf8_decode($lista->alumno),1,0,'L',1);
+            $pdf->Cell(60,3.4,utf8_decode($lista->asignatura),1,0,'L',1);
+            $pdf->Cell(8,3.4,utf8_decode($lista->unidad),1,0,'C',1);
+            $pdf->Cell(8,3.4,utf8_decode($lista->tipo_unidad),1,0,'C',1);
+            $pdf->Cell(8,3.4,utf8_decode($lista->ponderacion),1,0,'C',1);
+            $pdf->Cell(8,3.4,utf8_decode($lista->calificacion),1,0,'C',1);
+            $pdf->Cell(8,3.4,utf8_decode($lista->inasistencia),1,1,'C',1);
+        
+    }
+    $pdf->output('I','Reprobados-'.$grupo);
+    exit;
+
+
+
+
+    }
+
     public function reproPorAlumno($matricula,$periodo='2019B'){
 
-        $reprobadas=DB::select("SELECT asignaturas.ClaveAsig,
+        $periodo = Session::get('periodo');
+        $reprobados=DB::select("SELECT asignaturas.ClaveAsig,
                         asignaturas.Nombre as asignatura,
                         concat(profesores.tratamiento,' ',profesores.apellidop,' ',profesores.apellidom,' ',profesores.nombre) as profesor,
                         det.unidad,
@@ -104,7 +278,7 @@ class ApiTutoriaController extends Controller
                         WHERE det.matricula='$matricula'  AND 
                               actas_entrega.clavePeriodo='$periodo' and det.calificacion<7
                         ORDER BY asignaturas.Nombre asc,det.unidad asc");
-        return $reprobadas;
+        return $reprobados;
     }
 
 
@@ -209,4 +383,8 @@ class ApiTutoriaController extends Controller
         //endforeach
 
     }
+
+
+
+
 }

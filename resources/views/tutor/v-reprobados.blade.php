@@ -7,7 +7,11 @@
                @{{grupo="{!!Session::get('grupo')!!}"}}
             </div>
             <div class="box-header">
-              <h3 class="box-title">Reprobados por unidad</h3>
+              <h3 class="box-title">Reprobados por unidad  </h3> 
+              
+              <a href="../reporteReprobados/{{ Session::get('grupo')}}/{{Session::get('periodo')}}" class="btn btn-danger" target="_blank">Obtener Informe</a>
+
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
