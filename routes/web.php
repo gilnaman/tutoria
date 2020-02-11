@@ -35,6 +35,8 @@ Route::prefix('tutor')->group(function () {
     Route::get('repro',function(){
         return view('tutor.v-reprobados');
     });
+
+    Route::view('eventos','tutor.eventos');
     // Route::get('repro','TutoriaController@reprobados');
     Route::get('avance','TutoriaController@avance');
 
@@ -71,6 +73,8 @@ Route::prefix('coordinador')->group(function(){
     return view('coordinador.v-reprobados');
    });
 
+   Route::view('evento','coordinador.eventos');
+
    // Route::get('dash','CoordinadorController@promediosjs');
    // Route::get('dash',function(){
    //      // return view('coordinador.resumenvue');
@@ -95,6 +99,7 @@ Route::get('vrepro/{grupo}/{periodo?}', [
 ]);
 
 Route::post('listaGrupos','Apis\apiGruposController@listaGrupos');
+Route::get('getGrupos','Apis\apiGruposController@getGrupos');
 
 
 
@@ -117,6 +122,10 @@ Route::get('servicios',function(){
 
 Route::get('servicios/alumnado',function(){
     return view('servicios.alumnado');
+});
+
+Route::get('servicios/alumnadogral',function(){
+  return view('servicios.alumnadogral');
 });
 
 
@@ -188,6 +197,8 @@ Route::apiResource('apiPeriodo','Apis\ApiPeriodoController');
 Route::apiResource('apiProfesor','Apis\ApiProfesorController');
 Route::apiResource('apiEscuela','Apis\ApiEscuelaProcedenciaController');
 Route::apiResource('apiCedula','Apis\ApiCedulaController');
+Route::apiResource('apiTipoEvento','ApiTipoEventoController');
+Route::apiResource('apiEvento','Apis\ApiEventoController');
 
 
 
@@ -313,12 +324,13 @@ Route::get('export', 'ExcelController@export')->name('export');
 Route::get('importExcel', 'ExcelController@importExportView');
 Route::post('import', 'ExcelController@importExcel')->name('import');
 Route::get('acuse','Profesor\AcuseController@acuse');
+Route::get('getEventosTutor','Apis\ApiTutoriaController@getEventosTutor');
 
 
 //route::get('boleta','AlumnosController@boleta'); Se parametrizó
 
 Route::get('grupo',function(){
-    return view('grupos.grupos');
+    return view('director.grupos');
 });
 
 Route::get('prueba',function(){

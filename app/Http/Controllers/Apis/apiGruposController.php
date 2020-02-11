@@ -17,7 +17,7 @@ class apiGruposController extends Controller
      */
     public function index()
     {
-         return Grupo::all();
+         return Grupo::where('periodo','=','2020A')->get();
     }
 
     /**
@@ -39,7 +39,8 @@ class apiGruposController extends Controller
      */
     public function show($id)
     {
-        $periodo=Session::get('periodo');
+        // $periodo=Session::get('periodo');
+        $periodo='2020A';
 
         $grupos= DB::table('grupos')
         ->where('periodo','=',$periodo)
@@ -75,8 +76,16 @@ class apiGruposController extends Controller
 
     public function listaGrupos(Request $request){
         $periodo=$request->get('periodo');
+        return $periodo;
+        $grupos=DB::select("SELECT * from grupos where periodo='$periodo'");
+        return $grupos;
+    }
 
-        $grupos=DB::select("SELECT * from grupos where periodo='2019B'");
+
+     public function getGrupos(){
+        $periodo=Session::get('periodo');
+        // return $periodo;
+        $grupos=DB::select("SELECT * from grupos where periodo='$periodo'");
         return $grupos;
     }
 }

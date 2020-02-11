@@ -64,11 +64,13 @@ new Vue({
 		},
 
 
+	},
+
 	totalAlumnos:function(){
-			return	this.alumnos.length;
+			return	this.alumnos.length();
 	}
 
-	}, 	// Fin de computed
+	// Fin de computed
 
 	
 })

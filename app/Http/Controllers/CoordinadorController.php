@@ -32,7 +32,7 @@ class CoordinadorController extends Controller
 
     	 $alumnos = DB::Select("SELECT alumnos.matricula,alumnos.apellidop,alumnos.apellidom,alumnos.nombre
             FROM alumnos INNER JOIN alumnos_grupo on alumnos.matricula=alumnos_grupo.matricula
-            WHERE alumnos_grupo.periodo='2019B' and alumnos_grupo.clave_grupo='$id'
+            WHERE alumnos_grupo.periodo='2020A' and alumnos_grupo.clave_grupo='$id'
             ORDER BY alumnos.apellidop ASC");
 
 
@@ -79,7 +79,7 @@ class CoordinadorController extends Controller
 	    $pdf->Cell(64.5,4,'GRUPO: ',0,0,'R');
 	    $pdf->Cell(20,4,$id,'B',0,'C');
 	    $pdf->Cell(54.5,4,'PERIODO: ',0,0,'R');
-	    $pdf->Cell(30,4,'ENERO-ABRIL 2019','B',1,'C');
+	    $pdf->Cell(30,4,'SEPT-DIC 2019','B',1,'C');
 
 	    $pdf->SetXY(10,35);
 	    $pdf->SetFont('Arial','B',9); 
@@ -90,35 +90,35 @@ class CoordinadorController extends Controller
 	    $pdf->SetFillColor(216,216,216);
 	    $pdf->SetFont('Arial','B',7);
 	    $pdf->Cell(5.5);
-	    $pdf->Cell(5,3.5,utf8_decode('N°'),1,0,'C',1);
-	    $pdf->Cell(20,3.5,utf8_decode('MATRÍCULA'),1,0,'C',1);
-	    $pdf->Cell(72,3.5,'NOMBRE',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,0,'C',1);
-	    $pdf->Cell(6.5,3.5,'',1,1,'C',1);
+	    $pdf->Cell(5,3.4,utf8_decode('N°'),1,0,'C',1);
+	    $pdf->Cell(20,3.4,utf8_decode('MATRÍCULA'),1,0,'C',1);
+	    $pdf->Cell(72,3.4,'NOMBRE',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,0,'C',1);
+	    $pdf->Cell(6.5,3.4,'',1,1,'C',1);
 
 	    //$resultado = mysql_query("SELECT * FROM lista");
 
@@ -134,39 +134,39 @@ class CoordinadorController extends Controller
 	            //$nombre_alumno = "$alumno->apellidop $alumno->apellidom $alumno->nombre";
 	            $pdf->Cell(5.5);
 	            $pdf->SetFont('Arial','B',7);
-	            $pdf->Cell(5,3.5,$ix,1,0,'C');
+	            $pdf->Cell(5,3.4,$ix,1,0,'C');
 	            $pdf->SetFont('Arial','',7);
-	            $pdf->Cell(20,3.5,$alumno->matricula,1,0,'C');
-	            $pdf->Cell(72,3.5,utf8_decode("$alumno->apellidop $alumno->apellidom $alumno->nombre"),1,0,'L');
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1);
-	            $pdf->Cell(6.5,3.5,'',1,1);
+	            $pdf->Cell(20,3.4,$alumno->matricula,1,0,'C');
+	            $pdf->Cell(72,3.4,utf8_decode("$alumno->apellidop $alumno->apellidom $alumno->nombre"),1,0,'L');
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1);
+	            $pdf->Cell(6.5,3.4,'',1,1);
 	        }
 	        
-	        while($ix < 30)
+	        while($ix < 40)
 	        {
 	            $ix = $ix+1;
 	            $pdf->Cell(5.5);

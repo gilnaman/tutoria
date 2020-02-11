@@ -118,7 +118,7 @@ class ApiJustificacionController extends Controller
 
     {
         $justifica = Justificacion::find($folio);
-        $fechas=DB::table('Detalle_Justificaciones')
+        $fechas=DB::table('detalle_justificaciones')
         ->where('folio','=',$folio)
         ->OrderBy('fecha','ASC')
         ->get();

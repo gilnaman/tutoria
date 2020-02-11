@@ -33,7 +33,7 @@ new Vue({
 		grupos:[],
 		matriculaSel:'',
 		alumnoSel:'',
-		periodo:'2019C',
+		periodo:'2019B',
 		grupo:'',
 	},
 

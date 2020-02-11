@@ -39,9 +39,9 @@ class ApiPonderacionController extends Controller
 
         for ($i=0; $i <count($tipos) ; $i++) { 
             $records[] = [
-                    'id_ponderacion'=>$request['idperiodo'].'-'.$request['clavegrupo'].'-'.$request['idasignatura'].'-'. $request['cedula'].'-'.$unidades[$i],
+                    'id_ponderacion'=>'2019C'.'-'.$request['clavegrupo'].'-'.$request['idasignatura'].'-'. $request['cedula'].'-'.$unidades[$i],
                     'idasignatura' => $request['idasignatura'],
-                    'idperiodo' => $request['idperiodo'],
+                    'idperiodo' => '2019C',
                     'clavegrupo'=>$request['clavegrupo'],
                     'cedula' => $request['cedula'],
                     'unidad' =>$unidades[$i],

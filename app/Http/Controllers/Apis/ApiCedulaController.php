@@ -59,7 +59,9 @@ class ApiCedulaController extends Controller
             $alumno->foto=$matricula.'.jpg';
         }
    
-
+        $alumno->gradoactual=$request->get('gradoactual');
+        $alumno->grupoactual=$request->get('grupoactual');
+        $alumno->id_escuela=$request->get('id_escuela');
         $alumno->curp=$request->get('curp');
         $alumno->email=$request->get('email');
         $alumno->celular=$request->get('celular');

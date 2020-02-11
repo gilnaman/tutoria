@@ -37,10 +37,13 @@ class AvanceController extends Controller
         GetUnidadesEntregadasPorMateria ('$periodo', '$grupo', Asig.ClaveAsig) AS entregadas,
         GetUnidadesAcumuladaEntregadasPorMateria ('$periodo', '$grupo', Asig.ClaveAsig) AS 'avance',
         profesores.cedula,concat(profesores.apellidop,' ',profesores.apellidom,' ',profesores.nombre) as docente,profesores.tratamiento
-        from (docentesporgrupo as Asig INNER JOIN profesores on profesores.cedula=Asig.Cedula)
+        FROM (docentesporgrupo as Asig INNER JOIN profesores on profesores.cedula=Asig.Cedula)
         INNER JOIN asignaturas on asignaturas.ClaveAsig=Asig.ClaveAsig
-        WHEre asignaturas.idCarrera='$carrera' AND asignaturas.Cuatrimestre=$grado AND asignaturas.id_plan='$getPlan' AND
-Asig.ClaveGrupo='$grupo'");
+        WHERE asignaturas.idCarrera='$carrera' 
+        AND asignaturas.Cuatrimestre=$grado 
+        AND asignaturas.id_plan='$getPlan' 
+        AND Asig.ClaveGrupo='$grupo'
+        AND Asig.periodo='$periodo'");
 
 
        //return $grupo;

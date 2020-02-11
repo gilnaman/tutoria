@@ -19,6 +19,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('adminlte/css/font-awesome.min.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{asset('adminlte/Ionicons/css/ionicons.min.css')}}">
+
+  <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminlte/css/AdminLTE.min.css')}}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -299,12 +301,18 @@ desired effect
         </li>
          --}}
         <li>
-          <a href="{{url('coordinador/index')}}"><i class="fa fa-link"></i> Listas de asistencia<span></span></a>
+          <a href="{{url('coordinador/index')}}"><i class="fa fa-calendar-check-o"></i> Listas de asistencia<span></span></a>
           {{-- <a href="{{url('resumenGrupo')}}"><i class="fa fa-link"></i> Estadisticas<span></span></a>
  --}}
+          </li>
+          <li>
+            <a href="{{url('coordinador/entregas')}}"><i class="fa fa-cloud-upload"></i> Control de entregas<span></span></a>
+          </li>
 
-          <a href="{{url('coordinador/entregas')}}"><i class="fa fa-link"></i> Control de entregas<span></span></a>
-        </li>
+          <li>
+          <a href="{{url('coordinador/evento')}}"><i class="fa fa-mortar-board"></i> Eventos<span></span></a>
+          </li>
+        
         
           <li class="treeview">
           <a href="#"><i class="fa fa-area-chart"></i> <span>Estadisticas</span>

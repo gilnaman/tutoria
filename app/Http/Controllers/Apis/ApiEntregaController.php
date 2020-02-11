@@ -21,29 +21,52 @@ class ApiEntregaController extends Controller
         //return $cedula;
         
         if ($rol=='Administrador' || $rol=='Coordinador')
-        $consulta = "SELECT actas_entrega.acta,profesores.cedula,profesores.tratamiento,CONCAT(profesores.apellidop,' ',profesores.apellidom,' ', profesores.nombre) as docente,actas_entrega.fecha_subida,
-            actas_entrega.claveGrupo,actas_entrega.claveAsig,asignaturas.Nombre as asignatura,actas_entrega.clavePeriodo,actas_entrega.unidad,getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula,actas_entrega.claveGrupo) as unidades_totales,actas_entrega.ponderacion,
-            actas_entrega.tipo_unidad,actas_entrega.promedio,actas_entrega.promedio_ajustado,actas_entrega.fecha_planeada,actas_entrega.fecha_entrega,getStatusEntrega(fecha_subida,fecha_planeada) as status_entrega
-            FROM ((docentesporgrupo INNER JOIN profesores on profesores.cedula=docentesporgrupo.Cedula)
-            INNER JOIN actas_entrega on actas_entrega.claveAsig=docentesporgrupo.ClaveAsig)
-            INNER JOIN asignaturas ON asignaturas.ClaveAsig=actas_entrega.claveAsig
-            WHERE Periodo='$periodo' AND docentesporgrupo.ClaveGrupo=actas_entrega.claveGrupo
-            ORDER BY Docente ASC,actas_entrega.claveGrupo ASC,asignaturas.Nombre ASC,actas_entrega.unidad ASC
-            ";
+        $consulta = "SELECT actas_entrega.acta,
+        CONCAT(profesores.apellidop,' ',profesores.apellidom,' ', profesores.nombre) as docente,
+        actas_entrega.fecha_subida,
+        actas_entrega.claveGrupo,
+        actas_entrega.claveAsig,
+        asignaturas.Nombre as asignatura,
+        actas_entrega.clavePeriodo,
+        actas_entrega.unidad,
+        getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula,actas_entrega.claveGrupo) as unidades_totales,
+        actas_entrega.ponderacion,
+        actas_entrega.tipo_unidad,
+        actas_entrega.promedio,
+        actas_entrega.promedio_ajustado,
+        actas_entrega.fecha_planeada,
+        actas_entrega.fecha_entrega,
+        getStatusEntrega(fecha_subida,fecha_planeada) as status_entrega
+        FROM (actas_entrega INNER JOIN asignaturas ON asignaturas.ClaveAsig=actas_entrega.claveAsig)
+        INNER JOIN profesores ON profesores.cedula=actas_entrega.cedula
+        WHERE left(actas_entrega.acta,5)='$periodo' 
+        ORDER BY Docente ASC,actas_entrega.claveGrupo ASC,asignaturas.Nombre ASC,actas_entrega.unidad ASC";
+
         elseif ($rol=='Profesor')
-            $consulta="SELECT actas_entrega.acta,profesores.cedula,profesores.tratamiento,CONCAT(profesores.apellidop,' ',profesores.apellidom,' ', profesores.nombre) as docente,actas_entrega.fecha_subida,
-            actas_entrega.claveGrupo,actas_entrega.claveAsig,asignaturas.Nombre as asignatura,actas_entrega.clavePeriodo,actas_entrega.unidad,getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula,actas_entrega.claveGrupo) as unidades_totales,actas_entrega.ponderacion,
-            actas_entrega.tipo_unidad,actas_entrega.promedio,actas_entrega.promedio_ajustado,actas_entrega.fecha_planeada,actas_entrega.fecha_entrega,getStatusEntrega(fecha_subida,fecha_planeada) as status_entrega
-
-            FROM ((docentesporgrupo INNER JOIN profesores on profesores.cedula=docentesporgrupo.Cedula)
-            INNER JOIN actas_entrega on actas_entrega.claveAsig=docentesporgrupo.ClaveAsig)
+            $consulta="SELECT actas_entrega.acta,
+            profesores.cedula,
+            profesores.tratamiento,
+            CONCAT(profesores.apellidop,' ',profesores.apellidom,' ', profesores.nombre) as docente,
+            actas_entrega.fecha_subida,
+            actas_entrega.claveGrupo,
+            actas_entrega.claveAsig,
+            asignaturas.Nombre as asignatura,
+            actas_entrega.clavePeriodo,
+            actas_entrega.unidad,
+            getUnidadesTotales('$periodo',actas_entrega.ClaveAsig,actas_entrega.cedula,actas_entrega.claveGrupo) as unidades_totales,
+            actas_entrega.ponderacion,
+            actas_entrega.tipo_unidad,
+            actas_entrega.promedio,
+            actas_entrega.promedio_ajustado,
+            actas_entrega.fecha_planeada,
+            actas_entrega.fecha_entrega,
+            getStatusEntrega(fecha_subida,fecha_planeada) as status_entrega
+            FROM (actas_entrega INNER JOIN profesores on actas_entrega.cedula=profesores.cedula)
             INNER JOIN asignaturas ON asignaturas.ClaveAsig=actas_entrega.claveAsig
-            WHERE Periodo='$periodo' AND docentesporgrupo.ClaveGrupo=actas_entrega.claveGrupo
-            AND profesores.cedula='$cedula'
-            ORDER BY Docente ASC,actas_entrega.claveGrupo ASC,asignaturas.Nombre ASC,actas_entrega.unidad ASC
-            ";
+            WHERE actas_entrega.clavePeriodo='$periodo'
+            AND profesores.cedula='$cedula'";
 
-            
+        //return $consulta;
 
         $entregas=DB::select($consulta);
         //return $consulta;

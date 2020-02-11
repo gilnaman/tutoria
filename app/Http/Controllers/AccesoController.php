@@ -107,7 +107,7 @@ class AccesoController extends Controller
 	 				// $periodo->claveperiodo
 
 	 				$migrupo=DB::select("SELECT clave_grupo from alumnos_grupo
-										WHERE matricula='$login' and periodo='2019B'");
+										WHERE matricula='$login' and periodo='2019C'");
 	 				// return $migrupo[0]->clave_grupo;
 
 	 				Session::put('grupo',$migrupo[0]->clave_grupo);

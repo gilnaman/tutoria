@@ -643,7 +643,8 @@ class TutoriaController extends Controller
             Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,5),1) as U5,
             Round(getPromedioPorAsig('$periodo','$grupo',carga.ClaveAsig,6),1) as U6
             From docentesporgrupo as carga INNER JOIN asignaturas on asignaturas.ClaveAsig=carga.ClaveAsig
-            WHERE carga.ClaveGrupo='$grupo'");
+            WHERE carga.ClaveGrupo='$grupo' 
+            AND carga.periodo='$periodo'");
 
         
 

@@ -40,26 +40,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
  --}}
       @stack('headers')
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="hold-transition skin-yellow sidebar-mini">
   
 <div class="wrapper">
@@ -307,7 +287,7 @@ desired effect
           </li>
 
           <li>
-          <a href="#"><i class="fa fa-calendar-check-o"></i> Unidades entregadas<span></span></a>
+          <a href="{{url('profesor/entregas')}}"><i class="fa fa-calendar-check-o"></i> Unidades entregadas<span></span></a>
        </li>
         
         {{-- <li class="treeview">

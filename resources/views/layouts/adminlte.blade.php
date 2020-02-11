@@ -302,6 +302,8 @@ desired effect
 
          <li><a href="{{ url('tutor/justifica') }}"><i class="fa fa-bed"></i> <span>Justificaciones</span></a></li>
 
+           <li><a href="{{ url('tutor/eventos') }}"><i class="fa fa-mortar-board"></i> <span>Eventos</span></a></li>
+
         
        
         <li class="treeview">

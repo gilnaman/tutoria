@@ -72,35 +72,31 @@ class ApiResumenController extends Controller
 
 
 
-        $becas=DB::select("SELECT Count(*) as becados
-                    from alumnos inner join grupos 
-                    on grupos.clavegrupo=alumnos.grupoactual
-                    where alumnos.tipo_beca<>'' 
-                    and alumnos.grupoactual='$grupo' 
-                    and alumnos.tiene_beca='Si' 
-                    and grupos.periodo='$periodo'" );
+        $becas=DB::select("SELECT Count(alumnos.tiene_beca) as becados
+            FROM alumnos INNER JOIN alumnos_grupo ON alumnos_grupo.matricula=alumnos.matricula
+            WHERE NOT ISNULL(alumnos.id_beca)
+            AND alumnos_grupo.clave_grupo='$grupo' 
+            AND alumnos.tiene_beca='Si' 
+            AND alumnos_grupo.periodo='$periodo'" );
 
-         $villas=DB::select("SELECT Count(*) as villas
-                from alumnos inner join grupos 
-                on grupos.clavegrupo=alumnos.grupoactual
-                where alumnos.id_villa <> '' 
-                and alumnos.grupoactual='$grupo' 
-                and grupos.periodo='$periodo'");
+         $villas=DB::select("SELECT count(alumnos.tiene_villa) as villas
+            FROM alumnos INNER JOIN alumnos_grupo ON alumnos.matricula=alumnos_grupo.matricula
+            WHERE NOT ISNULL(alumnos.id_villa) AND id_villa<>0
+            AND alumnos_grupo.clave_grupo='$grupo' 
+            AND alumnos_grupo.periodo='$periodo'");
 
          
-         //return  $villas;
+         $justificaciones=DB::select("SELECT COUNT(folio) as justificaciones
+            FROM justificaciones
+            WHERE periodo='$periodo' AND grupo='$grupo'
+            AND cancelado=0");
          
-         foreach ($becas as $beca) {
-             $bec= $beca->becados;
-         }
-         
-        foreach ($villas as $villa) {
-             $vill= $villa->villas;
-         }
+        
      
         return response()->json([
-                    "becados" => $bec,
-                    "villas" => $vill
+                    "becados" => $becas[0]->becados,
+                    "villas" => $villas[0]->villas,
+                    "justificaciones"=>$justificaciones[0]->justificaciones
                  ]);
     }
 
@@ -109,11 +105,13 @@ class ApiResumenController extends Controller
         $grupo=Session::get('grupo');
         $periodo=Session::get('periodo');
 
-        $listaBecados=DB::select("SELECT A.tipo_beca,A.matricula,
-                    Concat(A.apellidop,' ',A.apellidom,' ',A.nombre) as alumno
-                    FROM alumnos as A INNER JOIN grupos on grupos.clavegrupo=A.grupoactual
-                    WHERE grupoactual='$grupo' and tiene_beca='Si' AND grupos.periodo='$periodo'
-                    ORDER BY A.tipo_beca DESC, A.apellidop ASC");
+        $listaBecados=DB::select("SELECT UCASE(becas.nombre) as tipo_beca,A.matricula,Concat(A.apellidop,' ',A.apellidom,' ',A.nombre) AS alumno
+            FROM    (alumnos AS A INNER JOIN alumnos_grupo ON alumnos_grupo.matricula = A.matricula)
+            INNER JOIN becas ON becas.id_beca=A.id_beca
+            WHERE alumnos_grupo.clave_grupo = '$grupo'
+            AND NOT ISNULL(tiene_beca)
+            AND alumnos_grupo.periodo = '$periodo'
+            ORDER BY becas.nombre DESC, A.apellidop ASC");
 
         return $listaBecados;
 
@@ -126,10 +124,11 @@ class ApiResumenController extends Controller
             
             $listaVillas=DB::select("SELECT A.matricula,
             Concat(A.apellidop,' ',A.apellidom,' ',A.nombre) as alumno,villas.direccion
-            FROM (alumnos as A INNER JOIN grupos on grupos.clavegrupo=A.grupoactual)
+            FROM (alumnos as A INNER JOIN alumnos_grupo on alumnos_grupo.matricula=A.matricula)
             INNER JOIN villas on villas.id_villa=A.id_villa
-            WHERE grupoactual='$grupo'  AND grupos.periodo='$periodo'
-            ORDER BY A.tipo_beca DESC, A.apellidop ASC");
+            WHERE alumnos_grupo.clave_grupo='$grupo'  
+            AND alumnos_grupo.periodo='$periodo'
+            ORDER BY villas.nombre ASC, A.apellidop ASC");
             return $listaVillas;
     }
 

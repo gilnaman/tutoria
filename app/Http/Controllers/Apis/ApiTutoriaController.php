@@ -9,6 +9,7 @@ use DB;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use Carbon\Carbon;
 use DateTime;
+use App\Evento;
 class ApiTutoriaController extends Controller
 {
     /**
@@ -252,7 +253,7 @@ class ApiTutoriaController extends Controller
             $pdf->Cell(8,3.4,utf8_decode($lista->inasistencia),1,1,'C',1);
         
     }
-    $pdf->output('I','Reprobados-'.$grupo);
+    $pdf->output('I','Reprobados-'.$grupo.'.pdf');
     exit;
 
 
@@ -382,6 +383,20 @@ class ApiTutoriaController extends Controller
 
         //endforeach
 
+    }
+
+    public function getEventosTutor()
+    {
+        $periodo=Session::get('periodo');
+        // return $periodo;
+        $grupo=Session::get('grupo');
+        // return $grupo;
+        $eventos = DB::select("SELECT eventos.id_evento,eventos.fecha_evento,eventos.titulo,eventos.expositor,eventos.descripcion,grupos.enterado
+            FROM eventos INNER JOIN eventos_grupos as grupos on grupos.id_evento=eventos.id_evento
+            WHERE eventos.periodo='$periodo' AND grupos.id_grupo='$grupo'
+            ORDER BY eventos.created_at DESC");
+
+        return $eventos;
     }
 
 

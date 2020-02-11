@@ -1,4 +1,4 @@
-function init(){
+﻿function init(){
 
 //moment.locale('es'); // Se especifica que las fechas de moment son en español
 
@@ -43,7 +43,7 @@ new Vue({
 		errorPondera:[],
 		asigElegida:'',
 		claveElegida:'',
-		periodo:'2019B',
+		periodo:'2020A',
 		cedula:'',
 		claveGrupo:'',
 		capturado:false
@@ -253,7 +253,7 @@ new Vue({
 
 
 		var ponderacion_final={idasignatura:this.claveElegida,
-			idperiodo:'2019B',
+			idperiodo:'2020A',
 			cedula:this.cedula,
 			clavegrupo:this.claveGrupo,
 			unidades:unidades_pondera,

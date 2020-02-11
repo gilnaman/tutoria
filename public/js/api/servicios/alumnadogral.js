@@ -17,12 +17,17 @@ new Vue({
 	
 	created:function(){
 		this.getAlumnos();
+		this.getCarreras();
 	},
 
 	data:{
 		nombre:'Gilberto',
 		alumnos:[],
-		search:''
+		carreras:[],
+		grupos:[],
+		search:'',
+		id_carrera:'',
+		clavegrupo:''
 		
 		
 	},
@@ -39,6 +44,23 @@ new Vue({
 				console.log(response.data);
 			});
 
+		},
+
+		getCarreras:function(){
+			this.$http.get(route + '/apiCarrera').then
+			(function(response){
+				this.carreras=response.data;
+			});
+		},
+
+		getGrupos(event){
+			//console.log(event.target.value)
+			var grup= event.target.value
+			//alert(grup);
+			this.$http.get(route + '/apiGrupo/' + grup).then
+			(function(response){
+				this.grupos = response.data
+			})
 		},
 
 		imprimirBoleta:function(grupo,matricula){

@@ -23,7 +23,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>{{$becados[0]->becados}}</h3>
+              <h3>@{{datos.becados}}</h3>
 
               <p>Becados</p>
             </div>
@@ -39,7 +39,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>{{$villas[0]->villas}}<sup style="font-size: 20px"></sup></h3>
+              <h3>@{{datos.villas}}<sup style="font-size: 20px"></sup></h3>
 
               <p>Villas</p>
             </div>
@@ -69,7 +69,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>0</h3>
+              <h3>@{{datos.justificaciones}}</h3>
 
               <p>Justificaciones</p>
             </div>
