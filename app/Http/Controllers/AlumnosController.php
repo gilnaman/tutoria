@@ -608,7 +608,7 @@ public function edit($id)
       
 
 
-        $periodo='2019C';
+        $periodo='2020A';
 
         $auxCarrera = substr($grupo,0,3);
         $carr="";
@@ -628,8 +628,8 @@ public function edit($id)
             $carr="INGENIERÍA EN TECNOLOGÍAS DE LA INFORMACIÓN";
         elseif ($auxCarrera=="LGA")
             $carr="LICENCIATURA EN GASTRONOMÍA";
-        elseif ($auxCarrera=="TGT")
-            $carr="LICENCIATURA EN GESTIÓN TURÍSTICA";
+        elseif ($auxCarrera=="LGT")
+            $carr="LICENCIATURA EN GESTIÓN Y DESARROLLO TURÍSTICO";
 
 
 
@@ -719,7 +719,7 @@ public function edit($id)
         //Repite el bloque de código
 
         foreach ($boleta as $bole) {
-            $pdf->Cell(120,10,utf8_decode($bole->Nombre),1,0,'L');
+            $pdf->Cell(120,10,utf8_decode(substr($bole->Nombre,0,49)),1,0,'L');
             $pdf->Cell(20,10,utf8_decode($bole->HrsTotales),1,0,'C');
             $pdf->Cell(20,10,utf8_decode($bole->calificacion),1,0,'C');
             $pdf->Cell(20,10,utf8_decode($bole->nivel),1,1,'C');

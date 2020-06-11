@@ -58,7 +58,7 @@ new Vue({
 		picked:'',
 		selected:1,
 		disp:1,
-		pagAct:1,
+		pagAct:0,
 		errores:[],
 
 		error1:false,

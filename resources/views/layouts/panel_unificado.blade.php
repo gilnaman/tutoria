@@ -1,3 +1,4 @@
+<input type="hidden" name="route" value="{{url('/')}}">
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -8,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Sistema de gestión de tutorias</title>
+  <title>Panel Unificado</title>
   <meta name="token" id="token" value="{{ csrf_token() }}">
   <meta name="route" id="route" value="{{url('/')}}">
   
@@ -35,11 +36,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <![endif]-->
 
   <!-- Google Font -->
-  {{-- <link rel="stylesheet"
+<!--   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
- --}}
-      @stack('headers')
+ -->
+      
 </head>
+
 <body class="hold-transition skin-yellow sidebar-mini">
   
 <div class="wrapper">
@@ -52,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>U</b>TC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Académico</b>UTC</span>
+      <span class="logo-lg"><b>Panel</b>UTC</span>
     </a>
 
     <!-- Header Navbar -->
@@ -189,7 +191,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <img src="{{asset('imagenes/tutores/'. Session::get('foto'))}}" class="img-circle" alt="User Image">
 
                 <p>
-                  {{Session::get('usuario')}} - {{Session::get('rol')}}
+                  {{Session::get('usuario')}} 
                   <small>Miembro desde Sept. 2011</small>
                 </p>
 
@@ -255,30 +257,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
 
-      <!-- search form (Optional) -->
-
-  {{--     <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-        </div>
-      </form> --}}
-
-      <!-- /.search form -->
+      
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENÚ PRINCIPAL</li>
         <!-- Optionally, you can add icons to the links -->
         
-        {{-- <li class="active">
-          <a href="{{url('profesor/cargas')}}"><i class="fa fa-link"></i> <span>Asignaturas</span></a>
-        </li>
-         --}}
-        <li>
+      <!-- INICIO ROL DE COORDINADOR -->
+        <li class="treeview" v-if="roles.includes('Profesor')">
+          <a href="#"><i class="fa fa-area-chart"></i> <span>Coordinador</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+           
+
+           <li>
 
           <a href="{{url('profesor/listas')}}"><i class="fa fa-address-book"></i> Listas de asistencia<span></span></a>
          </li>
@@ -291,18 +287,78 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{url('profesor/entregas')}}"><i class="fa fa-calendar-check-o"></i> Unidades entregadas<span></span></a>
        </li>
         
-        {{-- <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Opcion</span>
+            
+
+          </ul>
+        </li>
+
+        <!-- FIN DE ROL COORDINADOR -->
+         
+
+         <!-- INICIO ROL DE TUTOR -->
+        <li class="treeview" v-if="roles.includes('Tutor Académico')">
+          <a href="#"><i class="fa fa-area-chart"></i> <span>Tutor Académico</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Opcion</a></li>
-            <li><a href="#">Opcion</a></li>
-          </ul>
-        </li> --}}
+           
 
+           <li>
+
+          <a href="{{url('profesor/listas')}}"><i class="fa fa-address-book"></i> Listas de asistencia<span></span></a>
+         </li>
+
+         <li>
+            <a href="{{url('profesor/cargas')}}"><i class="fa fa-balance-scale"></i> Desglose de Unidades<span></span></a>
+         </li>
+
+          <li>
+          <a href="{{url('profesor/entregas')}}"><i class="fa fa-calendar-check-o"></i> Unidades entregadas<span></span></a>
+       </li>
+        
+            
+
+          </ul>
+        </li>
+
+        <!-- FIN DE ROL TUTOR -->
+         
+
+        
+       <!-- INICIO ROL DE PROFESOR -->
+        <li class="treeview" v-if="roles.includes('Profesor')">
+          <a href="#"><i class="fa fa-area-chart"></i> <span>Profesor</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+           
+
+           <li>
+
+          <a href="{{url('profesor/listas')}}"><i class="fa fa-address-book"></i> Listas de asistencia<span></span></a>
+         </li>
+
+         <li>
+            <a href="{{url('profesor/cargas')}}"><i class="fa fa-balance-scale"></i> Desglose de Unidades<span></span></a>
+         </li>
+
+          <li>
+          <a href="{{url('profesor/entregas')}}"><i class="fa fa-calendar-check-o"></i> Unidades entregadas<span></span></a>
+       </li>
+        
+            
+
+          </ul>
+        </li>
+
+        <!-- FIN DE ROL PROFESOR -->
+
+
+        
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -328,8 +384,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Main content -->
     <section class="content container-fluid">
+      <h1>ROLES</h1>
 
-      @yield('contenido')
+      <div id="panel">
+        <div hidden="">
+          @{{cedula="{!!Session::get('cedula')!!}"}}
+          @{{docente="{!!Session::get('docente')!!}"}}
+          @{{periodo="{!!Session::get('periodo')!!}"}}
+        </div>
+
+        @{{nombre}}
+        @{{cedula}}
+
+        @{{roles}}
+
+       </div>
+
+      <p>
+        
+      </p>
 
     </section>
     <!-- /.content -->
@@ -340,7 +413,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      {{Session::get('grupo')}}
+      
     </div>
     <!-- Default to the left -->
     <strong>Universidad Tecnológica del centro &copy; 2018 <a href="#">www.utcentro.edu.mx</a>.</strong> Todos los derechos reservados.
@@ -428,11 +501,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
+
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/js/adminlte.min.js')}}"></script>
+<script src="{{asset('js/vue-resource.min.js')}}"></script>
+<script src="{{asset('js/api/panel.js')}}"></script>
+
 
 @stack('scripts')
 <script>
@@ -444,6 +521,6 @@ $(document).ready(function(){
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-     <input type="hidden" name="route" value="{{url('/')}}">
+
 </body>
 </html>

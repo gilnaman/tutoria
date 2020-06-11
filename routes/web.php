@@ -139,6 +139,7 @@ Route::get('servicios/alumnadogral',function(){
 //Route::get('tutoria','AccesoController@logear');
 Route::get('logout','AccesoController@salir');
 Route::post('validar','AccesoController@validar');
+
 Route::get('cardex/{matricula}','AlumnosController@cardex');
 Route::get('cardex2','TutoriaController@cardex');
 Route::resource('acceso','AccesoController');
@@ -341,3 +342,18 @@ Route::get('reporteReprobados/{grupo}/{periodo?}', [
     'as' => 'reporteReprobados',
     'uses' => 'Apis\ApiTutoriaController@reporteReprobados',
 ]);
+
+
+// PROTOTIPO DE VISTA UNICA PARA ACCESO A PLATAFORMA
+
+Route::get('/login', function () {
+    return view('login.login_unificado');
+});
+
+Route::get('panel_unificado',function(){
+     return view('layouts.panel_unificado');
+});
+
+Route::get('access','AccesoUnificadoController@getAccess');
+Route::post('validar2','AccesoUnificadoController@getAccess');
+Route::post('getRoles','AccesoUnificadoController@getRoles');

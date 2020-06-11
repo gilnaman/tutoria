@@ -28,9 +28,37 @@
 		
 
 <div v-if="presento==false">
+
 <div v-if="ok==false">
+
+
+			{{-- Inicio instrucciones --}}
+	
+	<div v-show="pagAct==0">
+		 <h4><strong>DESCRIPCIÓN</strong></h4><hr>
+			
+			<p align="justify"> Esta es una encuesta para conocer tu opinión de la calidad en el proceso de enseñanza-aprendizaje de tus docentes durante el cuatrimestre enero-abril 2020. Los resultados se utilizarán para mejorar el servicio educativo que reciben los estudiantes. Las respuestas de tu encuesta serán confidenciales por lo que siente en la libertad de expresar tus comentarios en la mejora del servicio educativo.</p>
+
+			
+		<h4><b>INSTRUCCIONES </b></h4>
+		<P align="justify">Instrucciones: Indica en cada una de las preguntas planteadas la escala que mejor refleje tu opinión con respecto a la labor 
+		desempeñada por cada docente</P>
+			
+			
+	</div>
+		{{-- Fin de Instrucciones --}}
+
+			
+
+
+
+
+
+
+
 		<div v-show="pagAct==1">
-		 <h4><strong>1.- El profesor de esta asignatura explica con claridad. </strong></h4><hr>
+		 <h4><strong>1.-Demuestra conocimientos sobre el contenido de la asignatura que imparte.
+ </strong></h4><hr>
 
 		 <div class="row">
 			<br>
@@ -113,7 +141,8 @@
 		{{-- Pregunta 2 --}}
 	
 	<div v-show="pagAct==2">
-		 <h4><strong>2.- El profesor es ordenado y sistemático en sus exposiciones. </strong></h4><hr>
+		 <h4><strong>2.- Inicia y termina sus clases de acuerdo con el horario establecido
+ </strong></h4><hr>
 			<table class="preg1 table table-bordered" transition="fadeInLeft">
 				<thead>
 					<th hidden="">Clave</th>
@@ -152,7 +181,8 @@
 		{{-- Fin de pregunta 2 --}}
 
 		<div v-if="pagAct==3">
-		 <h4><strong>3.- El profesor demuestra un buen dominio de la materia que explica. </strong></h4><hr>
+		 <h4><strong>3.- Presenta materiales de apoyo que estuvieron acordes a los temas
+</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -191,7 +221,8 @@
 
 		{{-- Pregunta 4 --}}
 		<div v-if="pagAct==4">
-		 <h4><strong>4.- El profesor procura que los estudiantes apliquemos los conceptos adquiridos en su asignatura. </strong></h4><hr>
+		 <h4><strong>4.-Responde de manera clara, respetuosa  y asertiva las inquietudes y/o dudas de los alumnos
+. </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -230,7 +261,8 @@
 
 	{{-- Pregunta 5 --}}
 		<div v-if="pagAct==5">
-		 <h4><strong>5.- El profesor fomenta la participación de los alumnos.</strong></h4><hr>
+		 <h4><strong>5.- Relaciona los contenidos de la asignatura con conocimientos previos del grupo o ejemplos cotidianos
+.</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -271,7 +303,8 @@
 
 	{{-- Pregunta 6 --}}
 		<div v-if="pagAct==6">
-		 <h4><strong>6.- El profesor hace preguntas interesantes y estimulantes en clase.</strong></h4><hr>
+		 <h4><strong>6.- Anima a los estudiantes a participar activamente (compartir conocimientos, ideas, dudas, discuciones, etc)
+.</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -312,7 +345,8 @@
 
 	{{-- Pregunta 7 --}}
 		<div v-if="pagAct==7">
-		 <h4><strong>7.-El profesor se muestra dispuesto a ayudar a los estudiantes que tienen dificultades. </strong></h4><hr>
+		 <h4><strong>7.- Establece los criterios de evaluación y fue justo a la hora de calificar 
+. </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -352,7 +386,8 @@
 
 	{{-- Pregunta 8 --}}
 		<div v-if="pagAct==8">
-		 <h4><strong>8.- La formación recibida es aplicable en el trabajo.</strong></h4><hr>
+		 <h4><strong>8.- Otorga calificaciones justas y sin favoritismo durante el cuatrimestre
+</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -392,7 +427,8 @@
 	
 	{{-- Pregunta 9 --}}
 		<div v-if="pagAct==9">
-		 <h4><strong>9.- La asignatura me aporta nuevos conocimientos. </strong></h4><hr>
+		 <h4><strong>9.-Retroalimenta los trabajos entregados y los resultados de evaluaciones de los alumnos en tiempo y forma
+ </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -432,7 +468,8 @@
 
 	{{-- Pregunta 10 --}}
 		<div v-if="pagAct==10">
-		 <h4><strong>10.-  Las prácticas de la asignatura son completas.</strong></h4><hr>
+		 <h4><strong>10.-  Promueve el aprendizaje mediante el uso y manejo de las TIC´s
+</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -472,7 +509,8 @@
 
 	{{-- Pregunta 11 --}}
 		<div v-if="pagAct==11">
-		 <h4><strong>11.- Las prácticas de la asignatura son entretenidas </strong></h4><hr>
+		 <h4><strong>11.- Emplea tareas, ejercicios y casos prácticos a situaciones reales y/o cotidianas
+ </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -512,7 +550,8 @@
 
 	{{-- Pregunta 12 --}}
 		<div v-if="pagAct==12">
-		 <h4><strong>12.- La ayuda y seguimiento durante laboratorio es suficiente</strong></h4><hr>
+		 <h4><strong>12.- Es amable y accesible cuando se le solicita ayuda o asesoría
+</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -553,7 +592,8 @@
 
 	{{-- Pregunta 13 --}}
 		<div v-if="pagAct==13">
-		 <h4><strong>13.- Las prácticas son un buen complemento de la teoría. </strong></h4><hr>
+		 <h4><strong>13.- Se caracteriza por ser respetuoso(a) contigo y tus compañer@s de salón 
+. </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -593,7 +633,8 @@
 
 	{{-- Pregunta 14 --}}
 		<div v-if="pagAct==14">
-		 <h4><strong>14.- Existe una presión adecuada sobre los estudiantes.</strong></h4><hr>
+		 <h4><strong>14.- Demuestra interés en el aprendizaje grupal e individual de l@s alumn@s
+.</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -633,7 +674,8 @@
 
 		{{-- Pregunta 15 --}}
 		<div v-if="pagAct==15">
-		 <h4><strong>15.- El profesor se muestra accesible</strong></h4><hr>
+		 <h4><strong>15.- Incentiva la búsqueda de información por parte de los alumnos, para la contrucción y desarrollo de los temas
+</strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -673,7 +715,8 @@
 
 	{{-- Pregunta 16 --}}
 		<div v-if="pagAct==16">
-		 <h4><strong>16.- Siempre que he ido a hacerle consultas en el horario establecido (Aula), éste accede de forma afectuosa. </strong></h4><hr>
+		 <h4><strong>16.- Informa al inicio del curso de manera clara y oportuna, los objetivos de aprendizaje y criterios de evaluación
+. </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -713,7 +756,8 @@
 
 	{{-- Pregunta 17 --}}
 		<div v-if="pagAct==17">
-		 <h4><strong>17.- No dudaría en ir a pedir consejo a este profesor fuera de clase. </strong></h4><hr>
+		 <h4><strong>17.- Explica con claridad con las indicaciones en las actividades de aprendizaje
+ </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -753,7 +797,8 @@
 
 	{{-- Pregunta 18 --}}
 		<div v-if="pagAct==18">
-		 <h4><strong>18.- El método de evaluación del curso está claro desde el principio. </strong></h4><hr>
+		 <h4><strong>18.- Tiene interés para que yo aprenda 
+ </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -793,7 +838,8 @@
 
 	{{-- Pregunta 19 --}}
 		<div v-if="pagAct==19">
-		 <h4><strong>19.- Los enunciados de los exámenes son claros. </strong></h4><hr>
+		 <h4><strong>19.- Aprendo con la foma de enseñanza de mi maestr@
+. </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -833,7 +879,8 @@
 
 	{{-- Pregunta 20 --}}
 		<div v-if="pagAct==20">
-		 <h4><strong>20.- La corrección de los exámenes es adecuada. </strong></h4><hr>
+		 <h4><strong>20.- Me gustaría volver a tomar clases con este(a) maestr@
+. </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
 					<th hidden="">Clave</th>
@@ -871,8 +918,10 @@
 		</div>
 	{{-- Fin del Preg 20 --}}
 
+
+
 	{{-- Pregunta 21 --}}
-		<div v-if="pagAct==21">
+<!-- 		<div v-if="pagAct==21">
 		 <h4><strong>21.- El método de evaluación es justo. </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
@@ -909,10 +958,10 @@
 			
 			{{-- <h3>@{{resp21}}</h3> --}}
 		</div>
-	{{-- Fin del Preg 21 --}}
+ -->	{{-- Fin del Preg 21 --}}
 
 	{{-- Pregunta 22 --}}
-		<div v-if="pagAct==22">
+		<div v-if="pagAct==21">
 		 <h4><strong>Escribe un comentario </strong></h4><hr>
 			<table class="preg1 table table-bordered">
 				<thead>
@@ -946,6 +995,7 @@
 
 		<div class="row">
 			<div class="col-md-12">
+				<button class="btn btn-primary" v-on:click="pagAct=0">Instrucciones</button>
 				<button class="btn btn-primary" v-on:click="pagAct=1">1</button>
 				<button class="btn btn-primary" v-on:click="pagAct=2">2</button>
 				<button class="btn btn-primary" v-on:click="pagAct=3">3</button>
@@ -966,8 +1016,8 @@
 				<button class="btn btn-primary" v-on:click="pagAct=18">18</button>
 				<button class="btn btn-primary" v-on:click="pagAct=19">19</button>
 				<button class="btn btn-primary" v-on:click="pagAct=20">20</button>
-				<button class="btn btn-primary" v-on:click="pagAct=21">21</button>
-				<button class="btn btn-primary" v-on:click="pagAct=22">22</button>
+				<button class="btn btn-primary" v-on:click="pagAct=21">21</button><!-- 
+				<button class="btn btn-primary" v-on:click="pagAct=22">22</button> -->
 			</div>
 		</div><br>
 
